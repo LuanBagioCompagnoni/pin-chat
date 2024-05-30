@@ -1,19 +1,21 @@
-import Services from './services'
+import Services from './service'
 import SearchInput from '../../basics/searchInput'
 
 function asideChats(){
     return (
-        <aside className='h-screen bg-purple-500 flex flex-col w-[22vw]'>
+        <aside className='h-screen bg-[#373d4c] flex flex-col w-[22vw]'>
             <SearchInput />
-            <Services />
-            <Services />
-            <Services />
-            <Services />
-            <Services />
-            <Services />
-            <Services />
-            <Services />
-            <Services />
+            <div className='grid grid-cols-1 divide-y'>
+                <Services />
+                <Services />
+                <Services />
+                <Services />
+                <Services />
+                <Services />
+                <Services />
+                <Services />
+                <Services />
+            </div>
         </aside>
     )
 }

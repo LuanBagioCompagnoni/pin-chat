@@ -1,13 +1,15 @@
-import AsideChats from '../components/aside/chats'
-import LateralBar from '../components/aside/lateralBar'
+import AsideChats from '../components/leftAside/services'
+import LeftAside from '../components/leftAside/lateralBar'
 import Chat from '../components/chat'
+import RigthAside from '../components/rigthAside'
 
 export default function Home() {
   return (
     <section className='flex'>
-      <LateralBar />
+      <LeftAside />
       <AsideChats />
       <Chat />
+      <RigthAside />
    </section>
   );
 }

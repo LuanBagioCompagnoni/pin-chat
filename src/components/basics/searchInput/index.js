@@ -1,3 +1,5 @@
+import { darkPurple, lightPurple } from "@/styles/colors";
+
 export default function searchInput(){
     return(
         <form class="m-2">
@@ -9,7 +11,7 @@ export default function searchInput(){
                     </svg>
                 </div>
                 <input type="search" id="search" class="block w-full p-2 pl-10 text-sm rounded-3xl bg-[#292e3d] placeholder-gray-400 text-white" placeholder="Buscar" required />
-                <button type="submit" class="text-white absolute right-2.5 bottom-1 bg-purple-900 hover:bg-purple-700 focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-3 py-1 ">Buscar</button>
+                <button type="submit" class={`text-white absolute right-2.5 bottom-1 bg-[${darkPurple}] hover:bg-[${lightPurple}] focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-3 py-1`}>Buscar</button>
             </div>
         </form>
     )

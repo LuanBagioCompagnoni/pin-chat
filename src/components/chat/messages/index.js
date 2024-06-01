@@ -1,3 +1,5 @@
+import { lightPurple } from "@/styles/colors";
+
 export default function Messages() {
     const messages = [
         { id: 1, text: "Olá, tudo bem?", type: "sent" },
@@ -31,7 +33,7 @@ export default function Messages() {
                 <li
                     key={message.id}
                     className={`rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-700 ${
-                        message.type === "sent" ? "self-start bg-gray-500" : "self-end bg-purple-700"
+                        message.type === "sent" ? "self-start bg-gray-500" : `self-end bg-[${lightPurple}]`
                     }`}
                 >
                     {message.text}

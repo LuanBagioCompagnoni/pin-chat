@@ -7,8 +7,8 @@ export default function chat(){
             <div className='absolute grid grid-col-1 overflow-auto w-full h-[93%] bottom-gradient-scrollbar'>
                 <Messages />
             </div>
-            <div class="absolute inset-x-0 bottom-0 p-2 h-[7%]">
-                <MessageInput className='absolute inset-x-0 bottom-0' />
+            <div class="absolute inset-x-0 bottom-0 my-2 p-2 h-[7%]">
+                <MessageInput className='absolute inset-x-0' />
             </div>
         </div>
     )

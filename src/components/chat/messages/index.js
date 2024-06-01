@@ -30,7 +30,7 @@ export default function Messages() {
             {messages.map((message) => (
                 <li
                     key={message.id}
-                    className={`rounded-3xl px-4 py-2 max-w-[70%] break-words ${
+                    className={`rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-700 ${
                         message.type === "sent" ? "self-start bg-gray-500" : "self-end bg-purple-700"
                     }`}
                 >

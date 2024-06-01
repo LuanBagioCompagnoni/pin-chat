@@ -11,11 +11,11 @@ export default function SearchInput() {
                     type="text"
                     id="search"
                     className="block w-full py-2 px-4 text-sm rounded-3xl bg-[#292e3d] placeholder-gray-400 text-white"
-                    placeholder="Message text"
+                    placeholder="Digite a mensagem..."
                     required
                 />
                 <button type="submit" className="text-white absolute right-4 bottom-1 bg-purple-900 hover:bg-purple-700 focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-3 py-1">
-                    Invite
+                    Enviar
                 </button>
             </div>
         </form>

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Modal from '../../modal';
 import GenericInput from '@/components/basics/genericInput';
-import GenericButton from '@/components/basics/genericButton';
-import { mediumModal, smallModal } from '@/components/modal/patterns';
+import GenericButton from '@/components/basics/buttons/genericButton';
+import { largeModal, mediumModal } from '@/components/modal/patterns';
 import { darkPurple, lightPurple } from '@/styles/colors';
+import RedirectButton from '@/components/basics/buttons/redirectionButton';
 
 export default function Observations() {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -51,15 +52,33 @@ export default function Observations() {
                     <button onClick={openListModal} type="button" className="text-white bg-gray-500 hover:bg-gray-400 focus:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Ver Observações</button>
                 </div>
             </div>
-            <Modal isVisible={isModalVisible} onClose={closeObsModal}>
+            <Modal isVisible={isModalVisible} onClose={closeObsModal} zIndex={50}>
                 <form className={`${mediumModal} w-[50vw] h-[20vw] flex flex-col items-center justify-center`} onSubmit={handleSubmit}>
                     <GenericInput className='w-full h-[70%]' inputPlaceholder='Nova observação' value={inputValue} onChange={handleInputChange} />
                     <GenericButton className='w-[50%] mt-5' nameButton='Salvar' />
                 </form>
             </Modal>
-            <Modal isVisible={isListModalVisible} onClose={closeListModal}>
-                <div className={`${mediumModal}`}>
-
+            <Modal isVisible={isListModalVisible} onClose={closeListModal} zIndex={60}>
+                <div className={`${largeModal} flex flex-col items-center justify-center `}>
+                    <div className="h-[80%] w-full overflow-y-auto px-2 scrollbar-custom">
+                        <ul className="space-y-2 flex flex-col items-center justify-start w-full ">
+                            {obsContent.map((obs, index) => (
+                                <li
+                                    key={index}
+                                    className={`rounded-lg px-4 py-2 w-full flex break-words shadow-md shadow-gray-700 bg-gray-500 relative`}
+                                >
+                                    <div className='left-2 w-[100%]'>
+                                        <h1 className="m-2 break-words">{obs}</h1>
+                                        <div className='items-center justify-center flex space-x-2'>
+                                            <h1 className="mt-5 break-words text-center font-light text-sm inset-x-0 bottom-0">Luan Compagnoni - adicionar data</h1>
+                                            <RedirectButton />
+                                        </div>
+                                    </div>
+                                    
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </Modal>
         </div>

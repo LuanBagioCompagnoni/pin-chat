@@ -1,34 +1,22 @@
-import { lightPurple } from '@/styles/colors';
+import React, { useEffect, useRef } from 'react';
+
 
 export default function Messages() {
+  const listRef = useRef(null);
   const messages = [
     { id: 1, text: 'Olá, tudo bem?', type: 'sent' },
     { id: 2, text: 'Sim, e você?', type: 'received' },
     { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    { id: 3, text: 'Estou bem também!', type: 'sent' },
-    // Adicione mais mensagens conforme necessário
   ];
 
+  useEffect(() => {
+    if (listRef.current) {
+        listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+});
+
   return (
-    <ul className="overflow-y-auto  w-full h-full p-4 flex flex-col space-y-2 text-gray-50 scrollbar-custom">
+    <ul ref={listRef} className="overflow-y-auto  w-full h-full p-4 flex flex-col space-y-2 text-gray-50 scrollbar-custom">
       {messages.map((message) => (
         <li
           key={message.id}

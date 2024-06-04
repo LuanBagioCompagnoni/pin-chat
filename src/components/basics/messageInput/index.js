@@ -16,7 +16,7 @@ export default function SearchInput() {
           placeholder="Digite a mensagem..."
           required
         />
-        <button type="submit" className={`text-white absolute right-4 bottom-1 bg-[${darkPurple}] hover:bg-[${lightPurple}] focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-3 py-1`}>
+        <button type="submit" className={`text-white absolute right-4 bottom-1 bg-[#581c87] hover:bg-[#7e22ce] focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-3 py-1`}>
                     Enviar
         </button>
       </div>

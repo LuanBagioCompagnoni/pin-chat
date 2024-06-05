@@ -6,7 +6,7 @@ export default function services(){
                 flex flex-col gap-5 items-center justify-center
             `}>
       <li className="flex w-full">
-        <a className={'hover:bg-#581c87 w-full h-full py-2 cursor-pointer'}>
+        <a className={'hover:bg-[#581c87] w-full h-full py-2 cursor-pointer'}>
           <h1 className="text-lg font-bold mx-1 text-gray-50">Cliente</h1>
           <div className="flex">
             <div className="bg-black rounded-3xl mx-1">

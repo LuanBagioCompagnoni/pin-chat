@@ -10,7 +10,9 @@ const Service = new mongoose.Schema({
   updateDate: {type: Date, required: [true, 'UpdateDate is required']},
   tags: {type: mongoose.Schema.Types.ObjectId, ref: tags},
   department: {type: mongoose.Schema.Types.ObjectId, ref: departaments, required: [true, 'Department is required']},
-  userId: {type: mongoose.Schema.Types.ObjectId, ref: users, required: [true, 'UserId is required']}
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: users, required: [true, 'UserId is required']},
+  observations: {type: Array},
+  
 },{ strictPopulate: false });
 
 const service = mongoose.model('services', Service);

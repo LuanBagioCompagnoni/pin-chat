@@ -1,1 +1,2 @@
-/node_modules
+microsservices/auth/node_modules
+microsservices/chat/node_modules

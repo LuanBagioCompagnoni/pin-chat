@@ -1,5 +1,5 @@
 import express from 'express';
-import connectDatabase from './config/dbConnect.js';
+import connectDatabase from '../config/dbConnect.js';
 import routes from './routes/index.js';
 import handleError from './middlewares/errorHandler.js';
 import handler404 from './middlewares/handler404.js';

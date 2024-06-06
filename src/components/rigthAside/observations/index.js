@@ -99,7 +99,7 @@ export default function Observations() {
       <Modal isVisible={isObsModalVisible} onClose={closeObsModal} zIndex={70}>
         <form className={`${mediumModal} w-[50vw] h-[20vw] flex flex-col items-center justify-center`} onSubmit={isEditingMode ? handleEditSubmit : handleSubmit}>
           <GenericInput className='w-full h-[70%]' inputPlaceholder='Nova observação' value={inputValue} onChange={handleInputChange} />
-          <GenericButton className='w-[50%] mt-5' nameButton='Salvar' />
+          <GenericButton className='w-[50%] mt-5 py-1' nameButton='Salvar' />
         </form>
       </Modal>
       <Modal isVisible={isListModalVisible} onClose={closeListModal} zIndex={50}>

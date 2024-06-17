@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import services from '../../../chat/src/models/Service.js';
 
-const Message = new mongoose.Schema({
+const User = new mongoose.Schema({
   id: {type: mongoose.Schema.Types.ObjectId},
   name: {type: String, required: [true, "Name is required!"]},
   email: {type: String, required: [true, "Email is required!"]},
@@ -9,6 +8,6 @@ const Message = new mongoose.Schema({
   
 },{ strictPopulate: false });
 
-const message = mongoose.model('messages', Message);
+const user = mongoose.model('users', User);
  
-export default message;
+export default user;

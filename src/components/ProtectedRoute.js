@@ -20,7 +20,7 @@ function ProtectedRoute(Component) {
     }, [user, loading, router]);
 
     if (loading) {
-      return <Loading />; 
+      return <Loading />;
     }
 
     return <Component {...props} />;

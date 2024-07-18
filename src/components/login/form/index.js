@@ -9,10 +9,10 @@ export default function Form() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const showSuccess = (message) => toast.success(`Login bem-sucedido!`);
+    const showSuccess = () => toast.success(`Login bem-sucedido!`);
     const showError = (message) => toast.error(`Erro ao realizar login:\n ${message}`);
-    const router = useRouter();
     const { login } = useAuth();
+    const router = useRouter()
 
     const handleSubmit = async (event) => {
         try {
@@ -20,14 +20,13 @@ export default function Form() {
             setIsLoading(true);
             await login(email, password);
             showSuccess('Login bem-sucedido!');
-            router.push('/chat');
+            setIsLoading(false);
+            router.push('/chat'); // Redirecionamento opcional, se já estiver sendo feito no contexto
         } catch (error) {
             showError(error);
             setIsLoading(false);
         }
-        
     };
-
     return (
         <div className="w-full h-full bg-[#292e3d] items-center justify-center flex flex-col">
             <form className="w-[30%] h-auto bg-[#464b5b] rounded-xl border border-gray-300 flex flex-col items-center px-4 justify-center relative space-y-16 p-16"

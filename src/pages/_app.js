@@ -1,4 +1,3 @@
-// frontend/pages/_app.js
 import "@/styles/globals.css";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';

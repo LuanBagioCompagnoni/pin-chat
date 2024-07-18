@@ -3,7 +3,6 @@ import LeftAside from '../../components/leftAside/lateralBar';
 import Chat from '../../components/chat';
 import RightAside from '../../components/rigthAside';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { useAuth } from '@/context/AuthContext';
 
 function Home() {
     return (

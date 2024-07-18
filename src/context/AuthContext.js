@@ -1,4 +1,4 @@
-// frontend/context/AuthContext.js
+// src/context/AuthContext.js
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
@@ -44,13 +44,8 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      if (email === "teste@teste" && password === "teste") {
-        localStorage.setItem('token', 'token');
-        setUser(email);
-        router.push('/chat');
-        return;
-      }
-      const res = await fetch('http://localhost:3001/api/login', {
+
+      const res = await fetch('http://localhost:5000/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -59,14 +54,14 @@ export function AuthProvider({ children }) {
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token);
-        setUser(data.user);
-        router.push('/chat'); // Redireciona para a página de chat após login bem-sucedido
+        setUser(email);
+        router.push('/chat');
       } else {
         throw new Error(data.error);
       }
     } catch (error) {
       console.error('Failed to login', error);
-      throw new Error('Falha no login. Por favor, tente novamente.');
+      throw new Error('Falha no login. Por favor, tente novamente.', error);
     }
   };
 

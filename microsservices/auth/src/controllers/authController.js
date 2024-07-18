@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import userService from '../services/userService.js';
 
 dotenv.config();
 
@@ -17,8 +18,6 @@ class Auth {
       }
 
       const user = await User.findOne({ email: email });
-      const hashedPassword = await bcrypt.hash(password, 10);
-      console.log(hashedPassword)
       if (!user) return res.status(404).json({ error: 'User not found!' });
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -36,6 +35,14 @@ class Auth {
 
   static async register(req, res) {
     try {
+      const result = userService.create(req.body)
+      
+      if(result.sucess){
+        res.status(201).json(result.data)
+      }else{
+        return res.status(400).json({ error: 'Email and password are required!' });
+      }
+
       const { email, password, ...otherDetails } = req.body;
 
       // Validação de entrada
@@ -47,7 +54,6 @@ class Auth {
       if (existingUser) return res.status(400).json({ error: 'User already exists!' });
 
       const hashedPassword = await bcrypt.hash(password, 10);
-      console.log(`Hashed password: ${hashedPassword}`); // Log do hash da senha
 
       const newUser = new User({ email, password: hashedPassword, ...otherDetails });
       const document = await newUser.save();

@@ -1,18 +1,18 @@
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import userService from '../services/userService.js';
+import { generateJWT } from '../helpers/authHelper.js';
+import { log } from '../helpers/logHelper.js';
 
 dotenv.config();
 
 class Auth {
   static async login(req, res) {
     try {
-      console.log('Post request!', req.body);
       const { email, password } = req.body;
+      log(`Login request. User: ${email}`)
       
-      // Validação de entrada
       if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required!' });
       }
@@ -22,7 +22,7 @@ class Auth {
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        const token = jwt.sign({ user: email }, process.env.JWT_SECRET, { expiresIn: '120m' });
+        const token = generateJWT(email)
         res.status(200).json({ token: token });
       } else {
         res.status(400).json({ error: 'Incorrect password!' });
@@ -44,8 +44,6 @@ class Auth {
       }
 
       const { email, password, ...otherDetails } = req.body;
-
-      // Validação de entrada
       if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required!' });
       }

@@ -2,7 +2,7 @@ module.exports = {
     apps: [
       {
         name: "celestial-auth",
-        script: "./celestial-service/auth/server.js",
+        script: "./celestial-webservices/auth/server.js",
         ignore_watch: ["node_modules", "logs"],
         watch: true,
         env: {

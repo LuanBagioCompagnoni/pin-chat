@@ -1,5 +1,3 @@
-import ResponseMessage from '../../models/Response.js';
-
 class BaseError extends Error{
   constructor(message = 'Internal server error', status = 500, errors){
     super();
@@ -9,7 +7,7 @@ class BaseError extends Error{
   }
 
   sendResponse(res){
-    res.status(this.status).json(new ResponseMessage(null, this.message, this.errors));
+    res.status(this.status).json({error: this.errors});
   }
 
 }

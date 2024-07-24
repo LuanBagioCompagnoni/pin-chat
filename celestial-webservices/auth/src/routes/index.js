@@ -1,9 +1,17 @@
 import express from 'express';
-import auth from './auth.js'
+import authRoutes from './auth.js';
+import userRoutes from './user.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerOptions from '../swagger/swaggerOptions.js';
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
 const routes = (app) => {
-  app.route('/').get((req, res) => res.status(200).send('Wellcome, see the documentation :)'));
-  app.use(express.json(), auth);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); 
+  app.use(express.json());
+  app.use('/auth', authRoutes); 
+  app.use('/user', userRoutes); 
 };
 
 export default routes;

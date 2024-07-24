@@ -7,15 +7,18 @@ export default class UserService {
         try {
             const { email, password, ...otherDetails} = user;
             if(User.find({email})){
-                return new ServiceResponse(409, "User already exists!")
+                console.log("graxa veia")
+                return new ServiceResponse(400, "User already exists!")
             }
             if(user){
+                console.log("graxa veia 2")
                 const hashedPassword = await bcrypt.hash(password, 10);
                 const newUser = new User({ email, password: hashedPassword, ...otherDetails });
                 const document = await newUser.save()
                 return new ServiceResponse(201,document)
             }
         } catch (error) {
+            console.log("graxa veia 2", error.message)
             return new ServiceResponse(500,error)
         }
     }

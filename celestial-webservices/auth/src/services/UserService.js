@@ -7,7 +7,7 @@ export default class UserService {
         try {
             const { email, password, ...otherDetails} = user;
             if(User.find({email})){
-                return new ServiceResponse(409, "User already exists!")
+                return new ServiceResponse(400, "User already exists!")
             }
             if(user){
                 const hashedPassword = await bcrypt.hash(password, 10);

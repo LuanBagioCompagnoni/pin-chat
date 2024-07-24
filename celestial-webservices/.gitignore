@@ -1,2 +1,2 @@
-microsservices/auth/node_modules
-microsservices/chat/node_modules
+auth/node_modules
+chat/node_modules

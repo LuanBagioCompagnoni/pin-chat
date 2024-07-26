@@ -11,7 +11,7 @@ const routes = (app) => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); 
   app.use(express.json());
   app.use('/auth', authRoutes); 
-  app.use('/user', userRoutes); 
+  app.use('/users', userRoutes); 
 };
 
 export default routes;

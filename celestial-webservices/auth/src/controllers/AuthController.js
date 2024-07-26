@@ -1,5 +1,4 @@
-import bcrypt from 'bcrypt';
-import User from '../models/User.js';
+
 import UserService from '../services/UserService.js';
 import { log } from '../helpers/logHelper.js';
 import AuthService from '../services/AuthService.js';
@@ -19,18 +18,16 @@ class AuthController {
     }
   }
 
-  static async register(req, res) {
+  static async register(req, res, next) {
     try {
-      const result = UserService.create(req.body)
-      
-      if(result.sucess){
-        res.status(201).json(result.data)
+      const result = await UserService.create(req.body)
+      if(result.success){
+        res.status(result.status).json(result.data)
       }else{
-        res.status(400).json({ error: 'Email and password are required!' });
+        res.status(result.status).json(result.data);
       }
     } catch (error) {
-      console.error('Error during registration', error);
-      res.status(500).json({ error: 'Internal server error' });
+      next(error)
     }
   }
 }

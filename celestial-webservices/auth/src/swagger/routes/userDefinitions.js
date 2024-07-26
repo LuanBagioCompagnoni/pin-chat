@@ -1,16 +1,33 @@
 const userDefinitions = {
   '/users': {
     get: {
+      summary: 'List users',
+      tags: ['Users'],
+      responses: {
+        200: {
+          description: 'Get user successfully',
+        },
+        400: {
+          description: 'Bad request',
+        },
+        404: {
+          description: 'User not found',
+        },
+      },
+    },
+  },
+  '/users/{id}': {
+    get: {
       summary: 'Get a user',
       tags: ['Users'],
       parameters: [
         {
-          in: 'query',
+          in: 'path',
           name: 'id',
           schema: {
             type: 'string',
           },
-          required: true,
+          required: false,
           description: 'User ID',
         },
       ],
@@ -26,42 +43,12 @@ const userDefinitions = {
         },
       },
     },
-  },
-  '/users/email': {
-    get: {
-      summary: 'Get a user by email',
-      tags: ['Users'],
-      parameters: [
-        {
-          in: 'param',
-          name: 'email',
-          schema: {
-            type: 'string',
-          },
-          required: true,
-          description: 'User email',
-        },
-      ],
-      responses: {
-        200: {
-          description: 'Get user successfully',
-        },
-        400: {
-          description: 'Bad request',
-        },
-        404: {
-          description: 'User not found',
-        },
-      },
-    },
-  },
-  '/users/delete': {
     delete: {
       summary: 'Delete a user',
       tags: ['Users'],
       parameters: [
         {
-          in: 'query',
+          in: 'path',
           name: 'id',
           schema: {
             type: 'string',
@@ -82,14 +69,12 @@ const userDefinitions = {
         },
       },
     },
-  },
-  '/users/update': {
     put: {
       summary: 'Update a user',
       tags: ['Users'],
       parameters: [
         {
-          in: 'query',
+          in: 'path',
           name: 'id',
           schema: {
             type: 'string',

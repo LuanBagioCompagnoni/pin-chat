@@ -11,7 +11,7 @@ const userDefinitions = {
           description: 'Bad request',
         },
         404: {
-          description: 'User not found',
+          description: 'Users not found',
         },
       },
     },
@@ -64,9 +64,6 @@ const userDefinitions = {
         400: {
           description: 'Bad request',
         },
-        404: {
-          description: 'User not found',
-        },
       },
     },
     put: {
@@ -90,8 +87,10 @@ const userDefinitions = {
             schema: {
               type: 'object',
               properties: {
+                name: { type: 'string' },
                 email: { type: 'string' },
                 password: { type: 'string' },
+                admin: { type: 'boolean' },
               },
             },
           },
@@ -103,9 +102,6 @@ const userDefinitions = {
         },
         400: {
           description: 'Bad request',
-        },
-        404: {
-          description: 'User not found',
         },
       },
     },

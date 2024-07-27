@@ -8,11 +8,7 @@ class AuthController {
     try {
         const { email, password } = req.body;
         const result = await AuthService.login(email, password);
-        if (result.success) {
-            res.status(result.status).json(result.data);
-        } else {
-            res.status(result.status).json({ error: result.message });
-        }
+        res.status(result.status).json(result.data);
     } catch (error) {
         next(error);
     }
@@ -21,11 +17,7 @@ class AuthController {
   static async register(req, res, next) {
     try {
       const result = await UserService.create(req.body)
-      if(result.success){
-        res.status(result.status).json(result.data)
-      }else{
-        res.status(result.status).json(result.data);
-      }
+      res.status(result.status).json(result.data)
     } catch (error) {
       next(error)
     }

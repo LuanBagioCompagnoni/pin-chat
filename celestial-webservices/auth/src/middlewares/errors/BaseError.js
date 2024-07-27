@@ -7,7 +7,7 @@ class BaseError extends Error{
   }
 
   sendResponse(res){
-    res.status(this.status).json({error: this.errors});
+    res.status(this.status).json(this.message);
   }
 
 }

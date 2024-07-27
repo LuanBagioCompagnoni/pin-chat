@@ -38,8 +38,10 @@ const authDefinitions = {
             schema: {
               type: 'object',
               properties: {
+                name: { type: 'string' },
                 email: { type: 'string' },
                 password: { type: 'string' },
+                admin: { type: 'boolean' },
               },
             },
           },

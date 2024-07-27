@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'
 
 
 async function hashPassword(password, salt = 10){

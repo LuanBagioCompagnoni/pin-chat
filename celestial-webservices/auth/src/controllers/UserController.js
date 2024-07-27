@@ -2,12 +2,11 @@ import UserService from "../services/UserService.js";
 
 class UserController{
     static async update(req,res,next){
-        const user = req.body();
-        const result = await UserService.update(req.params.id, user);
-        if(result.success){
+        try {
+            const user = req.body;
+            const result = await UserService.update(req.params.id, user);
             res.status(result.status).json(result.data)
-        }else{
-            const error = new Error(result.data)
+        } catch (error) {
             next(error)
         }
     }
@@ -17,6 +16,7 @@ class UserController{
             const result = await UserService.delete(req.params.id);
             res.status(result.status).json(result.data)
         } catch (error) {
+            console.log(error)
             next(error)
         }
     }
@@ -31,11 +31,10 @@ class UserController{
     }
 
     static async list(req,res,next){
-        const result = await UserService.list();
-        if(result.success){
+        try {
+            const result = await UserService.list();
             res.status(result.status).json(result.data)
-        }else{
-            const error = new Error(result.data)
+        } catch (error) {
             next(error)
         }
     }

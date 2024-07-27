@@ -3,8 +3,8 @@ import BaseError from './errors/BaseError.js';
 import ValidationError from './errors/ValidationError.js';
 import InvalidRequestError from './errors/InvalidRequestError.js';
 import InternalNotFoundError from './errors/InternalNotFoundError.js';
-import GenericError from './errors/GenericError.js';
 import DuplicityError from './errors/DuplicityError.js';
+import NoChangeError from './errors/NoChangeError.js';
 
 
 // eslint-disable-next-line no-unused-vars
@@ -17,8 +17,8 @@ function handleError(error, req, res, next){
     new InternalNotFoundError().sendResponse(res);
   }else if(error instanceof InvalidRequestError){
     new InvalidRequestError().sendResponse(res);
-  }else if(error instanceof GenericError){
-    new GenericError().sendResponse(res);
+  }else if(error instanceof NoChangeError){
+    new NoChangeError().sendResponse(res);
   }else if(error instanceof DuplicityError){
     new DuplicityError().sendResponse(res);
   }else{

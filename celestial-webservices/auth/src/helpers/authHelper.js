@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt'
+import bcryptjs from 'bcryptjs'
 
 
 async function hashPassword(password, salt = 10){
-    return await bcrypt.hash(password, salt);
+    return await bcryptjs.hash(password, salt);
 }
 
 async function comparePasswords(password,hashedPassword){
-    return await bcrypt.compare(password, hashedPassword);
+    return await bcryptjs.compare(password, hashedPassword);
 }
 
 async function generateJWT(id, email){

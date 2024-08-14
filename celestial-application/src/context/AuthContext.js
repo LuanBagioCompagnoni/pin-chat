@@ -15,8 +15,8 @@ export function AuthProvider({ children }) {
       if (token) {
         try {
           setUser('teste');
-          setLoading(false)
-          return
+          setLoading(false);
+          return;
 
           const res = await fetch('http://localhost:3001/api/verify-token', {
             method: 'POST',

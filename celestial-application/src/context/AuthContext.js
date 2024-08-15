@@ -44,24 +44,24 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-
-      const res = await fetch('http://localhost:5000/login', {
+      const res = await fetch('http://localhost:5000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
 
       const data = await res.json();
+      console.log(data.token)
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setUser(email);
         router.push('/chat');
       } else {
-        throw new Error(data.error);
+        throw new Error(data);
       }
     } catch (error) {
       console.error('Failed to login', error);
-      throw new Error('Falha no login. Por favor, tente novamente.', error);
+      throw new Error(`Falha no login: ${error}`);
     }
   };
 

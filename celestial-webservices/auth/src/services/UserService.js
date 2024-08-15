@@ -12,8 +12,7 @@ export default class UserService {
             throw new DuplicityError()
         }
         if(user){
-            const hashedPassword = await hashPassword(user.password, 10);
-            user.password = hashedPassword;
+            user.password = await hashPassword(user.password, 10);
             console.log(user)
             const newUser = new User(user);
             const document = await newUser.save()

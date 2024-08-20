@@ -1,8 +1,8 @@
 import BaseError from './BaseError.js';
 
 class DuplicityError extends BaseError{
-  constructor(){
-    super(`Document already exists!`, 409);
+  constructor(message = 'Registro'){
+    super(`${message} já existe!`, 409);
   }
 }
 

@@ -51,17 +51,15 @@ export function AuthProvider({ children }) {
       });
 
       const data = await res.json();
-      console.log(data.token)
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setUser(email);
-        router.push('/chat');
+        await router.push('/chat');
       } else {
         throw new Error(data);
       }
     } catch (error) {
-      console.error('Failed to login', error);
-      throw new Error(`Falha no login: ${error}`);
+      throw new Error(error.message);
     }
   };
 

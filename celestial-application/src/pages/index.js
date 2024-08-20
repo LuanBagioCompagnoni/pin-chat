@@ -1,14 +1,14 @@
 export const getServerSideProps = async (context) => {
-    return {
-        redirect: {
-            destination: '/login',
-            permanent: false, 
-        },
-    };
+  return {
+    redirect: {
+      destination: '/login',
+      permanent: false, 
+    },
+  };
 };
 
 const HomePage = () => {
-    return 
+  return; 
 };
 
 export default HomePage;

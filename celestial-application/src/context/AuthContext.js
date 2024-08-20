@@ -15,8 +15,8 @@ export function AuthProvider({ children }) {
       if (token) {
         try {
           setUser('teste');
-          setLoading(false)
-          return
+          setLoading(false);
+          return;
 
           const res = await fetch('http://localhost:3001/api/verify-token', {
             method: 'POST',
@@ -44,8 +44,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-
-      const res = await fetch('http://localhost:5000/login', {
+      const res = await fetch('http://localhost:5000/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -55,13 +54,12 @@ export function AuthProvider({ children }) {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setUser(email);
-        router.push('/chat');
+        await router.push('/chat');
       } else {
-        throw new Error(data.error);
+        throw new Error(data);
       }
     } catch (error) {
-      console.error('Failed to login', error);
-      throw new Error('Falha no login. Por favor, tente novamente.', error);
+      throw new Error(error.message);
     }
   };
 

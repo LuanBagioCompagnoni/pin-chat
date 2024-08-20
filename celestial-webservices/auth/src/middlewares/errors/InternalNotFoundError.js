@@ -1,8 +1,8 @@
 import BaseError from './BaseError.js';
 
-class InternalNotFoundError extends BaseError{
-  constructor(type = 'Document'){
-    super(`${type} not found`, 404);
+class InternalNotFoundError extends BaseError {
+  constructor(type = 'Registro') {
+    super(`${type} não encontrado!`, 404);
   }
 }
 

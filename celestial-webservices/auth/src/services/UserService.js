@@ -12,8 +12,7 @@ export default class UserService {
             throw new DuplicityError()
         }
         if(user){
-            const hashedPassword = await hashPassword(user.password, 10);
-            user.password = hashedPassword;
+            user.password = await hashPassword(user.password, 10);
             console.log(user)
             const newUser = new User(user);
             const document = await newUser.save()
@@ -26,7 +25,7 @@ export default class UserService {
         if(isDeleted){
             return new ServiceResponse(200, isDeleted)
         }else{
-            throw new NoChangeError()
+            throw new NoChangeError('Usuario')
         }
     }
 
@@ -35,7 +34,7 @@ export default class UserService {
         if(isUpdated){
             return new ServiceResponse(200, isUpdated)
         }else{
-            throw new NoChangeError()
+            throw new NoChangeError('Usuario')
         }
     }
 
@@ -44,7 +43,7 @@ export default class UserService {
         if(user){
             return new ServiceResponse(200, user);
         } else {
-            throw new InternalNotFoundError();
+            throw new InternalNotFoundError('Usuario');
         }
     }
     
@@ -53,7 +52,7 @@ export default class UserService {
         if(user){
             return new ServiceResponse(200,user)
         }else{
-            throw new InternalNotFoundError()
+            throw new InternalNotFoundError('Usuario')
         }
     }
 
@@ -62,7 +61,7 @@ export default class UserService {
         if(users){
             return new ServiceResponse(200,users)
         }else{
-            throw new InternalNotFoundError()
+            throw new InternalNotFoundError('Users')
         }
     }
 }

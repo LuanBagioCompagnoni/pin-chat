@@ -5,15 +5,15 @@ import RightAside from '../../components/rigthAside';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
 function Home() {
-    return (
-        <section className='flex w-screen h-screen'>
-            <LeftAside />
-            <AsideChats />
-            <Chat />
-            <RightAside />
+  return (
+    <section className='flex w-screen h-screen'>
+      <LeftAside />
+      <AsideChats />
+      <Chat />
+      <RightAside />
             
-        </section>
-    );
+    </section>
+  );
 }
 
 export default ProtectedRoute(Home);

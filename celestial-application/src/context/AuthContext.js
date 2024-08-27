@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
           setLoading(false);
           return;
 
-          const res = await fetch('http://localhost:3001/api/verify-token', {
+          const res = await fetch(`${process.env.API_AUTH_URL}api/verify-token`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const res = await fetch('http://localhost:5000/auth/login', {
+      const res = await fetch(`${process.env.API_AUTH_URL}auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

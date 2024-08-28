@@ -1,6 +1,7 @@
 // src/context/AuthContext.js
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import 'dotenv/config.js';
 
 const AuthContext = createContext();
 
@@ -44,7 +45,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const res = await fetch(`${process.env.API_AUTH_URL}auth/login`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_AUTH_URL}auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

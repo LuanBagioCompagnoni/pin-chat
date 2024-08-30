@@ -11,9 +11,9 @@ function ProtectedRoute(Component) {
 
     useEffect(() => {
       if (!loading) {
-        if (!user && router.pathname !== '/login') {
+        if (!user && router.pathname !== '/login' && router.pathname !== '/register') {
           router.push('/login');
-        } else if (user && router.pathname === '/login') {
+        } else if (user && (router.pathname === '/login' || router.pathname === '/register')) {
           router.push('/chat');
         }
       }

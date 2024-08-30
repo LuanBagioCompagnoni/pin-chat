@@ -14,6 +14,6 @@ export default class AuthService{
         }
 
         const token = await generateJWT(user.data._id, email)
-        return new ServiceResponse(200, token);
+        return new ServiceResponse(200, {token, user: user.data});
     }
 }

@@ -18,8 +18,8 @@ class AuthController {
 
   static async register(req, res, next) {
     try {
-      const result = await UserService.create(req.body)
       logger.info(`Register: ${req.body.email}`)
+      const result = await UserService.create(req.body)
       res.status(result.status).json(result.data)
     } catch (error) {
         logger.error(`Register error: ${error.message}`)

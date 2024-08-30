@@ -1,7 +1,7 @@
 import ProtectedRoute from '@/components/ProtectedRoute';
-import Form from '@/components/login/index.js';
+import Form from '@/components/register/index.js';
 
-function Login() {
+function Register() {
   return (
     <section className='flex w-screen h-screen'>
       <Form />
@@ -9,4 +9,4 @@ function Login() {
   );
 }
 
-export default ProtectedRoute(Login);
+export default ProtectedRoute(Register);

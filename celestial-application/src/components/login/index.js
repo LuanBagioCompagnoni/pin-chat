@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import Loading from '@/components/basics/loading/index.js';
 import { useAuth } from '@/context/AuthContext.js';
+import AuthInput from '@/components/basics/auth/input/index.js';
 
 export default function Form() {
   const [email, setEmail] = useState('');
@@ -29,53 +30,42 @@ export default function Form() {
   };
 
   return (
-    <div className="w-full h-full bg-[url('/background.jpg')] bg-cover bg-top items-center justify-center flex flex-col brightness-90">
-      <form
-        className="w-[50%] h-[70%] rounded-3xl bg-purple-500 flex flex-col items-center px-4 justify-center relative space-y-16 p-16 bg-opacity-25 backdrop-blur-2xl border-2 border-purple-300"
-        onSubmit={handleSubmit}
-      >
-        <h1 className="text-gray-50 font-extrabold text-5xl">Entrar</h1>
+    <form
+      className="w-[50%] h-[70%] rounded-3xl bg-purple-500 flex flex-col items-center px-4 justify-center relative space-y-16 p-16 bg-opacity-25 backdrop-blur-2xl border-2 border-purple-300"
+      onSubmit={handleSubmit}
+    >
+      <h1 className="text-gray-50 font-extrabold text-5xl">Entrar</h1>
 
-        <div className="w-[85%]">
-          <div className="flex items-center border-b border-white py-2">
-            <input
-              className="appearance-none placeholder-gray-50 bg-transparent border-none w-full text-gray-50 mr-3 py-1 px-2 leading-tight focus:outline-none"
-              placeholder="E-mail"
-              aria-label="Email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="w-[85%]">
-          <div className="flex items-center border-b border-white py-2">
-            <input
-              placeholder="Senha"
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="appearance-none placeholder-gray-50 bg-transparent border-none w-full text-gray-50 mr-3 py-1 px-2 leading-tight focus:outline-none"
-            />
-          </div>
-        </div>
+      <div className="w-[85%]">
+        <AuthInput
+          type="text"
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="w-[85%]">
+        <AuthInput
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-        <div className='w-full justify-center flex flex-col items-center'>
-          <GenericButton
-            className='w-[50%] h-auto p-4 bg-gray-50 text-gray-600 hover:bg-purple-300'
-            nameButton='Entrar'
-            disabled={isLoading}
-          />
+      <div className='w-full justify-center flex flex-col items-center'>
+        <GenericButton
+          className='w-[50%] h-auto p-4 bg-gray-50 text-gray-600 hover:bg-purple-300'
+          nameButton='Entrar'
+          disabled={isLoading}
+        />
 
-          {isLoading && <Loading />}
-          <div className='flex space-x-2 mt-5'>
-            <p>Não tem uma conta?</p>
-            <a className='text-blue-400 cursor-pointer hover:text-blue-600' onClick={() => router.push('/register')}><u><b>Registre-se!</b></u></a>
-          </div>
+        {isLoading && <Loading/>}
+        <div className='flex space-x-2 mt-5'>
+          <p>Não tem uma conta?</p>
+          <a className='text-blue-400 cursor-pointer hover:text-blue-600' onClick={() => router.push('/register')}><u><b>Registre-se!</b></u></a>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }

@@ -57,6 +57,33 @@ const authDefinitions = {
       },
     },
   },
+  '/auth/verifyToken': {
+    post: {
+      summary: 'Verify token status',
+      tags: ['Auth'],
+      requestBody: {
+        required: true,
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              headers: {
+                authorization: { type: 'string' },
+              },
+            },
+          },
+        },
+      },
+      responses: {
+        201: {
+          description: 'Token is valid',
+        },
+        401: {
+          description: 'Token is not valid',
+        },
+      },
+    },
+  },
 }
 
 export default authDefinitions

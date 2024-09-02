@@ -20,9 +20,9 @@ export default function Form() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      await register(name, email, password);
-      showSuccess('Seja bem-vindo!');
-      router.push('/chat');
+      const user = await register(name, email, password);
+      showSuccess(`Seja bem-vindo ${user.name.split(' ')[0]}!`);
+      await router.push('/chat');
     } catch (error) {
       showError(error.message);
     } finally {

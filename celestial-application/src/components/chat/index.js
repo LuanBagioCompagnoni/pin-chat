@@ -10,7 +10,6 @@ export default function Chat() {
     event.preventDefault();
     setMessages([...messages, { id: messages.length + 1, text: inputValue, type: 'invite', date: new Date() }]);
     setInputValue('');
-    console.log(messages.length)
   };
 
   const handleInputChange = (event) => {

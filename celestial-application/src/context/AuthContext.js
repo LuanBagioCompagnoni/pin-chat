@@ -1,4 +1,3 @@
-// src/context/AuthContext.js
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import 'dotenv/config.js';
@@ -16,11 +15,7 @@ export function AuthProvider({ children }) {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          setUser('teste');
-          setLoading(false);
-          return;
-
-          const res = await fetch(`${authApi}api/verify-token`, {
+          const res = await fetch(`${authApi}auth/verifyToken`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -28,15 +23,16 @@ export function AuthProvider({ children }) {
             }
           });
           const data = await res.json();
-          if (res.ok && data.valid) {
+          if (res.ok) {
             setUser(data.user);
           } else {
             localStorage.removeItem('token');
           }
         } catch (error) {
-          console.error('Failed to verify token', error);
           localStorage.removeItem('token');
         }
+      } else {
+        setUser(null);
       }
       setLoading(false);
     };
@@ -46,21 +42,21 @@ export function AuthProvider({ children }) {
 
   const register = async (name, email, password) => {
     try {
-      console.log(toString( JSON.stringify({name, email, password, admin: false})));
       const res = await fetch(`${authApi}auth/register`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({name, email, password, admin: false})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, admin: false })
       });
 
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setUser(data.user);
-      }else {
+        return data.user;
+      } else {
         throw new Error(data);
       }
-    }catch (error){
+    } catch (error) {
       throw new Error(error.message);
     }
   };
@@ -77,6 +73,7 @@ export function AuthProvider({ children }) {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setUser(data.user);
+        return data.user;
       } else {
         throw new Error(data);
       }

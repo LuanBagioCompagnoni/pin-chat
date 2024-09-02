@@ -21,7 +21,6 @@ class UserController{
             res.status(result.status).json(result.data)
         } catch (error) {
             logger.error(`Delete user error: ${error.message}`)
-            console.log(error)
             next(error)
         }
     }

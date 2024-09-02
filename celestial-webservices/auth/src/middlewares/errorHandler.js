@@ -5,6 +5,7 @@ import InvalidRequestError from './errors/InvalidRequestError.js';
 import InternalNotFoundError from './errors/InternalNotFoundError.js';
 import DuplicityError from './errors/DuplicityError.js';
 import NoChangeError from './errors/NoChangeError.js';
+import TokenError from "./errors/TokenError.js";
 
 function handleError(error, req, res, next) {
   if (error instanceof mongoose.Error.CastError) {
@@ -18,6 +19,8 @@ function handleError(error, req, res, next) {
   } else if (error instanceof NoChangeError) {
     error.sendResponse(res);
   } else if (error instanceof DuplicityError) {
+    error.sendResponse(res);
+  } else if (error instanceof TokenError) {
     error.sendResponse(res);
   } else {
     new BaseError().sendResponse(res);

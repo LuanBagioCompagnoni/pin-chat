@@ -14,4 +14,9 @@ async function generateJWT(id, email){
     return jwt.sign({ id: id, user: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION_TIME });
 }
 
-export { hashPassword, comparePasswords, generateJWT}
+async function verifyToken(token){
+    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    return decode
+}
+
+export { hashPassword, comparePasswords, generateJWT, verifyToken}

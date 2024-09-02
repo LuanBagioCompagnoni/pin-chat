@@ -1,4 +1,4 @@
-import { hashPassword } from "../helpers/authHelper.js";
+import {generateJWT, hashPassword} from "../helpers/authHelper.js";
 import DuplicityError from "../middlewares/errors/DuplicityError.js";
 import NoChangeError from "../middlewares/errors/NoChangeError.js";
 import InternalNotFoundError from "../middlewares/errors/InternalNotFoundError.js";
@@ -13,10 +13,10 @@ export default class UserService {
         }
         if(user){
             user.password = await hashPassword(user.password, 10);
-            console.log(user)
             const newUser = new User(user);
             const document = await newUser.save()
-            return new ServiceResponse(201, document)
+            const token = await generateJWT(document._id, user.email)
+            return new ServiceResponse(201, {token, document})
         }
     }
 

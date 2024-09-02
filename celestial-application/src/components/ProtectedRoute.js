@@ -1,4 +1,3 @@
-// frontend/components/ProtectedRoute.js
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -6,15 +5,15 @@ import Loading from './basics/loading';
 
 function ProtectedRoute(Component) {
   return (props) => {
-    const { user, loading } = useAuth();
     const router = useRouter();
+    const { user, loading } = useAuth();
 
     useEffect(() => {
       if (!loading) {
-        if (!user && router.pathname !== '/login') {
-          router.push('/login');
-        } else if (user && router.pathname === '/login') {
-          router.push('/chat');
+        if (!user && router.pathname !== '/login' && router.pathname !== '/register') {
+          router.replace('/login');
+        } else if (user && (router.pathname === '/login' || router.pathname === '/register')) {
+          router.replace('/chat');
         }
       }
     }, [user, loading, router]);

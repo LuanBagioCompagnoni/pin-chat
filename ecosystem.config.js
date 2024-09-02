@@ -11,7 +11,7 @@ module.exports = {
       script: "npm",
       args: "run dev -- -p 80 ",
       cwd: "./celestial-application",
-      ignore_watch: ["./celestial-application/node_modules", "./celestial-application/.next"],
+      ignore_watch: ["node_modules", ".next"],
       watch: true,
     },
   ],

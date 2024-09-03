@@ -1,6 +1,6 @@
 import express from 'express';
-import handleError from './middlewares/errorHandler.js';
-import handler404 from './middlewares/handler404.js';
+import { errorHandler } from 'ErrorHandler-Package';
+import { handler404 } from 'ErrorHandler-Package';
 import connectDatabase from './config/dbConnect.js';
 import routes from './routes/index.js';
 import cors from 'cors';
@@ -15,7 +15,7 @@ const connection = await connectDatabase();
 
 app.use(handler404);
 
-app.use(handleError);
+app.use(errorHandler);
 
 
 connection.on('error', (error) =>{

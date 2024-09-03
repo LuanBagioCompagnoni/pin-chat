@@ -1,7 +1,7 @@
 import { comparePasswords, generateJWT, verifyToken } from "../helpers/authHelper.js";
 import ServiceResponse from "../models/ServiceReturn.js";
 import UserService from "./UserService.js";
-import TokenError from "../middlewares/errors/TokenError.js";
+import {TokenError} from "ErrorHandler-Package";
 
 export default class AuthService{
     static async login(email, password){

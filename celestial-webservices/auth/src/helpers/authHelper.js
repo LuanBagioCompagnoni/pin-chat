@@ -15,8 +15,7 @@ async function generateJWT(id, email){
 }
 
 async function verifyToken(token){
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
-    return decode
+    return jwt.verify(token, process.env.JWT_SECRET);
 }
 
 export { hashPassword, comparePasswords, generateJWT, verifyToken}

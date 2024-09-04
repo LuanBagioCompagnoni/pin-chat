@@ -9,7 +9,7 @@ export default class AuthService{
         const isMatch = await comparePasswords(password, user.data.password);
 
         if (!isMatch) {
-            return new ServiceResponse(401, "Usuario ou senha incorretos!");
+            return new ServiceResponse(401, "Usuário ou senha incorretos!");
         }
 
         const token = await generateJWT(user.data._id, email)
@@ -22,6 +22,6 @@ export default class AuthService{
             const user = await UserService.findByEmail(decode.user);
             return new ServiceResponse(200, user)
         }
-        else throw new TokenError("Token invalido ou expirado!")
+        else throw new TokenError("Token inválido ou expirado!")
     }
 }

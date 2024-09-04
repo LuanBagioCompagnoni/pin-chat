@@ -7,7 +7,7 @@ export default class UserService {
     static async create(user){
         const exist = await User.findOne({email: user.email})
         if(exist){
-            throw new DuplicityError()
+            throw new DuplicityError('Esse usuário já tem um cadastro!')
         }
         if(user){
             user.password = await hashPassword(user.password, 10);
@@ -23,7 +23,7 @@ export default class UserService {
         if(isDeleted){
             return new ServiceResponse(200, isDeleted)
         }else{
-            throw new NoChangeError('Usuario')
+            throw new NoChangeError('Usuário não foi deletado!')
         }
     }
 
@@ -32,7 +32,7 @@ export default class UserService {
         if(isUpdated){
             return new ServiceResponse(200, isUpdated)
         }else{
-            throw new NoChangeError('Usuario')
+            throw new NoChangeError('Usuário não foi alterado!')
         }
     }
 
@@ -41,7 +41,7 @@ export default class UserService {
         if(user){
             return new ServiceResponse(200, user);
         } else {
-            throw new InternalNotFoundError('Usuario');
+            throw new InternalNotFoundError('Usuário não encontrado!');
         }
     }
     
@@ -50,7 +50,7 @@ export default class UserService {
         if(user){
             return new ServiceResponse(200,user)
         }else{
-            throw new InternalNotFoundError('Usuario')
+            throw new InternalNotFoundError('Usuário não encontrado!')
         }
     }
 
@@ -59,7 +59,7 @@ export default class UserService {
         if(users){
             return new ServiceResponse(200,users)
         }else{
-            throw new InternalNotFoundError('Users')
+            throw new InternalNotFoundError('Não há usuários para listar!')
         }
     }
 }

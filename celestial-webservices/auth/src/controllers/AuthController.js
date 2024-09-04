@@ -2,8 +2,7 @@
 import UserService from '../services/UserService.js';
 import logger from '../helpers/logger.js'
 import AuthService from '../services/AuthService.js';
-import InvalidRequestError from "../middlewares/errors/InvalidRequestError.js";
-import TokenError from "../middlewares/errors/TokenError.js";
+import {TokenError} from "ErrorHandler-Package";
 
 class AuthController {
   static async login(req, res, next) {

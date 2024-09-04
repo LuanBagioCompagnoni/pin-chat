@@ -1,4 +1,4 @@
-import ServiceInfos from './serviceInfos';
+import ServiceInfos from './destinationUserInfos';
 import Observations from './observations';
 
 export default function RightAside() {

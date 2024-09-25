@@ -1,8 +1,8 @@
 import express from 'express';
-import connectDatabase from '../config/dbConnect.js';
+import connectDatabase from './config/dbConnect.js';
 import routes from './routes/index.js';
-import handleError from './middlewares/errorHandler.js';
-import handler404 from './middlewares/handler404.js';
+import { errorHandler } from 'ErrorHandler-Package';
+import { handler404 } from 'ErrorHandler-Package';
 
 const app = express();
 routes(app);
@@ -10,7 +10,7 @@ const connection = await connectDatabase();
 
 app.use(handler404);
 
-app.use(handleError);
+app.use(errorHandler);
 
 connection.on('error', (error) =>{
   console.error('Connection error', error);

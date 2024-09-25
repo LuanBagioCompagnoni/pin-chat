@@ -1,5 +1,5 @@
 import { comparePasswords, generateJWT, verifyToken } from "../helpers/authHelper.js";
-import ServiceResponse from "../models/ServiceReturn.js";
+import ServiceResponse from "../models/ServiceResponse.js";
 import UserService from "./UserService.js";
 import {TokenError} from "ErrorHandler-Package";
 

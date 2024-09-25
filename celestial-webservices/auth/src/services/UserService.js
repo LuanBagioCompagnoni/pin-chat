@@ -1,6 +1,6 @@
 import {generateJWT, hashPassword} from "../helpers/authHelper.js";
 import {DuplicityError, InternalNotFoundError, NoChangeError} from "ErrorHandler-Package";
-import ServiceResponse from "../models/ServiceReturn.js";
+import ServiceResponse from "../models/ServiceResponse.js";
 import User from "../models/User.js"
 
 export default class UserService {

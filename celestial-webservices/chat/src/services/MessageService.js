@@ -1,9 +1,24 @@
-import Message from '../models/Message.js';
-import ServiceResponse from "../models/ServiceResponse.js";
+import MessageModel from '../models/Message.js';
+import MessageClass from "../models/classes/MessageClass.js";
 
 export default class MessageService {
-    static async list(serviceId){
-        const messages = await Message.find({serviceId: serviceId});
-        return new ServiceResponse(200, messages);
+    constructor() {
+        this.messageClass = new MessageClass(MessageModel);
+    }
+
+    async listForContact(contactId) {
+        return await this.messageClass.getByParam("contactId", contactId);
+    }
+
+    async create(message) {
+        await this.messageClass.create(message);
+    }
+
+    async update(id, content) {
+        return await this.messageClass.updateById(id, content);
+    }
+
+    async delete(id) {
+        return await this.messageClass.delete(id);
     }
 }

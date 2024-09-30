@@ -19,11 +19,11 @@ app.use(errorHandler);
 
 
 connection.on('error', (error) =>{
-  console.error('Connection error', error);
+  console.error('Connection with auth database error', error);
 });
 
 connection.once('open', () => {
-  console.log('Connection with database successfully');
+  console.log('Connection with auth database successfully');
 });
 
 export default app;

@@ -3,5 +3,5 @@ import app from './src/app.js';
 const PORT = 8000;
 
 app.listen(PORT, () => {
-  console.log(`Server listen in: http://localhost:${PORT}`);
+  console.log(`Chat server listening at: http://localhost:${PORT}`);
 });

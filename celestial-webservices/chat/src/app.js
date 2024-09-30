@@ -13,11 +13,11 @@ app.use(handler404);
 app.use(errorHandler);
 
 connection.on('error', (error) =>{
-  console.error('Connection error', error);
+  console.error('Connection with chat database error', error);
 });
 
 connection.once('open', () => {
-  console.log('Connection with database sucefully');
+  console.log('Connection with chat database successfully');
 });
 
 export default app;

@@ -1,7 +1,12 @@
-import Contact from "../models/Contact.js";
+import ContactClass from "../models/classes/ContactClass.js";
+import ContactModel from "../models/Contact.js";
 
 export default class ContactService {
-    static async getContact(filter) {
-        return await Contact.find(filter);
+    constructor() {
+        this.contactClass = new ContactClass(ContactModel);
+    }
+
+    async getContactByUserId(userId) {
+        return await this.contactClass.getByParam("ownerId", userId);
     }
 }

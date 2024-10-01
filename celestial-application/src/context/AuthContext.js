@@ -24,14 +24,18 @@ export function AuthProvider({ children }) {
           });
           const data = await res.json();
           if (res.ok) {
+            console.log('res ok', data);
             setUser(data.user);
           } else {
+            console.log('res error', data);
             localStorage.removeItem('token');
           }
         } catch (error) {
+          console.log('catch');
           localStorage.removeItem('token');
         }
       } else {
+        console.log('token vazio');
         setUser(null);
       }
       setLoading(false);

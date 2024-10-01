@@ -1,16 +1,15 @@
 import BaseClass from "./BaseClass.js";
-import Contact from "../Contact.js";
-import validationError from "ErrorHandler-Package/errors/ValidationError.js";
+import { ValidationError } from "ErrorHandler-Package";
 
 export default class ContactClass extends BaseClass {
-    constructor() {
-        super(Contact)
+    constructor(Model) {
+        super(Model)
     }
 
     validate(data) {
-        if(!data.ownerId) throw validationError("Dono do contato não fornecido!");
-        if(!data.contactDestinationId) throw validationError("O destinatário do contato não foi fornecido!");
-        if(!data.contactName) throw validationError("Nome do contato não fornecido!");
+        if(!data.ownerId) throw ValidationError("Dono do contato não fornecido!");
+        if(!data.contactDestinationId) throw ValidationError("O destinatário do contato não foi fornecido!");
+        if(!data.contactName) throw ValidationError("Nome do contato não fornecido!");
         if(!data.createDate) data.createDate = new Date();
     }
 }

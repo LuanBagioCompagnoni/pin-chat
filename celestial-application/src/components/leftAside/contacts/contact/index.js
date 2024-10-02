@@ -1,5 +1,4 @@
 export default function Contact({ contact, onSelect }) {
-  console.log(contact);
   return (
     <ul className='flex flex-col gap-5 items-center justify-center'>
       <li className="flex w-full">

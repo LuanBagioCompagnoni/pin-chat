@@ -23,13 +23,10 @@ function AsideChats({selectedContact, initialMessages }) {
     }
   }, [socket, user, loading]);
 
+
   const onSelectContact = (contact) => {
     selectedContact(contact);
     socket.emit('getMessages', {originUserId: user._id, destinationUserId: contact._id});
-    socket.on(`listMessages${user._id}${contact._id}`, (messagesForChat) => {
-      console.log('socketMessages', messagesForChat);
-      initialMessages(messagesForChat);
-    });
   };
   return (
     <aside className='h-screen bg-[#373d4c] border-r border-[#0b111f] flex flex-col w-[22vw]'>

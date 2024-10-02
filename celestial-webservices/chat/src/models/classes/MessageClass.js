@@ -8,9 +8,14 @@ export default class MessageClass extends BaseClass {
     }
 
     async getMessagesForChat(originUserId, destinationUserId) {
-        return await this.model.find({ownerId: originUserId, destinationUser: destinationUserId});
-
+        return await this.model.find({
+            $or: [
+                { originUserId: originUserId, destinationUserId: destinationUserId },
+                { originUserId: destinationUserId, destinationUserId: originUserId }
+            ]
+        });
     }
+
 
     validate(data){
         if(!data.originUserId) throw new ValidationError("originuserId não fornecido!");

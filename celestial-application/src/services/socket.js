@@ -11,7 +11,11 @@ export const useSocket = () => {
   useEffect(() => {
     if (!socket) {
       //cria a conexão com o socket usando a url encontrada no .env
-      socket = io(process.env.NEXT_PUBLIC_API_CHAT_URL);
+      socket = io(process.env.NEXT_PUBLIC_API_CHAT_URL, {
+        query: {
+          userId: null,
+        }
+      });
     }
 
     socket.on('connect', () => {

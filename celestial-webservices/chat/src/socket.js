@@ -1,4 +1,4 @@
-import {Server as SocketIO} from 'socket.io';
+import { Server as SocketIO } from 'socket.io';
 import messageHandlers from './sockets/messageHandler.js';
 import contactHandlers from './sockets/contactHandler.js';
 
@@ -14,6 +14,11 @@ const initSocket = (server) => {
 
     io.on('connect', (socket) => {
         console.log('Novo cliente conectado:', socket.id);
+
+        socket.on('connectUser', (userId) => {
+            socket.userId = userId;
+            console.log(`Usuário ${userId} conectado ao socket ${socket.id}`);
+        });
 
         messageHandlers(socket, io);
         contactHandlers(socket, io);

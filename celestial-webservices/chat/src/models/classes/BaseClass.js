@@ -7,9 +7,8 @@ export default class BaseClass {
     }
 
     async create(data) {
-        this.validate(data);
         const document = new this.model(data);
-        return await document.save();
+        return document.save();
     }
 
     async delete(id) {

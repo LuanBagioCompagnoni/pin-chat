@@ -1,20 +1,20 @@
 import AsideChats from '../../components/leftAside/contacts';
 import LeftAside from '../../components/leftAside/lateralBar';
-import Chat from '../../components/chat';
-import RightAside from '../../components/rigthAside';
+import ChatGroups from '../../components/chat/chatGroupComponents';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import {useState} from 'react';
 import Welcome from '@/components/welcome/index.js';
 
 function Home() {
   const [selectedContact, setSelectedContact] = useState(null);
-  const [isUser, setIsUser] = useState('');
+  const [messagesToChat, setMessagesToChat] = useState([]);
+  console.log('pageMessages', messagesToChat);
   return (
     <section className='flex w-screen h-screen'>
-      <LeftAside onSelectOptionUsersOrContacts={setIsUser} />
-      <AsideChats isUser={isUser} onSelectContact={setSelectedContact} />
-      {isUser === '' ? < Welcome /> :
-        <div><Chat selectedContact={selectedContact} /> <RightAside /></div>
+      <LeftAside />
+      <AsideChats selectedContact={(contact) => {setSelectedContact(null); setSelectedContact(contact); }} initialMessages={(messages) => setMessagesToChat(messages)} />
+      {selectedContact === null ? < Welcome /> :
+        < ChatGroups selectedContact={selectedContact} messagesToChat={messagesToChat} />
       }
     </section>
   );

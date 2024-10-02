@@ -2,9 +2,10 @@ import ContactService from "../services/ContactService.js";
 
 const messageHandlers = (socket, io) => {
     const contactService = new ContactService();
-    //criar eventos para buscar contatos do usuário, criar novos contatos usando e-mail
-    socket.on('getContacts', (userId) => {
-        const contacts = contactService.getContactByUserId(userId)
+    socket.on('getContacts', async (userId) => {
+        const contactsComplete = await contactService.getUsersContacts()
+        const contacts = contactsComplete.filter(contact => contact._id !== userId)
+
         io.emit(`contactsList${userId}`, contacts);
     });
 };

@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import MessageInput from '../basics/messageInput';
 import Messages from './messages';
 import { useSocket } from '@/services/socket.js';
+import {useAuth} from '@/context/AuthContext.js';
 
-export default function Chat({ selectedContact }) {
+export default function Chat({ selectedContact, messagesToChat }) {
+  const { user } = useAuth();
   const { socket, connected } = useSocket();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(messagesToChat);
   const [inputMessage, setInputMessage] = useState('');
+  console.log('messagesToChat', messagesToChat);
 
   useEffect(() => {
     if(socket){
@@ -24,8 +27,10 @@ export default function Chat({ selectedContact }) {
     }
 
     let newMessage = {
+      originUserId: user._id,
+      destinationUserId: selectedContact._id,
+      type: 'text',
       content: inputMessage,
-      destination: selectedContact.id,
       date: new Date()
     };
 
@@ -43,7 +48,7 @@ export default function Chat({ selectedContact }) {
   };
 
   return (
-    <div className="bg-[#464b5b] w-[50vw] border-x border-[#0b111f] relative h-screen">
+    <div className="bg-[#464b5b] w-[50vw] border-r border-[#0b111f] relative h-screen">
       <div className='absolute grid grid-col-1 w-full h-[93%] bottom-gradient-scrollbar'>
         <Messages content={messages} />
       </div>

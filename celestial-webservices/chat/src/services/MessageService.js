@@ -6,8 +6,8 @@ export default class MessageService {
         this.messageClass = new MessageClass(MessageModel);
     }
 
-    async listForContact(contactId) {
-        return await this.messageClass.getByParam("contactId", contactId);
+    async listForChat(originUserId, destinationUserId) {
+        return await this.messageClass.getMessagesForChat(originUserId, destinationUserId);
     }
 
     async create(message) {

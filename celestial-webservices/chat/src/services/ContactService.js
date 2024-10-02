@@ -1,12 +1,17 @@
-import ContactClass from "../models/classes/ContactClass.js";
-import ContactModel from "../models/Contact.js";
-
 export default class ContactService {
-    constructor() {
-        this.contactClass = new ContactClass(ContactModel);
+
+    async getUsersContacts(){
+    const response = await fetch (`${process.env.API_AUTH_URL}/users`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+
+        if(!response.ok){
+            return []
+        }
+        return await response.json();
     }
 
-    async getContactByUserId(userId) {
-        return await this.contactClass.getByParam("ownerId", userId);
-    }
 }

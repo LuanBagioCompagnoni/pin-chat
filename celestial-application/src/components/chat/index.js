@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MessageInput from '../basics/messageInput';
 import Messages from './messages';
 import { useSocket } from '@/services/socket.js';
 import {useAuth} from '@/context/AuthContext.js';
-import contacts from '@/components/leftAside/contacts/index.js';
 
-export default function Chat({ selectedContact }) {
+export default function Chat({ selectedContact, chatClassName }) {
   const { user } = useAuth();
   const { socket } = useSocket();
   const [inputMessage, setInputMessage] = useState('');
@@ -37,7 +36,7 @@ export default function Chat({ selectedContact }) {
     setInputMessage(event.target.value);
   };
   return (
-    <div className="bg-[#464b5b] w-[50vw] border-r border-[#0b111f] relative h-screen">
+    <div className={`${chatClassName} bg-[#464b5b] border-r border-[#0b111f] relative h-screen`}>
       <div className='absolute grid grid-col-1 w-full h-[93%] bottom-gradient-scrollbar'>
         <Messages contactId={selectedContact._id} />
       </div>

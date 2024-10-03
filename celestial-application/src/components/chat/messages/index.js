@@ -12,10 +12,16 @@ export default function Messages({ contactId }) {
     if (socket) {
 
       socket.on('receiveMessage', (newMessage) => {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        //a mensagem pode listar apenas quando eu tenha enviado ela ao contato que está selecionado (oUser === contactId && dUser === user._id)
+        //e também quando eu tenha recebido essa mensagem do contato que estou atualmente (oUser === user._id && dUser === contactId)
+        const dUser = newMessage?.destinationUserId;
+        const oUser = newMessage?.originUserId;
+        if((oUser === contactId && dUser === user._id) || (oUser === user._id && dUser === contactId)) {
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        }
       });
 
-      socket.on(`listMessages${user._id}${contactId}`, (messagesToChat) => {
+      socket.on('listMessages', (messagesToChat) => {
         setMessages(messagesToChat);
       });
 

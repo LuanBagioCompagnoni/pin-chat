@@ -22,8 +22,9 @@ const messageHandlers = (socket, io) => {
 
     socket.on('getMessages', async (params) => {
         const messages = await messageService.listForChat(params.originUserId, params.destinationUserId);
-
-        socket.emit(`listMessages${params.originUserId}${params.destinationUserId}`, messages);
+        const requestedUserSocket = Array.from(io.sockets.sockets.values())
+            .find(s => s.userId === params.originUserId);
+        requestedUserSocket.emit(`listMessages`, messages);
     });
 };
 

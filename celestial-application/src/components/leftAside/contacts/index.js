@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSocket } from '@/services/socket.js';
 import { useAuth } from '@/context/AuthContext.js';
 
-function AsideChats({selectedContact, initialMessages }) {
+function AsideChats({selectedContact, className }) {
   const { socket } = useSocket();
   const { user, loading } = useAuth();
   const [contacts, setContacts] = useState([]);
@@ -29,7 +29,7 @@ function AsideChats({selectedContact, initialMessages }) {
     socket.emit('getMessages', {originUserId: user._id, destinationUserId: contact._id});
   };
   return (
-    <aside className='h-screen bg-[#373d4c] border-r border-[#0b111f] flex flex-col w-[22vw]'>
+    <aside className={`${className} h-screen bg-[#373d4c] border-r border-[#0b111f] flex flex-col`}>
       <SearchInput />
       <div className='grid grid-cols-1 divide-y divide-[#0b111f] overflow-y-auto scrollbar-custom justify-center content-center'>
 

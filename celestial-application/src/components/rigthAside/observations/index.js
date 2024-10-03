@@ -74,7 +74,7 @@ export default function Observations() {
   const sortedObsContent = obsContent.slice().sort((a, b) => b.date + a.date);
 
   return (
-    <div className='w-full'>
+    <div className='w-full mt-10'>
       <div className="justify-center w-full items-center text-gray-50 flex flex-col space-y-5 relative">
         <h1 className="font-extrabold text-xl">Observações</h1>
         <div className="w-[80%] max-w-[80%] h-28 bg-[#464b5b] items-center justify-center rounded-xl border border-gray-400 text-justify relative">

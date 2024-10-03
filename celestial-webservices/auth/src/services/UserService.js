@@ -1,6 +1,5 @@
 import {generateJWT, hashPassword} from "../helpers/authHelper.js";
 import {DuplicityError, InternalNotFoundError, NoChangeError} from "ErrorHandler-Package";
-import ServiceResponse from "../models/ServiceReturn.js";
 import User from "../models/User.js"
 
 export default class UserService {
@@ -14,14 +13,14 @@ export default class UserService {
             const newUser = new User(user);
             const document = await newUser.save()
             const token = await generateJWT(document._id, user.email)
-            return new ServiceResponse(201, {token, document})
+            return {token, document}
         }
     }
 
     static async delete(id){
         const isDeleted = await User.findByIdAndDelete(id);
         if(isDeleted){
-            return new ServiceResponse(200, isDeleted)
+            return isDeleted
         }else{
             throw new NoChangeError('Usuário não foi deletado!')
         }
@@ -30,7 +29,7 @@ export default class UserService {
     static async update(id, user){
         const isUpdated = await User.findByIdAndUpdate(id, user);
         if(isUpdated){
-            return new ServiceResponse(200, isUpdated)
+            return isUpdated
         }else{
             throw new NoChangeError('Usuário não foi alterado!')
         }
@@ -39,7 +38,7 @@ export default class UserService {
     static async findById(id){
         const user = await User.findById(id);
         if(user){
-            return new ServiceResponse(200, user);
+            return user
         } else {
             throw new InternalNotFoundError('Usuário não encontrado!');
         }
@@ -48,7 +47,7 @@ export default class UserService {
     static async findByEmail(email){
         const user = await User.findOne({email: email})
         if(user){
-            return new ServiceResponse(200,user)
+            return user
         }else{
             throw new InternalNotFoundError('Usuário não encontrado!')
         }
@@ -57,7 +56,7 @@ export default class UserService {
     static async list(){
         const users = await User.find()
         if(users){
-            return new ServiceResponse(200,users)
+            return users
         }else{
             throw new InternalNotFoundError('Não há usuários para listar!')
         }

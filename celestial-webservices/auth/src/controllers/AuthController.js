@@ -10,7 +10,7 @@ class AuthController {
         const { email, password } = req.body;
         logger.info(`Logging: ${email}`)
         const result = await AuthService.login(email, password);
-        res.status(result.status).json(result.data);
+        res.status(200).json(result);
     } catch (error) {
         logger.error(`Logging error: ${error.message}`)
         next(error);
@@ -21,9 +21,9 @@ class AuthController {
     try {
       logger.info(`Register: ${req.body.email}`)
       const result = await UserService.create(req.body)
-        const user = result.data.document
-        const token = result.data.token
-      res.status(result.status).json({user, token});
+        const user = result.document
+        const token = result.token
+      res.status(200).json({user, token});
     } catch (error) {
         logger.error(`Register error: ${error.message}`)
         next(error)
@@ -38,7 +38,7 @@ class AuthController {
               throw new TokenError('Token não fornecido!')
           }
           const result = await AuthService.verifyToken(token);
-          res.status(result.status).json({user: result.data});
+          res.status(200).json({user: result});
       } catch (error){
           logger.error(`Verify token error: ${error.message}`)
           next(error)

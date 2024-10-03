@@ -1,13 +1,9 @@
-import { darkPurple } from '@/styles/colors';
-
-export default function services(){
-  return(
-    <ul className={`
-                flex flex-col gap-5 items-center justify-center
-            `}>
+export default function Contact({ contact, onSelect }) {
+  return (
+    <ul className='flex flex-col gap-5 items-center justify-center'>
       <li className="flex w-full">
-        <a className={'hover:bg-[#581c87] w-full h-full py-2 cursor-pointer'}>
-          <h1 className="text-lg font-bold mx-1 text-gray-50">Cliente</h1>
+        <a onClick={onSelect} className='hover:bg-[#581c87] w-full h-full py-2 cursor-pointer'>
+          <h1 className="text-lg font-bold mx-1 text-gray-50">{contact.name}</h1>
           <div className="flex">
             <div className="bg-black rounded-3xl mx-1">
               <h2 className="text-xs font-light text-gray-50 px-2 p-0.5">Departamento</h2>

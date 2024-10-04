@@ -71,10 +71,13 @@ export function AuthProvider({ children }) {
 
       const data = await res.json();
       if (res.ok) {
+        console.log('res ok', data);
         localStorage.setItem('token', data.token);
         setUser(data.user);
         return data.user;
       } else {
+        console.log('res fail', data);
+
         throw new Error(data);
       }
     } catch (error) {

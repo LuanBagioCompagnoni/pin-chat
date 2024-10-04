@@ -36,9 +36,9 @@ export default function Chat({ selectedContact, chatClassName }) {
     setInputMessage(event.target.value);
   };
   return (
-    <div className={`${chatClassName} bg-[#464b5b] border-r border-[#0b111f] relative h-screen`}>
+    <div className={`${chatClassName} bg-[#464b5b] relative h-screen`}>
       <div className='absolute grid grid-col-1 w-full h-[93%] bottom-gradient-scrollbar'>
-        <Messages contactId={selectedContact._id} />
+        <Messages selectedContact={selectedContact} />
       </div>
       <div className="absolute inset-x-0 bottom-0 my-2 p-2 h-[7%]">
         <MessageInput

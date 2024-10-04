@@ -1,6 +1,6 @@
 import { comparePasswords, generateJWT, verifyToken } from "../helpers/authHelper.js";
 import UserService from "./UserService.js";
-import {TokenError} from "ErrorHandler-Package";
+import {LoginError, TokenError} from "ErrorHandler-Package";
 
 export default class AuthService{
     static async login(email, password){
@@ -8,7 +8,7 @@ export default class AuthService{
         const isMatch = await comparePasswords(password, user.password);
 
         if (!isMatch) {
-            return "Usuário ou senha incorretos!";
+            throw new LoginError("Usuário ou senha incorretos!");
         }
 
         const token = await generateJWT(user._id, email)
@@ -17,9 +17,7 @@ export default class AuthService{
 
     static async verifyToken(token){
         const decode = await verifyToken(token)
-        if(decode) {
-            return await UserService.findByEmail(decode.user);
-        }
+        if(decode) return await UserService.findByEmail(decode.user);
         else throw new TokenError("Token inválido ou expirado!")
     }
 }

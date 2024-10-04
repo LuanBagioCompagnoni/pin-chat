@@ -1,22 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/context/AuthContext.js';
 import { useSocket } from '@/services/socket.js';
+import { useNotification } from '@/hooks/notification.js';
 
-export default function Messages({ contactId }) {
+export default function Messages({ selectedContact }) {
   const listRef = useRef(null);
   const { socket } = useSocket();
   const { user } = useAuth();
-  const [messages, setMessages] = useState([]);
+  const [ messages, setMessages ] = useState([]);
+  const { emitNotification } = useNotification();
 
   useEffect(() => {
     if (socket) {
 
       socket.on('receiveMessage', (newMessage) => {
-        //a mensagem pode listar apenas quando eu tenha enviado ela ao contato que está selecionado (oUser === contactId && dUser === user._id)
-        //e também quando eu tenha recebido essa mensagem do contato que estou atualmente (oUser === user._id && dUser === contactId)
+        //a mensagem pode listar apenas quando o usuário tenha enviado ela ao contato que está selecionado (oUser === contactId && dUser === user._id)
+        //e também quando o usuário tenha recebido essa mensagem do contato que selecionou atualmente (oUser === user._id && dUser === contactId)
         const dUser = newMessage?.destinationUserId;
         const oUser = newMessage?.originUserId;
-        if((oUser === contactId && dUser === user._id) || (oUser === user._id && dUser === contactId)) {
+        if((oUser === selectedContact._id && dUser === user._id) || (oUser === user._id && dUser === selectedContact._id)) {
           setMessages((prevMessages) => [...prevMessages, newMessage]);
         }
       });
@@ -27,10 +29,10 @@ export default function Messages({ contactId }) {
 
       return () => {
         socket.off('receiveMessage');
-        socket.off(`listMessages${user._id}${contactId}`);
+        socket.off('listMessages');
       };
     }
-  }, [socket, user, contactId]);
+  }, [socket, user, selectedContact, emitNotification]);
 
   useEffect(() => {
     if (listRef.current) {
@@ -41,10 +43,10 @@ export default function Messages({ contactId }) {
   return (
     <ul ref={listRef} className="overflow-y-auto w-full h-full p-4 flex flex-col space-y-2 text-gray-50 scrollbar-custom">
       {messages.length > 0 ? (
-        messages.map((message) => (
+        user && messages.map((message) => (
           <li
             key={message.id}
-            className={`relative flex flex-col rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-700 ${message.originUserId === user._id ? 'self-end bg-[#7e22ce]' : 'self-start bg-gray-500'}`}
+            className={`relative flex flex-col rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-700 ${message?.originUserId === user?._id ? 'self-end bg-[#7e22ce]' : 'self-start bg-gray-500'}`}
           >
             <div>{message.content}</div>
             <div className={`text-xs font-light ${message.originUserId === user._id ? 'self-end' : 'self-start'}`}>

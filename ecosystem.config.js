@@ -4,13 +4,13 @@ module.exports = {
       name: "celestial-auth",
       script: "./celestial-webservices/auth/server.js",
       ignore_watch: ["node_modules", "logs"],
-      watch: true,
+      watch: false,
     },
     {
       name: "celestial-chat",
       script: "./celestial-webservices/chat/server.js",
       ignore_watch: ["node_modules", "logs"],
-      watch: true,
+      watch: false,
     },
     /*{
       name: "celestial-application",

@@ -2,7 +2,7 @@
 import UserService from '../services/UserService.js';
 import logger from '../helpers/logger.js'
 import AuthService from '../services/AuthService.js';
-import {TokenError} from "ErrorHandler-Package";
+import {InternalNotFoundError, TokenError} from "ErrorHandler-Package";
 
 class AuthController {
   static async login(req, res, next) {
@@ -13,7 +13,11 @@ class AuthController {
         res.status(200).json(result);
     } catch (error) {
         logger.error(`Logging error: ${error.message}`)
-        next(error);
+        let err = error;
+        if(error instanceof InternalNotFoundError){
+            err = new InternalNotFoundError('Usuário não encontrado, registre-se!');
+        }
+        next(err);
     }
   }
 

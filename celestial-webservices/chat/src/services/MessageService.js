@@ -21,4 +21,8 @@ export default class MessageService {
     async delete(id) {
         return await this.messageClass.delete(id);
     }
+
+    async getLastMessageByContact(originUserId, destinationUserId) {
+        return await this.messageClass.getLastMessageByContact(originUserId, destinationUserId);
+    }
 }

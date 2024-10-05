@@ -5,8 +5,8 @@ import { useNotification } from '@/hooks/notification.js';
 
 export default function Messages({ selectedContact }) {
   const listRef = useRef(null);
-  const { socket } = useSocket();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
+  const { socket } = useSocket(token);
   const [ messages, setMessages ] = useState([]);
   const { emitNotification } = useNotification();
 

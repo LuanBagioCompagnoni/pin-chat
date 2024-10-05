@@ -61,4 +61,13 @@ export default class UserService {
             throw new InternalNotFoundError('Não há usuários para listar!')
         }
     }
+
+    static async updateStatus(idUser, online){
+        const isUpdated = await User.findByIdAndUpdate(idUser, {online: online}, {new: true});
+        if(isUpdated){
+            return isUpdated
+        }else{
+            throw new NoChangeError('Usuário não foi alterado!')
+        }
+    }
 }

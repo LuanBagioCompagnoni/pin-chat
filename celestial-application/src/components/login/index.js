@@ -34,7 +34,7 @@ export default function Form() {
       className="w-[50%] h-[70%] rounded-3xl bg-purple-500 flex flex-col items-center px-4 justify-center relative space-y-16 p-16 bg-opacity-25 backdrop-blur-2xl border-2 border-purple-300"
       onSubmit={handleSubmit}
     >
-      <h1 className="text-gray-50 font-extrabold text-5xl">Entrar</h1>
+      <h1 className="text-gray-50 font-extrabold text-5xl">Login</h1>
 
       <div className="w-[85%]">
         <AuthInput

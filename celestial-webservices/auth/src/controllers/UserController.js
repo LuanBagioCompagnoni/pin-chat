@@ -46,6 +46,19 @@ class UserController{
             next(error)
         }
     }
+
+    static async updateStatus(req, res, next) {
+        try {
+            const result = await UserService.updateStatus(req.params.id, req.body.online);
+            logger.info(`Update user status: ${req.params.id}`);
+            res.status(200).json(result);
+        } catch (error) {
+            logger.error(`Update user status error: ${error.message}`);
+            next(error);
+        }
+    }
+
+
 }
 
 export default UserController

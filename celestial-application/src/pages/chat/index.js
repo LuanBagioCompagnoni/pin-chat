@@ -12,32 +12,30 @@ function Home() {
   const [selectedContact, setSelectedContact] = useState(null);
   const [contactList, setContactList] = useState([]);
   const {emitNotification} = useNotification();
-  const {user} = useAuth();
-  const {socket} = useSocket();
+  const {user, token} = useAuth();
+  const {socket} = useSocket(token);
+  const [contactNotification, setContactNotification] = useState(null);
 
   useEffect(() => {
-    if (socket && user) {
-      socket.emit('connectUser', user._id);
-      console.log(contactList);
-      if(contactList.length === 0 ){
-        socket.emit('getContacts', user._id);
-        socket.on(`contactsList${user._id}`, (userContacts) => {
+    if (socket && user ) {
+      if(contactList.lenth === 0){
+        socket.on('contactsList', (userContacts) => {
           setContactList(userContacts);
         });
       }
-      socket.on('notifyMessage', (notification) => {
-        console.log(notification);
-        const {messageData, originUser} = notification;
-        if (notification.messageData.destinationUserId === user._id) {
-          emitNotification(`Nova mensagem de ${originUser.name}: ${messageData.content}`);
-        }
 
+      socket.on('notifyMessage', (messageData) => {
+        const originContact = contactList.find((contact) => contact.contact._id === messageData.originUserId);
+        if (messageData.destinationUserId === user._id) {
+          setContactNotification(messageData.originUserId);
+          emitNotification(`Nova mensagem de ${originContact.name}: ${messageData.content}`);
+        }
       });
     }
 
-
-
-
+    return () => {
+      socket?.off('notifyMessage');
+    };
   }, [socket, user, emitNotification, contactList]);
 
   const handleSelectedContact = (contact) => {
@@ -55,6 +53,7 @@ function Home() {
         className={`${selectedContact ? 'hidden w-[100vw] md:flex md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw]' : 'flex w-[100vw] md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw]'}`}
         selectedContact={handleSelectedContact}
         contactList={handleContactList}
+        contactNotification={contactNotification}
       />
       {selectedContact === null ? (
         <Welcome className="xl:flex md:w-[55vw] xl:w-[74.5vw] md:flex hidden" user={user} />

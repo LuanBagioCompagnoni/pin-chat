@@ -1,7 +1,9 @@
 import { useAuth } from '@/context/AuthContext';
+import {toast} from 'react-toastify';
 
 function LateralBar({ className }) {
   const { logout } = useAuth();
+  const showWarning = (message) => toast.warning(message);
 
   return (
     <nav className={`${className} h-screen bg-[#292e3d] flex flex-col`}>
@@ -21,7 +23,7 @@ function LateralBar({ className }) {
           </a>
         </li>
         <li className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-          <a onClick={logout} className="flex text-gray-500 rounded hover:text-gray-200 cursor-pointer">
+          <a onClick={() => {logout(); showWarning('Desconectado!');}} className="flex text-gray-500 rounded hover:text-gray-200 cursor-pointer">
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"></path>
             </svg>

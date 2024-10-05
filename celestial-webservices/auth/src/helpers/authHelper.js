@@ -10,8 +10,8 @@ async function comparePasswords(password,hashedPassword){
     return await bcryptjs.compare(password, hashedPassword);
 }
 
-async function generateJWT(id, email){
-    return jwt.sign({ id: id, user: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION_TIME });
+async function generateJWT(user){
+    return jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION_TIME });
 }
 
 async function verifyToken(token){

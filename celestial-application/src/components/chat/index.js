@@ -1,20 +1,16 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import MessageInput from '../basics/messageInput';
 import Messages from './messages';
 import { useSocket } from '@/services/socket.js';
 import {useAuth} from '@/context/AuthContext.js';
 
 export default function Chat({ selectedContact, chatClassName }) {
-  const { user } = useAuth();
-  const { socket } = useSocket();
+  const { user, token } = useAuth();
+  const { socket } = useSocket(token);
   const [inputMessage, setInputMessage] = useState('');
 
   const sendMessage = (event) => {
     event.preventDefault();
-    if (!selectedContact) {
-      alert('Selecione um contato antes de enviar uma mensagem');
-      return;
-    }
 
     let newMessage = {
       originUserId: user._id,
@@ -42,6 +38,7 @@ export default function Chat({ selectedContact, chatClassName }) {
       </div>
       <div className="absolute inset-x-0 bottom-0 my-2 p-2 h-[7%]">
         <MessageInput
+          selectedContact={selectedContact}
           onSubmit={sendMessage}
           value={inputMessage}
           onChange={handleInputChange}

@@ -16,6 +16,18 @@ export default class MessageClass extends BaseClass {
         });
     }
 
+    async getLastMessageByContact(originUserId, destinationUserId) {
+        return await this.model.findOne(
+            {
+                $or: [
+                    {destinationUserId: destinationUserId, originUserId: originUserId},
+                    {destinationUserId: originUserId, originUserId: destinationUserId}
+                ]
+            }
+        ).sort({ date: -1 }).limit(1);
+    }
+
+
 
     validate(data){
         if(!data.originUserId) throw new ValidationError("originuserId não fornecido!");

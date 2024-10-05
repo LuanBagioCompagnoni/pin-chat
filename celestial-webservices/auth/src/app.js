@@ -4,10 +4,14 @@ import { handler404 } from 'ErrorHandler-Package';
 import connectDatabase from './config/dbConnect.js';
 import routes from './routes/index.js';
 import cors from 'cors';
+import passport from 'passport';
+import './passport.js'
 
 const app = express();
 
 app.use(cors());
+
+app.use(passport.initialize());
 
 routes(app);
 

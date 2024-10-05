@@ -1,4 +1,15 @@
-export default function MessageInput({ onChange, onSubmit, value }) {
+import {useEffect, useRef} from 'react';
+
+export default function MessageInput({ onChange, onSubmit, value, selectedContact }) {
+
+  const inputRef = useRef();
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [selectedContact]);
+
   return (
     <form className="m-2 relative flex items-center" onSubmit={onSubmit}>
       <a href="#" className="text-gray-50 rounded hover:text-gray-500 ">
@@ -8,6 +19,7 @@ export default function MessageInput({ onChange, onSubmit, value }) {
       </a>
       <div className="relative flex-grow ml-2 ">
         <input
+          ref={inputRef}
           type="text"
           id="search"
           className="w-full py-2 ps-4 h-auto pe-[12%] break-words text-sm rounded-3xl bg-[#292e3d] placeholder-gray-400 text-white "

@@ -1,44 +1,52 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import 'dotenv/config.js';
+import {useSocket} from '@/services/socket.js';
+import {toast} from 'react-toastify';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+  const { socket, connected } = useSocket(token);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const authApi = process.env.NEXT_PUBLIC_API_AUTH_URL;
+  const showWarning = (message) => toast.warning(message);
+
 
   useEffect(() => {
     const verifyToken = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
+      const localToken = localStorage.getItem('token');
+      if (localToken) {
         try {
           const res = await fetch(`${authApi}auth/verifyToken`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
+              'Authorization': `Bearer ${localToken}`
             }
           });
           const data = await res.json();
           if (res.ok) {
             setUser(data.user);
+            setToken(localToken);
           } else {
-            localStorage.removeItem('token');
+            logout();
           }
         } catch (error) {
-          localStorage.removeItem('token');
+          showWarning('Erro ao validar sessão! Desconectando...');
+          logout();
         }
       } else {
-        setUser(null);
+        logout();
       }
       setLoading(false);
     };
 
     verifyToken();
-  }, []);
+  }, [authApi]);
 
   const register = async (name, email, password) => {
     try {
@@ -52,6 +60,7 @@ export function AuthProvider({ children }) {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setUser(data.user);
+        setToken(data.token);
         return data.user;
       } else {
         throw new Error(data);
@@ -74,6 +83,7 @@ export function AuthProvider({ children }) {
         console.log('res ok', data);
         localStorage.setItem('token', data.token);
         setUser(data.user);
+        setToken(data.token);
         return data.user;
       } else {
         console.log('res fail', data);
@@ -86,13 +96,15 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
+    if(connected) socket.disconnect();
     localStorage.removeItem('token');
     setUser(null);
+    setToken(null);
     router.push('/login');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register, loading }}>
+    <AuthContext.Provider value={{ user, token, login, logout, register, loading }}>
       {children}
     </AuthContext.Provider>
   );

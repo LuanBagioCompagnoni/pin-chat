@@ -14,18 +14,6 @@ services:
       - auth
       - chat
 
-  auth:
-    build:
-      context: ./celestial-webservices/auth
-    ports:
-      - "5000:5000"
-    environment:
-      - DB_CONNECTION_STRING=mongodb+srv://admin:LDumKeXcV3zhQaf583DPstCXFw5khF2qXrf2a6LDph@celestial.ijfhzun.mongodb.net/
-      - JWT_SECRET=Bku85iuWzza57CUu6w93EKYs1Oh1IpyxLiqpzHU6kI9XDxA2duqqN7sWhmwU5
-      - JWT_EXPIRATION_TIME=120m
-      - API_AUTH_URL=http://localhost:5000
-      - API_CHAT_URL=http://localhost:8000
-
   chat:
     build:
       context: ./celestial-webservices/chat
@@ -35,5 +23,28 @@ services:
       - DB_CONNECTION_STRING=mongodb+srv://admin:LDumKeXcV3zhQaf583DPstCXFw5khF2qXrf2a6LDph@celestial.ijfhzun.mongodb.net/
       - JWT_SECRET=Bku85iuWzza57CUu6w93EKYs1Oh1IpyxLiqpzHU6kI9XDxA2duqqN7sWhmwU5
       - JWT_EXPIRATION_TIME=120m
-      - API_AUTH_URL=http://localhost:5000
+      - API_AUTH_URL=http://auth:5000
       - API_CHAT_URL=http://localhost:8000
+    depends_on:
+      - auth
+
+  auth:
+    build:
+      context: ./celestial-webservices/auth
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_CONNECTION_STRING=mongodb+srv://admin:LDumKeXcV3zhQaf583DPstCXFw5khF2qXrf2a6LDph@celestial.ijfhzun.mongodb.net/
+      - JWT_SECRET=Bku85iuWzza57CUu6w93EKYs1Oh1IpyxLiqpzHU6kI9XDxA2duqqN7sWhmwU5
+      - JWT_EXPIRATION_TIME=120m
+      - API_AUTH_URL=http://auth:5000
+      - API_CHAT_URL=http://localhost:8000
+
+  nginx:
+    build:
+      context: nginx/
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - front-end

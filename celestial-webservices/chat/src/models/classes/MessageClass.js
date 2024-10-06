@@ -27,6 +27,10 @@ export default class MessageClass extends BaseClass {
         ).sort({ date: -1 }).limit(1);
     }
 
+    async seenMessages(originUserId, destinationUserId){
+        return await this.model.updateMany({originUserId: destinationUserId, destinationUserId: originUserId}, {seen: true});
+    }
+
 
 
     validate(data){

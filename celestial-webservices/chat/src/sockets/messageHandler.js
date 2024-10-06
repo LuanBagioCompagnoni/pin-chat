@@ -18,7 +18,7 @@ const messageHandlers = (socket, io) => {
             destinationSocket.emit('notifyMessage', messageData);
         }
         if(originSocket) {
-            originSocket.emit('updateContactList', messageData);
+            originSocket.emit('confirmInviteMessage', messageData);
             originSocket.emit('receiveMessage', messageData);
             originSocket.emit('notifyMessage', messageData);
         }
@@ -30,6 +30,11 @@ const messageHandlers = (socket, io) => {
             .find(s => s.userId === params.originUserId);
         requestedUserSocket.emit(`listMessages`, messages);
     });
+
+    socket.on('seenMessages', async (params) => {
+        console.log("Seening messages");
+        await messageService.seenMessages(params.originUserId, params.destinationUserId);
+    })
 };
 
 export default messageHandlers;

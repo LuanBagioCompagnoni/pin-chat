@@ -17,7 +17,8 @@ export default function Chat({ selectedContact, chatClassName }) {
       destinationUserId: selectedContact._id,
       type: 'text',
       content: inputMessage,
-      date: new Date()
+      date: new Date(),
+      seen: false,
     };
 
     if(inputMessage){

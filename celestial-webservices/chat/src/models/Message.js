@@ -7,6 +7,7 @@ const Message = new mongoose.Schema({
   type: {type: String, required: [true, "Type message is required!"]},
   file: {type: String},
   date: { type: Date, default: Date.now },
+  seen: { type: Boolean, default: false }
 },{ strictPopulate: false });
 
 const message = mongoose.model('messages', Message);

@@ -1,53 +1,48 @@
 import Contact from './contact';
 import SearchInput from '../../basics/searchInput';
-import {useEffect, useState} from 'react';
-import {useSocket} from '@/services/socket.js';
-import {useAuth} from '@/context/AuthContext.js';
+import { useEffect, useState } from 'react';
+import { useSocket } from '@/services/socket.js';
+import { useAuth } from '@/context/AuthContext.js';
 
-function AsideChats({ selectedContact, className, contactList, contactNotification }) {
+function AsideChats({ selectedContact, className, contactList, newMessageNotification }) {
   const { user, token, loading } = useAuth();
   const { socket } = useSocket(token);
   const [contacts, setContacts] = useState([]);
   const [activeContact, setActiveContact] = useState(null);
-
-  useEffect(() => {
-
-    setContacts(prevContacts => {
-      return prevContacts.map(contact => {
-        console.log(contact?.contact?._id, contactNotification);
-
-        if (contact?.contact?._id === contactNotification) {
-
-          return {...contact, isNotification: true};
-        }
-        return contact;
-      });
-    });
-  }, [contactNotification]);
+  const [lastLocalNewMessageNotification, setLastLocalNewMessageNotification] = useState(null);
 
 
   useEffect(() => {
+    if (socket && user && newMessageNotification !== lastLocalNewMessageNotification) {
+      const { originContact, messageData } = newMessageNotification;
 
-    setContacts(prevContacts => {
-      return prevContacts.map(contact => {
-        console.log(contact?.contact?._id, contactNotification);
+      setContacts(prevContacts => {
+        return prevContacts.map(contact => {
+          if (contact?.contact?._id === originContact.contact._id) {
+            let isNotification = false;
 
-        if (contact?.contact?._id === contactNotification) {
-
-          return {...contact, isNotification: true};
-        }
-        return contact;
+            if (activeContact?._id !== originContact.contact._id) {
+              isNotification = !messageData.seen;
+            }
+            return { ...contact, isNotification, lastMessage: messageData };
+          }
+          return contact;
+        }).sort((a, b) => new Date(b.lastMessage?.date) - new Date(a.lastMessage?.date));
       });
-    });
+      setLastLocalNewMessageNotification(newMessageNotification);
+    }
+  }, [newMessageNotification, activeContact, socket, user]);
+
+
+  useEffect(() => {
 
     if (socket && user && !loading) {
-
-      socket.on('updateContactList', (messageData) => {
+      socket.on('confirmInviteMessage', (messageData) => {
         if (messageData.destinationUserId === user._id || messageData.originUserId === user._id) {
           setContacts(prevContacts => {
             return prevContacts.map(contact => {
               if (contact?.contact?._id === messageData.destinationUserId) {
-                return {...contact, lastMessage: messageData};
+                return { ...contact, lastMessage: messageData };
               }
               return contact;
             }).sort((a, b) => new Date(b.lastMessage?.date) - new Date(a.lastMessage?.date));
@@ -57,64 +52,94 @@ function AsideChats({ selectedContact, className, contactList, contactNotificati
 
       socket.on('newUserStatusUpdate', (updateStatus) => {
         if (updateStatus.userId !== user._id) {
-
           setContacts(prevContacts => {
             return prevContacts.map(contact => {
               if (contact?.contact?._id === updateStatus.userId) {
-                return {...contact,
+                return {
+                  ...contact,
                   contact: {
                     ...contact.contact,
-                    online: updateStatus.online
-                  }};
+                    online: updateStatus.online,
+                  },
+                };
               }
               return contact;
             });
           });
+        } else if(!contacts.find(c => c.contact._id === updateStatus.userId)){
+          socket.emit('getContacts', user._id);
         }
       });
-      socket.emit('getContacts', user._id);
 
+      socket.emit('getContacts', user._id);
       socket.on('contactsList', (userContacts) => {
         const ordenedContacts = userContacts.sort((a, b) => new Date(b.lastMessage?.date) - new Date(a.lastMessage?.date));
-        setContacts(ordenedContacts);
         contactList(ordenedContacts);
+        setContacts(ordenedContacts.map(contact => ({
+          ...contact,
+          isNotification: contact?.lastMessage?.originUserId !== user._id && (contact.lastMessage ? !contact?.lastMessage?.seen : false),
+        })));
       });
 
       return () => {
         socket.off('newUserOnline');
         socket.off('notifyMessage');
         socket.off('contactsList');
+        socket.off('updateContactList');
       };
     }
   }, [socket, user, loading]);
 
+  const onSelectContact = async (contactObject) => {
+    contactObject.isNotification = false;
+    await setActiveContact(contactObject?.contact);
+    await selectedContact(contactObject?.contact);
 
+    await setContacts(prevContacts => {
+      return prevContacts.map(contact => {
+        if (contact?.contact?._id === contactObject?.contact?._id) {
+          return { ...contact, lastMessage: {
+            ...contact.lastMessage,
+            seen: true,
+          }, isNotification: false };
+        }
+        newMessageNotification = contact;
+        return contact;
+      });
+    });
 
+    socket.emit('getMessages', {
+      originUserId: user._id,
+      destinationUserId: contactObject?.contact._id,
+    });
+    if(!contactObject.lastMessage.seen && contactObject.lastMessage?.originUserId !== user._id) {
+      socket.emit('seenMessages', {
+        originUserId: user._id,
+        destinationUserId: contactObject?.contact._id,
+      });
+    }
 
-  const onSelectContact = (contact) => {
-    setActiveContact(contact);
-    selectedContact(contact);
-    socket.emit('getMessages', {originUserId: user._id, destinationUserId: contact?._id});
   };
-
   return (
-    <aside className={`${className} flex-col h-screen bg-[#373d4c] `}>
+    <aside className={`${className} flex-col h-screen bg-[#373d4c]`}>
       <SearchInput />
-      <div className='grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start'>
-        {contacts.length > 0 ? contacts.map(contactObject => (
-          <Contact
-            key={contactObject?.contact?.id}
-            contactObject={contactObject}
-            onSelect={() => onSelectContact(contactObject?.contact)}
-            isSelected={activeContact?._id === contactObject?.contact?._id}
-            isNotification={contactObject.isNotification}
-          />
-        )) : <h1 className='text-center'>Não há contatos!</h1>}
-
+      <div className="grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start">
+        {contacts.length > 0 ? (
+          contacts.map(contactObject => (
+            <Contact
+              key={contactObject?.contact?.id}
+              contactObject={contactObject}
+              onSelect={async () => await onSelectContact(contactObject)}
+              isSelected={activeContact?._id === contactObject?.contact?._id}
+              isNotification={contactObject.isNotification}
+            />
+          ))
+        ) : (
+          <h1 className="text-center">Não há contatos!</h1>
+        )}
       </div>
     </aside>
   );
 }
-
 
 export default AsideChats;

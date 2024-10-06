@@ -25,4 +25,8 @@ export default class MessageService {
     async getLastMessageByContact(originUserId, destinationUserId) {
         return await this.messageClass.getLastMessageByContact(originUserId, destinationUserId);
     }
+
+    async seenMessages(originUserId, destinationUserId) {
+        return await this.messageClass.seenMessages(originUserId, destinationUserId);
+    }
 }

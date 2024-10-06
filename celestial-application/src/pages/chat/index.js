@@ -14,11 +14,11 @@ function Home() {
   const {emitNotification} = useNotification();
   const {user, token} = useAuth();
   const {socket} = useSocket(token);
-  const [contactNotification, setContactNotification] = useState(null);
+  const [newMessageNotification, setNewMessageNotification] = useState(null);
 
   useEffect(() => {
     if (socket && user ) {
-      if(contactList.lenth === 0){
+      if(contactList.length === 0){
         socket.on('contactsList', (userContacts) => {
           setContactList(userContacts);
         });
@@ -27,7 +27,7 @@ function Home() {
       socket.on('notifyMessage', (messageData) => {
         const originContact = contactList.find((contact) => contact.contact._id === messageData.originUserId);
         if (messageData.destinationUserId === user._id) {
-          setContactNotification(messageData.originUserId);
+          setNewMessageNotification({originContact, messageData});
           emitNotification(`Nova mensagem de ${originContact.name}: ${messageData.content}`);
         }
       });
@@ -53,7 +53,7 @@ function Home() {
         className={`${selectedContact ? 'hidden w-[100vw] md:flex md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw]' : 'flex w-[100vw] md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw]'}`}
         selectedContact={handleSelectedContact}
         contactList={handleContactList}
-        contactNotification={contactNotification}
+        newMessageNotification={newMessageNotification}
       />
       {selectedContact === null ? (
         <Welcome className="xl:flex md:w-[55vw] xl:w-[74.5vw] md:flex hidden" user={user} />

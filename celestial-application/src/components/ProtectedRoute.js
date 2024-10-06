@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import Loading from './basics/loading';
 
-function ProtectedRoute(Component) {
-  return (props) => {
+const ProtectedRoute = (Component) => {
+  const Wrapper = (props) => {
     const router = useRouter();
     const { user, loading } = useAuth();
 
@@ -24,6 +24,10 @@ function ProtectedRoute(Component) {
 
     return <Component {...props} />;
   };
-}
+
+  Wrapper.displayName = `ProtectedRoute(${Component.displayName || Component.name || 'Component'})`;
+
+  return Wrapper;
+};
 
 export default ProtectedRoute;

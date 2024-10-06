@@ -1,8 +1,8 @@
 import Contact from './contact';
 import SearchInput from '../../basics/searchInput';
-import { useEffect, useState } from 'react';
-import { useSocket } from '@/services/socket.js';
-import { useAuth } from '@/context/AuthContext.js';
+import {useEffect, useState} from 'react';
+import {useSocket} from '@/services/socket.js';
+import {useAuth} from '@/context/AuthContext.js';
 
 function AsideChats({ selectedContact, className, contactList, newMessageNotification }) {
   const { user, token, loading } = useAuth();
@@ -52,9 +52,11 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
       socket.on('newUserStatusUpdate', (updateStatus) => {
         if (updateStatus.userId !== user._id) {
+          let contactFound = false;
           setContacts(prevContacts => {
             return prevContacts.map(contact => {
               if (contact?.contact?._id === updateStatus.userId) {
+                contactFound = true;
                 return {
                   ...contact,
                   contact: {
@@ -66,10 +68,12 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
               return contact;
             });
           });
-        } else if(!contacts.find(c => c.contact._id === updateStatus.userId)){
-          socket.emit('getContacts', user._id);
+          if (!contactFound) {
+            socket.emit('getContacts', user._id);
+          }
         }
       });
+
 
       socket.emit('getContacts', user._id);
       socket.on('contactsList', (userContacts) => {
@@ -112,7 +116,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
       originUserId: user._id,
       destinationUserId: contactObject?.contact._id,
     });
-    if(!contactObject.lastMessage.seen && contactObject.lastMessage?.originUserId !== user._id) {
+    if(!contactObject?.lastMessage?.seen && contactObject?.lastMessage?.originUserId !== user._id) {
       socket.emit('seenMessages', {
         originUserId: user._id,
         destinationUserId: contactObject?.contact._id,

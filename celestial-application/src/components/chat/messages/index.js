@@ -12,13 +12,10 @@ export default function Messages({ selectedContact }) {
 
   useEffect(() => {
     if (socket) {
-
       socket.on('receiveMessage', (newMessage) => {
-        //a mensagem pode listar apenas quando o usuário tenha enviado ela ao contato que está selecionado (oUser === contactId && dUser === user._id)
-        //e também quando o usuário tenha recebido essa mensagem do contato que selecionou atualmente (oUser === user._id && dUser === contactId)
         const dUser = newMessage?.destinationUserId;
         const oUser = newMessage?.originUserId;
-        if((oUser === selectedContact._id && dUser === user._id) || (oUser === user._id && dUser === selectedContact._id)) {
+        if ((oUser === selectedContact._id && dUser === user._id) || (oUser === user._id && dUser === selectedContact._id)) {
           setMessages((prevMessages) => [...prevMessages, newMessage]);
         }
       });
@@ -41,7 +38,7 @@ export default function Messages({ selectedContact }) {
   }, [messages]);
 
   return (
-    <ul ref={listRef} className="overflow-y-auto w-full h-full p-4 flex flex-col space-y-2 text-gray-50 scrollbar-custom">
+    <ul ref={listRef} className="overflow-y-auto w-full h-full p-4 flex flex-col space-y-2 text-gray-50 scrollbar-custom relative">
       {messages.length > 0 ? (
         user && messages.map((message) => (
           <li
@@ -55,7 +52,9 @@ export default function Messages({ selectedContact }) {
           </li>
         ))
       ) : (
-        <div className="text-gray-800">Envie a primeira mensagem!</div>
+        <div className="flex mt-10 justify-center h-full">
+          <h1 className="text-gray-50">Envie a primeira mensagem!</h1>
+        </div>
       )}
     </ul>
   );

@@ -1,5 +1,7 @@
 .env
 
+docker-compose.yml
+
 logs/
 
 celestial-application/node_modules/

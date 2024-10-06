@@ -16,19 +16,14 @@ const RegisterForm = () => {
 
   const { register } = useAuth();
   const router = useRouter();
-
-  const showSuccess = (message) => toast.success(message);
-  const showError = (message) => toast.error(message);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const user = await register(name, email, password);
-      showSuccess(`Seja bem-vindo ${user.name.split(' ')[0]}!`);
-      await router.push('/chat');
-    } catch (error) {
-      showError(error.message);
+      if(await register(name, email, password)){
+        await router.push('/chat');
+      }
+    } catch{
     } finally {
       setIsLoading(false);
     }

@@ -10,8 +10,6 @@ export default function Form() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const showSuccess = (message) => toast.success(message);
-  const showError = (message) => toast.error(message);
   const { login } = useAuth();
   const router = useRouter();
 
@@ -19,11 +17,10 @@ export default function Form() {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const user = await login(email, password);
-      showSuccess(`Seja bem-vindo ${user.name.split(' ')[0]}!`);
-      await router.push('/chat');
-    } catch (error) {
-      showError(error.message);
+      if(await login(email, password)){
+        await router.push('/chat');
+      }
+    } catch {
     } finally {
       setIsLoading(false);
     }

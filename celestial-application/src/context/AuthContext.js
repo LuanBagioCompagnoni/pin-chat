@@ -14,6 +14,8 @@ export function AuthProvider({ children }) {
   const router = useRouter();
   const authApi = process.env.NEXT_PUBLIC_API_AUTH_URL;
   const showWarning = (message) => toast.warning(message);
+  const showSuccess = (message) => toast.success(message);
+  const showError = (message) => toast.error(message);
 
 
   useEffect(() => {
@@ -61,12 +63,15 @@ export function AuthProvider({ children }) {
         localStorage.setItem('token', data.token);
         setUser(data.user);
         setToken(data.token);
-        return data.user;
+        showSuccess(`Seja bem-vindo ${data.user?.name.split(' ')[0]}!`);
+        return true;
       } else {
-        throw new Error(data);
+        showError(data);
+        return false;
       }
     } catch (error) {
-      throw new Error(error.message);
+      showError('Falha ao registrar-se!');
+      return false;
     }
   };
 
@@ -80,18 +85,18 @@ export function AuthProvider({ children }) {
 
       const data = await res.json();
       if (res.ok) {
-        console.log('res ok', data);
         localStorage.setItem('token', data.token);
         setUser(data.user);
         setToken(data.token);
-        return data.user;
+        showSuccess(`Seja bem-vindo ${data.user?.name.split(' ')[0]}!`);
+        return true;
       } else {
-        console.log('res fail', data);
-
-        throw new Error(data);
+        showError(data);
+        return false;
       }
     } catch (error) {
-      throw new Error(error.message);
+      showError('Falha ao realizar login!');
+      return false;
     }
   };
 

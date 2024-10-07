@@ -4,7 +4,7 @@ import Messages from './messages';
 import { useSocket } from '@/services/socket.js';
 import {useAuth} from '@/context/AuthContext.js';
 
-export default function Chat({ selectedContact, chatClassName }) {
+export default function Chat({ selectedContact, className }) {
   const { user, token } = useAuth();
   const { socket } = useSocket(token);
   const [inputMessage, setInputMessage] = useState('');
@@ -33,8 +33,8 @@ export default function Chat({ selectedContact, chatClassName }) {
     setInputMessage(event.target.value);
   };
   return (
-    <div className={`${chatClassName} bg-[#464b5b] relative h-screen`}>
-      <div className='absolute grid grid-col-1 w-full h-[93%] bottom-gradient-scrollbar'>
+    <div className={`${className} bg-[#F8F8F8] relative h-screen`}>
+      <div className='absolute grid grid-col-1 w-full h-[93%]'>
         <Messages selectedContact={selectedContact} />
       </div>
       <div className="absolute inset-x-0 bottom-0 my-2 p-2 h-[7%]">

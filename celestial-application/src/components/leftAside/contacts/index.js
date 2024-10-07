@@ -77,7 +77,14 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
       socket.emit('getContacts', user._id);
       socket.on('contactsList', (userContacts) => {
-        const ordenedContacts = userContacts.sort((a, b) => new Date(b.lastMessage?.date) - new Date(a.lastMessage?.date));
+        console.log('userContacts', userContacts);
+        const ordenedContacts = userContacts.sort((a, b) => {
+          const dateA = a.lastMessage?.date ? new Date(a.lastMessage.date) : 0;
+          const dateB = b.lastMessage?.date ? new Date(b.lastMessage.date) : 0;
+
+          return dateB - dateA;
+        });
+        console.log('Ordenedcontacts', ordenedContacts);
         contactList(ordenedContacts);
         setContacts(ordenedContacts.map(contact => ({
           ...contact,
@@ -125,7 +132,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
   };
   return (
-    <aside className={`${className} flex-col h-screen bg-[#373d4c]`}>
+    <aside className={`${className} flex-col h-screen bg-[#FCFCFC] border-2 border-[#E8E8E8]`}>
       <SearchInput />
       <div className="grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start">
         {contacts.length > 0 ? (

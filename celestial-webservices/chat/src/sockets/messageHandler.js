@@ -34,6 +34,13 @@ const messageHandlers = (socket, io) => {
     socket.on('seenMessages', async (params) => {
         console.log("Seening messages");
         await messageService.seenMessages(params.originUserId, params.destinationUserId);
+
+        const destinationSocket = Array.from(io.sockets.sockets.values())
+            .find(s => s.userId === params.destinationUserId);
+        if(destinationSocket) {
+            destinationSocket.emit('seenMessages', params.originUserId);
+        }
+
     })
 };
 

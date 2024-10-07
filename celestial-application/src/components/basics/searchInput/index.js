@@ -7,7 +7,7 @@ export default function SearchInput() {
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg
-            className="w-4 h-4 text-gray-400"
+            className="w-4 h-4 text-[#EF7D00]"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -25,13 +25,13 @@ export default function SearchInput() {
         <input
           type="search"
           id="search"
-          className="block w-full p-2 pl-10 text-sm rounded-3xl bg-[#292e3d] placeholder-gray-400 text-white"
+          className="block w-full p-2 pl-10 text-sm rounded-3xl bg-[#FCFCFC] placeholder-[#2E2E2E] text-[#2E2E2E] border-gray-400 border-2"
           placeholder="Buscar"
           required
         />
         <button
           type="submit"
-          className="text-white absolute right-2.5 bottom-1 bg-[#581c87] hover:bg-[#7e22ce] focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-3 py-1"
+          className="text-white absolute right-2.5 top-1/2 transform -translate-y-1/2 bg-[#6C2DB4] hover:bg-[#7e22ce] focus:ring-4 focus:outline-none font-medium rounded-3xl text-sm px-3 py-1"
         >
                     Buscar
         </button>

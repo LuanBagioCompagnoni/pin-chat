@@ -11,7 +11,8 @@ export const useSocket = (token) => {
       socket = io(process.env.NEXT_PUBLIC_API_CHAT_URL, {
         query: {
           token,
-        }
+        },
+        transports: ['websocket', 'polling'],
       });
 
       socket.on('connect', () => {

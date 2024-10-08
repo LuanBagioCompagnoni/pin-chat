@@ -2,10 +2,12 @@ import 'dotenv/config';
 import connectDatabase from './src/config/dbConnect.js';
 import * as http from 'node:http';
 import {initSocket} from "./src/socket.js";
+import express from "express";
 
 const PORT = 8000;
 
-const server = http.createServer();
+const app = express();
+const server = http.createServer(app);
 initSocket(server)
 
 server.listen(PORT, () => {

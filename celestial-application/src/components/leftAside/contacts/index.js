@@ -3,6 +3,8 @@ import SearchInput from '../../basics/searchInput';
 import {useEffect, useState} from 'react';
 import {useSocket} from '@/services/socket.js';
 import {useAuth} from '@/context/AuthContext.js';
+import Loading from '@/components/basics/loading/index.js';
+import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
 
 function AsideChats({ selectedContact, className, contactList, newMessageNotification }) {
   const { user, token, loading } = useAuth();
@@ -146,7 +148,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
             />
           ))
         ) : (
-          <h1 className="text-center">Não há contatos!</h1>
+          <LoadingIcon />
         )}
       </div>
     </aside>

@@ -12,6 +12,7 @@
   "author": "Luan Bagio Compagnoni",
   "license": "ISC",
   "dependencies": {
+    "@socket.io/cluster-adapter": "^0.2.2",
     "dotenv": "^16.4.5",
     "ErrorHandler-Package": "github:LuanBagioCompagnoni/ErrorsHandler-Package",
     "eslint": "^9.11.1",

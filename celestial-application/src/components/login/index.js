@@ -28,7 +28,7 @@ export default function Form() {
 
   return (
     <form
-      className="w-[50%] h-[70%] rounded-3xl bg-purple-500 flex flex-col items-center px-4 justify-center relative space-y-16 p-16 bg-opacity-25 backdrop-blur-2xl border-2 border-purple-300"
+      className="w-[85%] h-[95%] sm:h-[85%] sm:w-[75%] md:h-[75%] md:w-[65%] rounded-3xl bg-purple-500 flex flex-col items-center px-4 justify-center relative space-y-16 p-16 bg-opacity-25 backdrop-blur-2xl border-2 border-purple-300"
       onSubmit={handleSubmit}
     >
       <h1 className="text-gray-50 font-extrabold text-5xl">Login</h1>
@@ -52,13 +52,13 @@ export default function Form() {
 
       <div className='w-full justify-center flex flex-col items-center'>
         <GenericButton
-          className='w-[50%] h-auto p-4 bg-gray-50 text-gray-600 hover:bg-purple-300'
+          className='w-[70%] h-auto p-4 bg-gray-50 text-gray-600 hover:bg-purple-300'
           nameButton='Entrar'
           disabled={isLoading}
         />
 
         {isLoading && <Loading/>}
-        <div className='flex space-x-2 mt-5'>
+        <div className='flex flex-col text-center space-x-2 mt-5 '>
           <p>Não tem uma conta?</p>
           <a className='text-blue-400 cursor-pointer hover:text-blue-600' onClick={() => router.push('/register')}><u><b>Registre-se!</b></u></a>
         </div>

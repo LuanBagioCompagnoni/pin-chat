@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/context/AuthContext.js';
 import { useSocket } from '@/services/socket.js';
 import { useNotification } from '@/hooks/notification.js';
+import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -21,6 +22,7 @@ export default function Messages({ selectedContact }) {
   const { socket } = useSocket(token);
   const [messages, setMessages] = useState([]);
   const { emitNotification } = useNotification();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (socket) {
@@ -49,6 +51,7 @@ export default function Messages({ selectedContact }) {
 
 
       socket.on('listMessages', (messagesToChat) => {
+        setIsLoading(false);
         setMessages(messagesToChat);
       });
 
@@ -68,14 +71,18 @@ export default function Messages({ selectedContact }) {
 
   return (
     <ul ref={listRef} className="overflow-y-auto w-full h-full p-4 flex flex-col space-y-2 text-gray-900 scrollbar-custom relative">
-      {messages.length > 0 ? (
+      {isLoading ? ( <div className='w-full h-full flex items-center justify-center'><LoadingIcon/></div> ) : ( messages.length > 0 ? (
         user && messages.map((message, index) => {
           const showDate = index === 0 || formatDate(messages[index - 1].date) !== formatDate(message.date);
           return (
             <React.Fragment key={message.id}>
               {showDate && (
-                <div className="flex justify-center text-sm text-[#2E2E2E] my-4 ">
-                  {formatDate(message.date)}
+                <div className="flex items-center justify-center my-4">
+                  <div className="flex-grow border-t border-dashed border-gray-300"></div>
+                  <span className="px-4 text-sm text-[#2E2E2E]">
+                    {formatDate(message.date)}
+                  </span>
+                  <div className="flex-grow border-t border-dashed border-gray-300"></div>
                 </div>
               )}
               <li className={` flex flex-col rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-300 ${message?.originUserId === user?._id ? 'self-end bg-[#6C2DB4] text-gray-50' : 'self-start bg-[#EDEDED]'}`}>
@@ -114,7 +121,7 @@ export default function Messages({ selectedContact }) {
         <div className="flex mt-10 justify-center h-full">
           <h1 className="text-gray-700">Envie a primeira mensagem!</h1>
         </div>
-      )}
+      ))}
     </ul>
   );
 }

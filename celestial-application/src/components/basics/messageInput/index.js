@@ -22,7 +22,7 @@ export default function MessageInput({ onChange, onSubmit, value, selectedContac
           ref={inputRef}
           type="text"
           id="message"
-          className="w-full py-2 ps-4 h-auto pe-[12%] break-words text-sm rounded-3xl bg-[#FCFCFC] border-2 border-gray-300 placeholder-[#2E2E2E] text-[#2E2E2E]"
+          className="w-full py-2 ps-4 h-auto pe-[12%] break-words text-sm rounded-3xl bg-[#FCFCFC] border-2 border-gray-300 placeholder-[#2E2E2E] text-[#2E2E2E] focus:border-[#6c2db4] focus:border-2 focus:outline-none"
           placeholder="Digite uma mensagem..."
           onChange={onChange}
           value={value}

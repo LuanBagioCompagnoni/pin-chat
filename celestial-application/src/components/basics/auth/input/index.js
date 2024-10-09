@@ -1,4 +1,4 @@
-export default function AuthInput({type, placeholder, value, onChange, onBlur}) {
+export default function LineInput({type, placeholder, value, onChange, onBlur}) {
   return (
     <div className="flex items-center border-b border-white py-2 w-full">
       <input

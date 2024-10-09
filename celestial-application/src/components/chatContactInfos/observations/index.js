@@ -3,7 +3,6 @@ import Modal from '../../modal';
 import GenericInput from '@/components/basics/genericInput';
 import GenericButton from '@/components/basics/buttons/genericButton';
 import { largeModal, mediumModal } from '@/components/modal/patterns';
-import { darkPurple, lightPurple } from '@/styles/colors';
 import RedirectButton from '@/components/basics/buttons/redirectionButton';
 
 export default function Observations() {

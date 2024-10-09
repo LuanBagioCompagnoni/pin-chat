@@ -25,7 +25,7 @@ export default function SearchInput() {
         <input
           type="search"
           id="search"
-          className="block w-full p-2 pl-10 text-sm rounded-3xl bg-[#FCFCFC] placeholder-[#2E2E2E] text-[#2E2E2E] border-gray-400 border-2"
+          className="block w-full p-2 pl-10 text-sm rounded-3xl bg-[#FCFCFC] placeholder-[#2E2E2E] text-[#2E2E2E] border-gray-400 border-2 focus:border-[#6c2db4] focus:border-2 focus:outline-none"
           placeholder="Buscar"
           required
         />

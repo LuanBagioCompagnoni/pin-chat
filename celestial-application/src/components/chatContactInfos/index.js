@@ -1,11 +1,26 @@
 export default function ChatContactInfos({contact, className, clearContact}) {
+  const formatName = () => {
+    const name = contact?.name;
 
+    const prepositions = ['de', 'da', 'do', 'das', 'dos'];
+
+    const nameParts = name.split(' ');
+
+    const formatedName = nameParts.map(part => {
+      if (prepositions.includes(part.toLowerCase())) {
+        return part.toLowerCase(); 
+      }
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+    });
+
+    return formatedName.join(' ');
+  };
   return (
     <div
       className={` ${className} bg-[#FCFCFC] flex flex-row items-center border-b-2 border-gray-200 relative`}>
       <img className='rounded-full ml-2 w-[45px]' src='https://cdn-icons-png.flaticon.com/512/4645/4645949.png'/>
       <div className={'flex flex-col mb-1'}>
-        <h1 className="text-2xl break-words font-light ml-5 mx-1 text-gray-800 text-center">{contact?.name.charAt(0).toUpperCase() + contact?.name.slice(1).toLowerCase()}</h1>
+        <h1 className="text-2xl break-words font-medium ml-5 mx-1 text-gray-800 text-center">{formatName()}</h1>
         {contact?.online ?
           <div className='flex'>
             <div className={'rounded-full bg-[#66BD71] ml-6 text-xs mt-1 w-3.5 h-3.5'}></div>

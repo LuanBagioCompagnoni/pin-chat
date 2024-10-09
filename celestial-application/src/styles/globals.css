@@ -70,3 +70,6 @@ body {
   text-overflow: ellipsis; /* Adiciona reticências ao final do texto */
 }
 
+html, body {
+  font-family: var(--font-noto-sans), sans-serif;
+}

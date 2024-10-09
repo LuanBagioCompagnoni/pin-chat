@@ -33,9 +33,11 @@ export default function Chat({ selectedContact, className }) {
     setInputMessage(event.target.value);
   };
   return (
-    <div className={`${className} bg-[#F8F8F8] relative h-screen`}>
+    <div className={`${className} relative h-screen bg-[#F8F8F8]`}>
+      <div className="absolute inset-0 bg-[url('/chat-bg.jpg')] opacity-10"></div>
+
       <div className='absolute grid grid-col-1 w-full h-[93%]'>
-        <Messages selectedContact={selectedContact} />
+        <Messages selectedContact={selectedContact}/>
       </div>
       <div className="absolute inset-x-0 bottom-0 my-2 p-2 h-[7%]">
         <MessageInput
@@ -44,7 +46,7 @@ export default function Chat({ selectedContact, className }) {
           value={inputMessage}
           onChange={handleInputChange}
           className='absolute inset-x-0'
-          style={{ height: '100%', overflowY: 'auto', resize: 'none' }}
+          style={{height: '100%', overflowY: 'auto', resize: 'none'}}
         />
       </div>
     </div>

@@ -1,6 +1,5 @@
 export default function Contact({ contactObject, onSelect, isSelected, isNotification }) {
   const {contact, lastMessage} = contactObject;
-  const date = lastMessage?.date ? `${new Date(lastMessage?.date).getHours()}:${new Date(lastMessage?.date).getMinutes()}` : '';
 
   const formatTime = (date) => {
     if(lastMessage?.date) {
@@ -10,6 +9,19 @@ export default function Contact({ contactObject, onSelect, isSelected, isNotific
       return `${hours}:${minutes}`;
     }
     return '';
+  };
+
+  const formatName = () => {
+    const name = contact?.name;
+    const prepositions = ['de', 'da', 'do', 'das', 'dos'];
+    const nameParts = name.split(' ');
+    const formatedName = nameParts.map(part => {
+      if (prepositions.includes(part.toLowerCase())) {
+        return part.toLowerCase();
+      }
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+    });
+    return formatedName.join(' ');
   };
 
   return (
@@ -28,7 +40,7 @@ export default function Contact({ contactObject, onSelect, isSelected, isNotific
             <img className='rounded-full w-[60px] ml-4' src='https://cdn-icons-png.flaticon.com/512/4645/4645949.png' alt='UserImage'/>
           </div>
           <div className='content-center '>
-            <h1 className="text-lg font-bold pl-4 text-[#2E2E2E]">{contact?.name.charAt(0).toUpperCase() + contact?.name.slice(1).toLowerCase()}</h1>
+            <h1 className="text-lg font-bold pl-4 text-[#2E2E2E]">{formatName()}</h1>
             <div className="flex">
               <div className="">
                 <h2 className="text-xs font-medium text-[#2E2E2E] px-4 p-0.5 break-words ">

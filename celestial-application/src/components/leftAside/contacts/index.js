@@ -19,7 +19,9 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
       const { originContact, messageData } = newMessageNotification;
 
       setContacts(prevContacts => {
-        return prevContacts.map(contact => {
+
+        const mappedNewMessageContacts = prevContacts.map(contact => {
+
           if (contact?.contact?._id === originContact.contact._id) {
             let isNotification = false;
 
@@ -29,7 +31,14 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
             return { ...contact, isNotification, lastMessage: messageData };
           }
           return contact;
-        }).sort((a, b) => new Date(b.lastMessage?.date) - new Date(a.lastMessage?.date));
+        });
+
+        return mappedNewMessageContacts.sort((a, b) => {
+          const dateA = a.lastMessage?.date ? new Date(a.lastMessage.date) : 0;
+          const dateB = b.lastMessage?.date ? new Date(b.lastMessage.date) : 0;
+
+          return dateB - dateA;
+        });
       });
       setLastLocalNewMessageNotification(newMessageNotification);
     }
@@ -42,12 +51,18 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
       socket.on('confirmInviteMessage', (messageData) => {
         if (messageData.destinationUserId === user._id || messageData.originUserId === user._id) {
           setContacts(prevContacts => {
-            return prevContacts.map(contact => {
+            const mappedNewMessageContacts =  prevContacts.map(contact => {
               if (contact?.contact?._id === messageData.destinationUserId) {
                 return { ...contact, lastMessage: messageData };
               }
               return contact;
-            }).sort((a, b) => new Date(b.lastMessage?.date) - new Date(a.lastMessage?.date));
+            });
+            return mappedNewMessageContacts.sort((a, b) => {
+              const dateA = a.lastMessage?.date ? new Date(a.lastMessage.date) : 0;
+              const dateB = b.lastMessage?.date ? new Date(b.lastMessage.date) : 0;
+
+              return dateB - dateA;
+            });
           });
         }
       });
@@ -79,14 +94,12 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
       socket.emit('getContacts', user._id);
       socket.on('contactsList', (userContacts) => {
-        console.log('userContacts', userContacts);
         const ordenedContacts = userContacts.sort((a, b) => {
           const dateA = a.lastMessage?.date ? new Date(a.lastMessage.date) : 0;
           const dateB = b.lastMessage?.date ? new Date(b.lastMessage.date) : 0;
 
           return dateB - dateA;
         });
-        console.log('Ordenedcontacts', ordenedContacts);
         contactList(ordenedContacts);
         setContacts(ordenedContacts.map(contact => ({
           ...contact,

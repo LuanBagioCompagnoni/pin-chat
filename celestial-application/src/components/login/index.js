@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import Loading from '@/components/basics/loading/index.js';
 import { useAuth } from '@/context/AuthContext.js';
-import AuthInput from '@/components/basics/auth/input/index.js';
+import LineInput from '@/components/basics/auth/input/index.js';
 
 export default function Form() {
   const [email, setEmail] = useState('');
@@ -34,7 +34,7 @@ export default function Form() {
       <h1 className="text-gray-50 font-extrabold text-5xl">Login</h1>
 
       <div className="w-[85%]">
-        <AuthInput
+        <LineInput
           type="text"
           placeholder="E-mail"
           value={email}
@@ -42,7 +42,7 @@ export default function Form() {
         />
       </div>
       <div className="w-[85%]">
-        <AuthInput
+        <LineInput
           type="password"
           placeholder="Senha"
           value={password}

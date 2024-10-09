@@ -44,7 +44,7 @@ export default function Contact({ contactObject, onSelect, isSelected, isNotific
             <div className="flex">
               <div className="">
                 <h2 className="text-xs font-medium text-[#2E2E2E] px-4 p-0.5 break-words ">
-                  {lastMessage?.content?.slice(0, 35)}{lastMessage?.content?.length > 50 && '...'}
+                  {lastMessage?.content?.slice(0, 35)}{lastMessage?.content?.length > 35 && '...'}
                 </h2>
               </div>
               <h1 className="absolute right-2 top-2 text-sm font-medium text-[#2E2E2E]">{formatTime(lastMessage?.date)}</h1>

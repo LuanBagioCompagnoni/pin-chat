@@ -86,7 +86,7 @@ export default function Messages({ selectedContact }) {
               <li className={`flex flex-row space-x-2 items-end w-full ${isOrigin ? 'self-end flex-row-reverse' : 'self-start'}`}>
                 <img className={' rounded-full w-[40px] h-[40px] ml-2 '}
                   src='https://cdn-icons-png.flaticon.com/512/4645/4645949.png' alt='UserImage'/>
-                <div className={`flex flex-col rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-300 space-y-0.5 ${isOrigin ? 'bg-[#562490] text-gray-50 rounded-br-sm' : 'rounded-bl-sm bg-[#EDEDED]'}`}>
+                <div className={`flex flex-col rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-300 space-y-0.5 ${isOrigin ? 'bg-[#6c2db4] text-gray-50 rounded-br-sm' : 'rounded-bl-sm bg-[#EDEDED]'}`}>
                   <h1 className={`${isOrigin ? 'text-end' : ''} text-xs font-bold`}>{isOrigin ? user.name : selectedContact.name}</h1>
                   <h1 className={`font-light ${isOrigin ? 'text-right mr-0.5' : 'text-left ml-0.5'}`}>{message.content}</h1>
                   <div

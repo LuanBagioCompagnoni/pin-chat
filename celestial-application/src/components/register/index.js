@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useAuth } from '@/context/AuthContext.js';
-import AuthInput from '@/components/basics/auth/input/index.js';
+import LineInput from '@/components/basics/auth/input/index.js';
 import GenericButton from '@/components/basics/buttons/genericButton.js';
 import Loading from '@/components/basics/loading/index.js';
 
@@ -44,7 +44,7 @@ const RegisterForm = () => {
     >
       <h1 className="text-gray-50 font-extrabold text-5xl">Registro</h1>
       <div className="w-[85%]">
-        <AuthInput
+        <LineInput
           type="text"
           placeholder="Nome"
           value={name}
@@ -52,7 +52,7 @@ const RegisterForm = () => {
         />
       </div>
       <div className="w-[85%]">
-        <AuthInput
+        <LineInput
           type="email"
           placeholder="E-mail"
           value={email}
@@ -60,14 +60,14 @@ const RegisterForm = () => {
         />
       </div>
       <div className="w-[85%] space-y-16 flex-col justify-center flex sm:flex-row sm:space-y-0 items-center sm:space-x-16">
-        <AuthInput
+        <LineInput
           type="password"
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           onBlur={validatePasswords}
         />
-        <AuthInput
+        <LineInput
           type="password"
           placeholder="Repita sua senha"
           value={confirmPassword}

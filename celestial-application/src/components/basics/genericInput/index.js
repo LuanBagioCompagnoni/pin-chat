@@ -1,4 +1,4 @@
-export default function GenericInput({ type = 'text', className, inputClassName, labelClasName, onChange, value, label, }) {
+export default function GenericInput({ type = 'text', className, inputClassName, labelClasName, onChange, value, label, onBlur }) {
   return (
     <div className={className}>
       <div className="relative">
@@ -9,6 +9,7 @@ export default function GenericInput({ type = 'text', className, inputClassName,
           placeholder=" "
           onChange={onChange}
           value={value}
+          onBlur={onBlur}
           required
         />
         <label

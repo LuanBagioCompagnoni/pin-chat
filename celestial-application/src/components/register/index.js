@@ -82,7 +82,7 @@ const RegisterForm = () => {
           disabled={isLoading}
         />
         <div className="flex flex-col text-center space-x-2 mt-5">
-          <p>Já tem conta?</p>
+          <p className={'text-[#fcfcfc]'}>Já tem conta?</p>
           <a
             className="text-blue-400 cursor-pointer hover:text-blue-600"
             onClick={() => router.push('/login')}

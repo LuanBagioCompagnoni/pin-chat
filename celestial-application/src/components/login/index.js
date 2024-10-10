@@ -59,7 +59,7 @@ export default function Form() {
 
         {isLoading && <Loading/>}
         <div className='flex flex-col text-center space-x-2 mt-5 '>
-          <p>Não tem uma conta?</p>
+          <p className={'text-[#fcfcfc]'}>Não tem uma conta?</p>
           <a className='text-blue-400 cursor-pointer hover:text-blue-600' onClick={() => router.push('/register')}><u><b>Registre-se!</b></u></a>
         </div>
       </div>

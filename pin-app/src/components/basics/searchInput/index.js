@@ -1,4 +1,4 @@
-export default function SearchInput() {
+export default function SearchInput({value, onChange}) {
   return (
     <form className="m-2">
       <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only">
@@ -27,6 +27,8 @@ export default function SearchInput() {
           id="search"
           className="block w-full p-2 pl-10 text-sm rounded-3xl bg-[#FCFCFC] placeholder-[#2E2E2E] text-[#2E2E2E] border-gray-400 border-2 focus:border-[#6c2db4] focus:border-2 focus:outline-none"
           placeholder="Buscar"
+          value={value}
+          onChange={onChange}
           required
         />
         <button

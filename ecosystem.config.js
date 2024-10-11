@@ -1,13 +1,13 @@
 module.exports = {
   apps: [
     {
-      name: "celestial-auth",
+      name: "pin-auth",
       script: "./pin-services/auth/server.js",
       ignore_watch: ["node_modules", "logs"],
       watch: false,
     },
     {
-      name: "celestial-chat",
+      name: "pin-chat",
       script: "./pin-services/chat/server.js",
       ignore_watch: ["node_modules", "logs"],
       watch: false,

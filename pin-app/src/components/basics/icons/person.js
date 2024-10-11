@@ -1,4 +1,4 @@
-export default function Profile({w,h}) {
+export default function Person({w,h}) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-person-circle" width={w} height={h}
       viewBox="0 0 16 16">

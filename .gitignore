@@ -5,17 +5,17 @@ docker-compose.yml
 logs/
 
 pin-app/node_modules/
-celestial-webservices/auth/node_modules/
+pin-services/auth/node_modules/
 
 pin-app/build/
 pin-app/dist/
-celestial-webservices/auth/build/
-celestial-webservices/auth/dist/
+pin-services/auth/build/
+pin-services/auth/dist/
 
 pin-app/.vscode/
 pin-app/.idea/
-celestial-webservices/auth/.vscode/
-celestial-webservices/auth/.idea/
+pin-services/auth/.vscode/
+pin-services/auth/.idea/
 
 .DS_Store
 

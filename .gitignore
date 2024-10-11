@@ -4,16 +4,16 @@ docker-compose.yml
 
 logs/
 
-celestial-application/node_modules/
+pin-app/node_modules/
 celestial-webservices/auth/node_modules/
 
-celestial-application/build/
-celestial-application/dist/
+pin-app/build/
+pin-app/dist/
 celestial-webservices/auth/build/
 celestial-webservices/auth/dist/
 
-celestial-application/.vscode/
-celestial-application/.idea/
+pin-app/.vscode/
+pin-app/.idea/
 celestial-webservices/auth/.vscode/
 celestial-webservices/auth/.idea/
 

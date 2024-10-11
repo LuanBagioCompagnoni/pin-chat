@@ -2,7 +2,7 @@
   "name": "auth",
   "type": "module",
   "version": "1.0.0",
-  "description": "Celestial's auth service",
+  "description": "Pin's auth service",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

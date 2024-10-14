@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext.js';
 import { useSocket } from '@/services/socket.js';
 import { useNotification } from '@/hooks/notification.js';
 import ChatComponent from '../../components/chat/chatComponent';
-import Profile from "@/components/profile/index.js";
+import Profile from '@/components/profile/index.js';
 
 function Home() {
   const [selectedContact, setSelectedContact] = useState(null);
@@ -56,41 +56,41 @@ function Home() {
 
   const renderContent = () => {
     switch (pageOption) {
-      case 'home':
-        return <Welcome className="order-2 xl:flex md:w-[55vw] xl:w-[96.5vw] md:flex" user={user} />;
-      case 'contacts':
-        return (
-            <div className="flex">
-              <AsideChats
-                  className={`order-1 md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw] h-[93vh] sm:h-screen ${selectedContact ? 'hidden md:flex w-full' : 'flex w-full'}`}
-                  selectedContact={handleSelectedContact}
-                  contactList={handleContactList}
-                  newMessageNotification={newMessageNotification}
-                  clearSelectedContact={() => setSelectedContact(null)}
-              />
-              {selectedContact === null ? (
-                  <Welcome className="order-3 xl:flex md:w-[55vw] xl:w-[74.5vw] md:flex hidden" user={user} />
-              ) : (
-                  <ChatComponent
-                      className="order-2 w-screen md:w-[55vw] xl:w-[74.5vw] 2xl:w-[74.5vw]"
-                      selectedContact={selectedContact}
-                      clearContact={() => setSelectedContact(null)}
-                  />
-              )}
-            </div>
-        );
-      case 'profile':
-        return < Profile />;
-      default:
-        return <Welcome className="order-2 xl:flex md:w-[55vw] xl:w-[96.5vw] md:flex hidden" user={user} />;
+    case 'home':
+      return <Welcome className="order-2 xl:flex md:w-[55vw] xl:w-[96.5vw] md:flex" user={user} />;
+    case 'contacts':
+      return (
+        <div className="flex">
+          <AsideChats
+            className={`order-1 md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw] h-[93vh] sm:h-screen ${selectedContact ? 'hidden md:flex w-full' : 'flex w-full'}`}
+            selectedContact={handleSelectedContact}
+            contactList={handleContactList}
+            newMessageNotification={newMessageNotification}
+            clearSelectedContact={() => setSelectedContact(null)}
+          />
+          {selectedContact === null ? (
+            <Welcome className="order-3 xl:flex md:w-[55vw] xl:w-[74.5vw] md:flex hidden" user={user} />
+          ) : (
+            <ChatComponent
+              className="order-2 w-screen md:w-[55vw] xl:w-[74.5vw] 2xl:w-[74.5vw]"
+              selectedContact={selectedContact}
+              clearContact={() => setSelectedContact(null)}
+            />
+          )}
+        </div>
+      );
+    case 'profile':
+      return < Profile />;
+    default:
+      return <Welcome className="order-2 xl:flex md:w-[55vw] xl:w-[96.5vw] md:flex hidden" user={user} />;
     }
   };
 
   return (
-      <section className="flex w-screen h-screen sm:flex-row flex-col ">
-        <LeftAside className={`${selectedContact ? 'hidden w-0 h-0' : 'xl:w-[3.5vw] md:w-[5vw] md:block order-last sm:order-first h-[7vh] w-full flex-row md:h-screen md:flex-col flex'}`} selectOption={setPageOption} />
-        {renderContent()}
-      </section>
+    <section className="flex w-screen h-screen sm:flex-row flex-col ">
+      <LeftAside className={`${selectedContact ? 'hidden w-0 h-0' : 'xl:w-[3.5vw] md:w-[5vw] md:block order-last sm:order-first h-[7vh] w-full flex-row md:h-screen md:flex-col flex'}`} selectOption={setPageOption} />
+      {renderContent()}
+    </section>
   );
 }
 

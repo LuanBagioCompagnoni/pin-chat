@@ -37,7 +37,7 @@ export default function Profile(){
   };
 
   return (
-    <div className={'w-[70vw] h-[40vw] flex flex-col items-center justify-start relative  gap-5 overflow-y-auto scrollbar-custom'}>
+    <div className={'h-[93vh] w-[100vw] sm:w-[96.5vw] sm:h-screen flex flex-col items-center justify-start relative border-2 border-[#E8E8E8] gap-5 overflow-y-auto scrollbar-custom bg-[#f8f8f8]'}>
 
       <h1 className='text-[#2e2e2e] font-bold text-center text-2xl w-full  p-4 '>Meu perfil</h1>
 
@@ -65,7 +65,7 @@ export default function Profile(){
         <form
           className={'flex flex-col w-full border-2 border-[#8957c3] p-5 rounded-xl space-y-5 shadow-gray-300 shadow-md drop-shadow items-center'}>
           <h1 className={'text-[#2e2e2e] w-full font-medium'}>Dados pessoais:</h1>
-          <div className={'flex w-full space-x-10'}>
+          <div className={'flex flex-col items-center sm:flex-row w-full space-y-5 sm:space-y-0 sm:space-x-10'}>
 
             <GenericInput value={nameInputValue} onChange={handleNameInputChange} labelClasName={''}
               className='w-[90%] text-[#2e2e2e] '
@@ -80,24 +80,24 @@ export default function Profile(){
         <form onSubmit={handleSubmit}
           className={'flex flex-col w-full border-2 border-[#8957c3] p-5 rounded-xl space-y-5 shadow-gray-300 shadow-md drop-shadow items-center'}>
           <h1 className={'text-[#2e2e2e] w-full font-medium'}>Senha:</h1>
-          <div className={'flex w-full space-x-10'}>
+          <div className={'flex flex-col items-center sm:flex-row w-full space-y-5 sm:space-y-0 sm:space-x-10'}>
             <GenericInput
-              type={'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onBlur={validatePasswords}
-              className='w-[90%] text-[#2e2e2e]'
-              inputClassName='rounded-xl'
-              label='Senha'
+                type={'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={validatePasswords}
+                className='w-[90%] text-[#2e2e2e]'
+                inputClassName='rounded-xl'
+                label='Senha'
             />
             <GenericInput
-              type={'password'}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              onBlur={validatePasswords}
-              className='w-[90%] text-[#2e2e2e]'
-              inputClassName='rounded-xl'
-              label='Confirmação de senha'
+                type={'password'}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                onBlur={validatePasswords}
+                className='w-[90%] text-[#2e2e2e]'
+                inputClassName='rounded-xl'
+                label='Confirmação de senha'
             />
           </div>
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}

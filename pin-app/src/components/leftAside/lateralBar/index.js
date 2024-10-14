@@ -3,16 +3,16 @@ import { toast } from 'react-toastify';
 import Modal from '@/components/modal/index.js';
 import React, { useState } from 'react';
 import Person from '@/components/basics/icons/person.js';
-import Bars from '@/components/basics/icons/bars.js';
 import ContactList from '@/components/basics/icons/contactList.js';
 import Exit from '@/components/basics/icons/exit.js';
 import Profile from '@/components/profile/index.js';
+import Home from "@/components/basics/icons/home.js";
 
-function LateralBar({ className }) {
+function LateralBar({ className, selectOption }) {
   const { logout } = useAuth();
   const showWarning = (message) => toast.warning(message);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
-  const [activeIcon, setActiveIcon] = useState(null); // Estado para o ícone ativo
+  const [activeIcon, setActiveIcon] = useState(null);
 
   const openUserModal = () => {
     setIsUserModalOpen(true);
@@ -23,47 +23,57 @@ function LateralBar({ className }) {
   };
 
   const handleIconClick = (index) => {
-    setActiveIcon(index); // Atualiza o ícone ativo
+    setActiveIcon(index);
+    switch (index) {
+      case 1:
+        selectOption('home');
+        break;
+      case 2:
+        selectOption('contacts');
+        break;
+      case 3:
+        selectOption('profile');
+    }
   };
 
   return (
-      <nav className={`${className} h-screen bg-[#F8F8F8] flex flex-col justify-between`}>
-        <div className="space-y-2 py-4 relative h-[50%]">
+      <nav className={`${className} bg-[#F8F8F8] sm:h-screen flex sm:flex-col sm:justify-between fixed bottom-0 sm:static w-full sm:w-auto`}>
+        <div className="space-x-2 flex flex-row sm:flex-col sm:space-y-2 sm:space-x-0 sm:py-4 relative sm:h-[50%] w-[50%] sm:w-full">
           <div
-              className={`group w-full h-12 flex flex-row items-center justify-center relative ${activeIcon === 1 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
+              className={`group h-full w-12 sm:w-full sm:h-12 flex flex-row items-center justify-center relative ${activeIcon === 1 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
               onClick={() => handleIconClick(1)}
           >
             <a href="#"
                className="flex items-center justify-center rounded hover:text-[#8957C3] w-full h-12 mx-1 cursor-pointer">
-              <Bars w={'35'} h={'35'} />
+              <Home w={'35'} h={'35'} />
             </a>
-            <div className={`absolute top-0 right-0 h-full w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 1 ? 'bg-[#8957C3]' : ''}`}></div>
+            <div className={`absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1  rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 1 ? 'bg-[#8957C3]' : 'bg-transparent'}`}></div>
           </div>
 
           <div
-              className={`group w-full h-12 flex flex-row items-center justify-center relative ${activeIcon === 2 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
+              className={`group h-full w-12 sm:w-full sm:h-12 flex flex-row items-center justify-center relative ${activeIcon === 2 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
               onClick={() => handleIconClick(2)}
           >
             <a className="flex items-center justify-center hover:text-[#8957C3] w-full h-12 rounded cursor-pointer">
               <ContactList w={'35'} h={'35'} />
             </a>
-            <div className={`absolute top-0 right-0 h-full w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 2 ? 'bg-[#8957C3]' : ''}`}></div>
+            <div className={`absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 2 ? 'bg-[#8957C3]' : 'bg-transparent'}`}></div>
           </div>
         </div>
 
-        <div className="content-end space-y-2 py-4 relative h-[50%] w-full">
+        <div className="flex flex-row sm:flex-col justify-end sm:content-end space-x-2 sm:space-x-0 sm:space-y-2 sm:py-4 relative sm:h-[50%] w-[50%] sm:w-full">
           <div
-              className={`group w-full h-12 flex flex-row items-center justify-center relative ${activeIcon === 3 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
+              className={`group h-full w-12 sm:w-full sm:h-12 flex flex-row items-center justify-center relative ${activeIcon === 3 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
               onClick={() => handleIconClick(3)}
           >
-            <a className="flex items-center justify-center hover:text-[#8957C3] w-full h-12 cursor-pointer relative">
+            <a className="flex items-center justify-center hover:text-[#8957C3] sm:w-full  h-12 cursor-pointer relative">
               <Person w={'35'} h={'35'} />
             </a>
-            <div className={`absolute top-0 right-0 h-full w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 3 ? 'bg-[#8957C3]' : ''}`}></div>
+            <div className={`absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 3 ? 'bg-[#8957C3]' : 'bg-transparent'}`}></div>
           </div>
 
           <div
-              className={`group w-full h-12 flex flex-row items-center justify-center relative ${activeIcon === 4 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
+              className={`group h-full w-12 sm:w-full sm:h-12 flex flex-row items-center justify-center relative ${activeIcon === 4 ? 'text-[#8957C3]' : 'text-[#EF7D00]'}`}
               onClick={() => {
                 logout();
                 showWarning('Desconectado!');
@@ -73,7 +83,7 @@ function LateralBar({ className }) {
             <a className="flex items-center justify-center rounded hover:text-[#8957C3] cursor-pointer">
               <Exit w={'35'} h={'35'} />
             </a>
-            <div className='absolute top-0 right-0 h-full w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] '></div>
+            <div className='absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] '></div>
           </div>
         </div>
 

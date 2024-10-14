@@ -117,9 +117,9 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
       return prevContacts.map(contact => {
         if (contact?.contact?._id === contactObject?.contact?._id) {
           return { ...contact, lastMessage: {
-              ...contact.lastMessage,
-              seen: true,
-            }, isNotification: false };
+            ...contact.lastMessage,
+            seen: true,
+          }, isNotification: false };
         }
         newMessageNotification = contact;
         return contact;
@@ -139,28 +139,28 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
   };
 
   const filteredContacts = contacts.filter(contactObject =>
-      contactObject.contact.name.toLowerCase().includes(searchTerm.toLowerCase())
+    contactObject.contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-      <aside className={`${className} flex-col h-screen bg-[#FCFCFC] border-2 border-[#E8E8E8]`}>
-        <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        <div className="grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start">
-          {filteredContacts.length > 0 ? (
-              filteredContacts.map(contactObject => (
-                  <Contact
-                      key={contactObject?.contact?.id}
-                      contactObject={contactObject}
-                      onSelect={async () => await onSelectContact(contactObject)}
-                      isSelected={activeContact?._id === contactObject?.contact?._id}
-                      isNotification={contactObject.isNotification}
-                  />
-              ))
-          ) : (
-              contacts.length < 0 ? <LoadingIcon /> : <h1 className='text-gray-900 font-light mt-4'>Não encontramos contatos com esse filtro... 🙁</h1>
-          )}
-        </div>
-      </aside>
+    <aside className={`${className} flex-col h-screen bg-[#FCFCFC] border-2 border-[#E8E8E8]`}>
+      <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <div className="grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start">
+        {filteredContacts.length > 0 ? (
+          filteredContacts.map(contactObject => (
+            <Contact
+              key={contactObject?.contact?.id}
+              contactObject={contactObject}
+              onSelect={async () => await onSelectContact(contactObject)}
+              isSelected={activeContact?._id === contactObject?.contact?._id}
+              isNotification={contactObject.isNotification}
+            />
+          ))
+        ) : (
+          contacts.length < 0 ? <LoadingIcon /> : <h1 className='text-gray-900 font-light mt-4'>Não encontramos contatos com esse filtro... 🙁</h1>
+        )}
+      </div>
+    </aside>
   );
 }
 

@@ -82,22 +82,22 @@ export default function Profile(){
           <h1 className={'text-[#2e2e2e] w-full font-medium'}>Senha:</h1>
           <div className={'flex flex-col items-center sm:flex-row w-full space-y-5 sm:space-y-0 sm:space-x-10'}>
             <GenericInput
-                type={'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onBlur={validatePasswords}
-                className='w-[90%] text-[#2e2e2e]'
-                inputClassName='rounded-xl'
-                label='Senha'
+              type={'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onBlur={validatePasswords}
+              className='w-[90%] text-[#2e2e2e]'
+              inputClassName='rounded-xl'
+              label='Senha'
             />
             <GenericInput
-                type={'password'}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                onBlur={validatePasswords}
-                className='w-[90%] text-[#2e2e2e]'
-                inputClassName='rounded-xl'
-                label='Confirmação de senha'
+              type={'password'}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              onBlur={validatePasswords}
+              className='w-[90%] text-[#2e2e2e]'
+              inputClassName='rounded-xl'
+              label='Confirmação de senha'
             />
           </div>
           {errorMessage && <p className="text-red-500">{errorMessage}</p>}

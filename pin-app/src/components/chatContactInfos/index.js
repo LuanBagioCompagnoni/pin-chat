@@ -17,7 +17,7 @@ export default function ChatContactInfos({contact, className, clearContact}) {
   };
   return (
     <div
-      className={` ${className} bg-[#FCFCFC] flex flex-row items-center border-b-2 border-gray-200 relative`}>
+      className={` ${className} h-[7vh] bg-[#FCFCFC] flex flex-row items-center border-b-2 border-gray-200 relative`}>
       <img className='rounded-full ml-2 w-[45px]' src='https://cdn-icons-png.flaticon.com/512/4645/4645949.png'/>
       <div className={'flex flex-col mb-1'}>
         <h1 className="text-xl break-words font-light ml-6 mx-1 text-gray-800 text-center">{formatName()}</h1>

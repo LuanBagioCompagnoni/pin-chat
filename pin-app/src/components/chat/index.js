@@ -33,7 +33,7 @@ export default function Chat({ selectedContact, className }) {
     setInputMessage(event.target.value);
   };
   return (
-    <div className={`${className} relative h-screen bg-[#F8F8F8]`}>
+    <div className={`${className} relative h-[93vh] bg-[#F8F8F8]`}>
       <div className="absolute inset-0 bg-[url('/chat-bg.jpg')] opacity-10"></div>
 
       <div className='absolute grid grid-col-1 w-full h-[93%]'>

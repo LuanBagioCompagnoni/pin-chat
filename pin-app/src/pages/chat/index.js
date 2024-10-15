@@ -62,7 +62,7 @@ function Home() {
       return (
         <div className="flex">
           <AsideChats
-            className={`order-1 md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw] h-[93vh] sm:h-screen ${selectedContact ? 'hidden md:flex w-full' : 'flex w-full'}`}
+            className={`order-first md:w-[40vw] xl:w-[30vw] 2xl:w-[22vw] h-[93vh] sm:h-screen ${selectedContact ? 'hidden md:flex w-full' : 'flex w-full'}`}
             selectedContact={handleSelectedContact}
             contactList={handleContactList}
             newMessageNotification={newMessageNotification}
@@ -72,7 +72,7 @@ function Home() {
             <Welcome className="order-3 xl:flex md:w-[55vw] xl:w-[74.5vw] md:flex hidden" user={user} />
           ) : (
             <ChatComponent
-              className="order-2 w-screen md:w-[55vw] xl:w-[74.5vw] 2xl:w-[74.5vw]"
+              className="order-last w-screen md:w-[55vw] xl:w-[74.5vw] 2xl:w-[74.5vw]"
               selectedContact={selectedContact}
               clearContact={() => setSelectedContact(null)}
             />
@@ -88,7 +88,7 @@ function Home() {
 
   return (
     <section className="flex w-screen h-screen sm:flex-row flex-col ">
-      <LeftAside className={`${selectedContact ? 'hidden w-0 h-0' : 'xl:w-[3.5vw] md:w-[5vw] md:block order-last sm:order-first h-[7vh] w-full flex-row md:h-screen md:flex-col flex'}`} selectOption={setPageOption} />
+      <LeftAside className={`${selectedContact ? 'hidden w-0 h-0 xl:w-[3.5vw] md:w-[5vw] md:block order-last sm:order-first flex-row md:h-screen md:flex-col' : 'xl:w-[3.5vw] md:w-[5vw] md:block order-last sm:order-first h-[7vh] w-full flex-row md:h-screen md:flex-col flex'}`} selectOption={setPageOption} />
       {renderContent()}
     </section>
   );

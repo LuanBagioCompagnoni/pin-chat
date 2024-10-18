@@ -1,6 +1,5 @@
 import { useAuth } from '@/context/AuthContext';
 import { toast } from 'react-toastify';
-import Modal from '@/components/modal/index.js';
 import React, { useState } from 'react';
 import Person from '@/components/basics/icons/person.js';
 import ContactList from '@/components/basics/icons/contactList.js';
@@ -86,10 +85,6 @@ function LateralBar({ className, selectOption }) {
           <div className='absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] '></div>
         </div>
       </div>
-
-      <Modal isVisible={isUserModalOpen} onClose={closeUserModal} zIndex={70} className="w-screen h-screen">
-        <Profile />
-      </Modal>
     </nav>
   );
 }

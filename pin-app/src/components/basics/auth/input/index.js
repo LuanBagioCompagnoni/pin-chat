@@ -1,8 +1,8 @@
-export default function LineInput({type, placeholder, value, onChange, onBlur}) {
+export default function LineInput({className, inputClassName, type, placeholder, value, onChange, onBlur}) {
   return (
-    <div className="flex items-center border-b border-white py-2 w-full">
+    <div className={`flex items-center border-b py-2 ${className}`}>
       <input
-        className="appearance-none placeholder-gray-50 bg-transparent border-none w-full text-gray-50 mr-3 py-1 px-2 leading-tight focus:outline-none"
+        className={`appearance-none bg-transparent border-none w-full mr-3 py-1 px-2 leading-tight focus:outline-none ${inputClassName}`}
         type={type}
         placeholder={placeholder}
         value={value}

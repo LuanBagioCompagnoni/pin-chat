@@ -43,7 +43,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
   useEffect(() => {
     if (socket && user && !loading) {
-      socket.on('confirmInviteMessage', (messageData) => {
+      socket.on('newMessage', (messageData) => {
         if (messageData.destinationUserId === user._id || messageData.originUserId === user._id) {
           setContacts(prevContacts => {
             const mappedNewMessageContacts = prevContacts.map(contact => {
@@ -101,7 +101,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
       return () => {
         socket.off('newUserOnline');
-        socket.off('notifyMessage');
+        socket.off('newMessage');
         socket.off('contactsList');
         socket.off('updateContactList');
       };
@@ -126,16 +126,19 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
       });
     });
 
-    socket.emit('getMessages', {
+    const currentRoom = localStorage.getItem('currentRoom');
+    if(currentRoom){
+      socket.emit('leaveChat', currentRoom);
+      localStorage.removeItem('currentRoom');
+    }
+
+    socket.emit('startChat', {
       originUserId: user._id,
       destinationUserId: contactObject?.contact._id,
     });
-    if (!contactObject?.lastMessage?.seen && contactObject?.lastMessage?.originUserId !== user._id) {
-      socket.emit('seenMessages', {
-        originUserId: user._id,
-        destinationUserId: contactObject?.contact._id,
-      });
-    }
+    socket.on('joinedRoom', ({room}) => {
+      localStorage.setItem('currentRoom', room);
+    });
   };
 
   const filteredContacts = contacts.filter(contactObject =>

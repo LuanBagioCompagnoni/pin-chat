@@ -2,6 +2,7 @@ import { Server as SocketIO } from 'socket.io';
 import jwt from 'jsonwebtoken';
 import messageHandlers from './sockets/messageHandler.js';
 import contactHandlers from './sockets/contactHandler.js';
+import roomHandler from "./sockets/roomHandler.js";
 import ContactService from "./services/ContactService.js";
 
 let io;
@@ -40,6 +41,7 @@ const initSocket = (server) => {
 
         messageHandlers(socket, io);
         contactHandlers(socket, io);
+        roomHandler(socket, io);
 
         socket.on('disconnect', () => {
             contactService.updateStatus(socket.userId, false, socket.token);

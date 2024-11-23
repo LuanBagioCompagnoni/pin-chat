@@ -32,8 +32,9 @@ function Home() {
         });
       }
 
-      socket.on('notifyMessage', (messageData) => {
+      socket.on('newMessage', (messageData) => {
         const originContact = contactList.find((contact) => contact.contact._id === messageData.originUserId);
+        console.log('notificando nova mensagem', messageData, user._id, originContact);
         if (messageData.destinationUserId === user._id) {
           setNewMessageNotification({ originContact, messageData });
           emitNotification(`Nova mensagem de ${originContact.contact.name}: ${messageData.content}`);
@@ -42,7 +43,7 @@ function Home() {
     }
 
     return () => {
-      socket?.off('notifyMessage');
+      socket?.off('newMessage');
     };
   }, [socket, user, emitNotification, contactList]);
 

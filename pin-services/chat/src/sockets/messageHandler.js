@@ -3,25 +3,10 @@ import MessageService from "../services/MessageService.js";
 const messageHandlers = (socket, io) => {
     const messageService = new MessageService();
 
-    socket.on('sendMessage', async (messageData) => {
+    socket.on('sendMessage', async ({messageData, room}) => {
         await messageService.create(messageData);
 
-        const destinationSocket = Array.from(io.sockets.sockets.values())
-            .find(s => s.userId === messageData.destinationUserId);
-        const originSocket = Array.from(io.sockets.sockets.values())
-            .find(s => s.userId === messageData.originUserId);
-
-        if (destinationSocket) {
-            console.log("notificando mensagen ao destination")
-
-            destinationSocket.emit('receiveMessage', messageData);
-            destinationSocket.emit('notifyMessage', messageData);
-        }
-        if(originSocket) {
-            originSocket.emit('confirmInviteMessage', messageData);
-            originSocket.emit('receiveMessage', messageData);
-            originSocket.emit('notifyMessage', messageData);
-        }
+        io.to(room).emit('newMessage', messageData);
     });
 
     socket.on('getMessages', async (params) => {

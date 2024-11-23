@@ -26,7 +26,7 @@ export default function Messages({ selectedContact }) {
 
   useEffect(() => {
     if (socket) {
-      socket.on('receiveMessage', (newMessage) => {
+      socket.on('newMessage', (newMessage) => {
         const dUser = newMessage?.destinationUserId;
         const oUser = newMessage?.originUserId;
         if ((oUser === selectedContact._id && dUser === user._id) || (oUser === user._id && dUser === selectedContact._id)) {
@@ -50,14 +50,14 @@ export default function Messages({ selectedContact }) {
       });
 
 
-      socket.on('listMessages', (messagesToChat) => {
+      socket.on('joinedRoom', ({messages}) => {
         setIsLoading(false);
-        setMessages(messagesToChat);
+        setMessages(messages);
       });
 
       return () => {
-        socket.off('receiveMessage');
-        socket.off('listMessages');
+        socket.off('newMessage');
+        socket.off('joinedRoom');
         socket.off('seenMessages');
       };
     }

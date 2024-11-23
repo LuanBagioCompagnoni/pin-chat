@@ -12,7 +12,7 @@ export default function Chat({ selectedContact, className }) {
   const sendMessage = (event) => {
     event.preventDefault();
 
-    let newMessage = {
+    let messageData = {
       originUserId: user._id,
       destinationUserId: selectedContact._id,
       type: 'text',
@@ -22,7 +22,7 @@ export default function Chat({ selectedContact, className }) {
     };
 
     if(inputMessage){
-      socket.emit('sendMessage', newMessage);
+      socket.emit('sendMessage', { messageData, room: localStorage.getItem('currentRoom') });
       socket.emit('typing', false);
       setInputMessage('');
     }

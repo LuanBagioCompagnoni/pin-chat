@@ -1,10 +1,14 @@
-import Contact from './contact';
-import SearchInput from '../../basics/searchInput';
 import { useEffect, useState } from 'react';
-import { useSocket } from '@/services/socket.js';
-import { useAuth } from '@/context/AuthContext.js';
+
 import Loading from '@/components/basics/loading/index.js';
 import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
+
+import SearchInput from '../../basics/searchInput';
+
+import Contact from './contact';
+
+import { useAuth } from '@/context/AuthContext.js';
+import { useSocket } from '@/services/socket.js';
 
 function AsideChats({ selectedContact, className, contactList, newMessageNotification }) {
   const { user, token, loading } = useAuth();
@@ -160,7 +164,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
             />
           ))
         ) : (
-          contacts.length < 0 ? <LoadingIcon /> : <h1 className='text-gray-900 font-light mt-4'>Não encontramos contatos com esse filtro... 🙁</h1>
+          contacts.length < 0 ? <LoadingIcon /> : <h1 className="text-gray-900 font-light mt-4">Não encontramos contatos com esse filtro... 🙁</h1>
         )}
       </div>
     </aside>

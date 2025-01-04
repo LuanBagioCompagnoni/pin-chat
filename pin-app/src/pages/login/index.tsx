@@ -1,10 +1,11 @@
 import ProtectedRoute from '@/components/ProtectedRoute.js';
-import Form from '@/components/login/index.js';
-import PageLayout from '@/components/basics/auth/pageLayout/index.js';
+import Form from '@/pages/login/components/loginForm';
+
+import PageLayout from '../../shared/components/auth/pageLayout/layout';
 
 function Login() {
   return (
-    <section className='flex w-screen h-screen'>
+    <section className="flex w-screen h-screen">
       <PageLayout>
         <Form />
       </PageLayout>

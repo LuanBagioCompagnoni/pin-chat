@@ -1,11 +1,14 @@
-import { useAuth } from '@/context/AuthContext';
-import { toast } from 'react-toastify';
 import React, { useState } from 'react';
-import Person from '@/components/basics/icons/person.js';
+import { toast } from 'react-toastify';
+
+import Profile from '@/components/profile/index.js';
+
 import ContactList from '@/components/basics/icons/contactList.js';
 import Exit from '@/components/basics/icons/exit.js';
-import Profile from '@/components/profile/index.js';
 import Home from '@/components/basics/icons/home.js';
+import Person from '@/components/basics/icons/person.js';
+
+import { useAuth } from '@/context/AuthContext';
 
 function LateralBar({ className, selectOption }) {
   const { logout } = useAuth();
@@ -44,7 +47,7 @@ function LateralBar({ className, selectOption }) {
         >
           <a href="#"
             className="flex items-center justify-center rounded hover:text-[#8957C3] w-full h-12 mx-1 cursor-pointer">
-            <Home w={'35'} h={'35'} />
+            <Home w="35" h="35" />
           </a>
           <div className={`absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1  rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 1 ? 'bg-[#8957C3]' : 'bg-transparent'}`}></div>
         </div>
@@ -54,7 +57,7 @@ function LateralBar({ className, selectOption }) {
           onClick={() => handleIconClick(2)}
         >
           <a className="flex items-center justify-center hover:text-[#8957C3] w-full h-12 rounded cursor-pointer">
-            <ContactList w={'35'} h={'35'} />
+            <ContactList w="35" h="35" />
           </a>
           <div className={`absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 2 ? 'bg-[#8957C3]' : 'bg-transparent'}`}></div>
         </div>
@@ -66,7 +69,7 @@ function LateralBar({ className, selectOption }) {
           onClick={() => handleIconClick(3)}
         >
           <a className="flex items-center justify-center hover:text-[#8957C3] sm:w-full  h-12 cursor-pointer relative">
-            <Person w={'35'} h={'35'} />
+            <Person w="35" h="35" />
           </a>
           <div className={`absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] ${activeIcon === 3 ? 'bg-[#8957C3]' : 'bg-transparent'}`}></div>
         </div>
@@ -80,9 +83,9 @@ function LateralBar({ className, selectOption }) {
           }}
         >
           <a className="flex items-center justify-center rounded hover:text-[#8957C3] cursor-pointer">
-            <Exit w={'35'} h={'35'} />
+            <Exit w="35" h="35" />
           </a>
-          <div className='absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] '></div>
+          <div className="absolute top-0 sm:right-0 w-full h-1 sm:h-full sm:w-1 bg-transparent rounded-full transition-all duration-300 ease-in-out group-hover:bg-[#8957C3] "></div>
         </div>
       </div>
     </nav>

@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+
+import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
+
+import { useNotification } from '@/hooks/notification.js';
+
 import { useAuth } from '@/context/AuthContext.js';
 import { useSocket } from '@/services/socket.js';
-import { useNotification } from '@/hooks/notification.js';
-import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -71,7 +74,7 @@ export default function Messages({ selectedContact }) {
 
   return (
     <ul ref={listRef} className="overflow-y-auto w-full h-full p-4 flex flex-col space-y-2 text-gray-900 items-center scrollbar-custom relative">
-      {isLoading ? ( <div className='w-full h-full flex items-center justify-center'><LoadingIcon/></div> ) : ( messages.length > 0 ? (
+      {isLoading ? ( <div className="w-full h-full flex items-center justify-center"><LoadingIcon/></div> ) : ( messages.length > 0 ? (
         user && messages.map((message, index) => {
           const isOrigin = message?.originUserId === user?._id;
           const showDate = index === 0 || formatDate(messages[index - 1].date) !== formatDate(message.date);
@@ -84,8 +87,8 @@ export default function Messages({ selectedContact }) {
               )}
 
               <li className={`flex flex-row space-x-2 items-end w-full ${isOrigin ? 'self-end flex-row-reverse' : 'self-start'}`}>
-                <img className={' rounded-full w-[40px] h-[40px] ml-2 '}
-                  src='https://cdn-icons-png.flaticon.com/512/4645/4645949.png' alt='UserImage'/>
+                <img className=" rounded-full w-[40px] h-[40px] ml-2 "
+                  src="https://cdn-icons-png.flaticon.com/512/4645/4645949.png" alt="UserImage"/>
                 <div className={`flex flex-col rounded-3xl px-4 py-2 max-w-[70%] break-words shadow-md shadow-gray-300 space-y-0.5 ${isOrigin ? 'bg-[#6c2db4] text-gray-50 rounded-br-sm' : 'rounded-bl-sm bg-[#EDEDED]'}`}>
                   <h1 className={`${isOrigin ? 'text-end' : ''} text-xs font-bold`}>{isOrigin ? user.name : selectedContact.name}</h1>
                   <h1 className={`font-light ${isOrigin ? 'text-right mr-0.5' : 'text-left ml-0.5'}`}>{message.content}</h1>
@@ -96,7 +99,7 @@ export default function Messages({ selectedContact }) {
                       className={`text-xs font-extralight mt-2 ${message.originUserId === user._id ? 'self-end' : 'self-start'}`}>
                       {formatTime(message?.date)}
                     </div>
-                    <div className='ml-2 mt-2'>
+                    <div className="ml-2 mt-2">
                       {isOrigin ? (message?.seen ?
                         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="#3ab7ff"
                           class="bi bi-check2-all" viewBox="0 0 16 16">

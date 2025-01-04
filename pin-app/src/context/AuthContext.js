@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import 'dotenv/config.js';
-import {useSocket} from '@/services/socket.js';
 import {toast} from 'react-toastify';
+import { useRouter } from 'next/router';
+
+import 'dotenv/config.js';
+
+import {useSocket} from '@/services/socket.js';
 
 const AuthContext = createContext();
 

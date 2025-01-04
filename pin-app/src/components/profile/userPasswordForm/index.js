@@ -1,6 +1,7 @@
-import GenericInput from '@/components/basics/genericInput/index.js';
-import GenericButton from '@/components/basics/buttons/genericButton.js';
 import {useState} from 'react';
+
+import GenericButton from '@/shared/components/genericButton.tsx';
+import GenericInput from '@/components/basics/genericInput/index.js';
 
 export default function PasswordForm(){
   const [password, setPassword] = useState('');
@@ -24,30 +25,30 @@ export default function PasswordForm(){
     
   return (
     <form onSubmit={handleSubmit}
-      className={'flex flex-col w-full  p-5 rounded-xl space-y-5 shadow-gray-300 items-center'}>
-      <h1 className={'text-[#2e2e2e] w-full font-medium'}>Senha:</h1>
-      <div className={'flex flex-col items-center sm:flex-row w-full space-y-5 sm:space-y-0 sm:space-x-10'}>
+      className="flex flex-col w-full  p-5 rounded-xl space-y-5 shadow-gray-300 items-center">
+      <h1 className="text-[#2e2e2e] w-full font-medium">Senha:</h1>
+      <div className="flex flex-col items-center sm:flex-row w-full space-y-5 sm:space-y-0 sm:space-x-10">
         <GenericInput
-          type={'password'}
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           onBlur={validatePasswords}
-          className='w-[90%] text-[#2e2e2e]'
-          inputClassName='rounded-xl'
-          label='Senha'
+          className="w-[90%] text-[#2e2e2e]"
+          inputClassName="rounded-xl"
+          label="Senha"
         />
         <GenericInput
-          type={'password'}
+          type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           onBlur={validatePasswords}
-          className='w-[90%] text-[#2e2e2e]'
-          inputClassName='rounded-xl'
-          label='Confirmação de senha'
+          className="w-[90%] text-[#2e2e2e]"
+          inputClassName="rounded-xl"
+          label="Confirmação de senha"
         />
       </div>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-      <GenericButton className={'w-[30%] h-10'} type={'submit'} nameButton='Salvar'/>
+      <GenericButton className="w-[30%] h-10" type="submit" nameButton="Salvar"/>
     </form>
   );
 }

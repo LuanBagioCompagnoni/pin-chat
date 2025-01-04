@@ -1,8 +1,11 @@
-import GenericInput from '@/components/basics/genericInput/index.js';
-import GenericButton from '@/components/basics/buttons/genericButton.js';
 import React, {useState} from 'react';
+
+import authFormInput from '@/shared/components/auth/input/index.tsx';
+
+import GenericButton from '@/shared/components/genericButton.tsx';
+import GenericInput from '@/components/basics/genericInput/index.js';
+
 import {useAuth} from '@/context/AuthContext.js';
-import LineInput from '@/components/basics/auth/input/index.js';
 
 export default function GeneralData() {
   const {user} = useAuth();
@@ -18,25 +21,25 @@ export default function GeneralData() {
   };
   return (
     <form
-      className={'flex flex-col w-full p-5 rounded-xl space-y-10  items-center'}>
-      <LineInput
+      className="flex flex-col w-full p-5 rounded-xl space-y-10  items-center">
+      <authFormInput
         type="e-mail"
         placeholder="E-mail"
         value={nameInputValue}
         onChange={handleNameInputChange}
-        className='border-b-2 border-[#dbdbdb] w-[90%] focus:border-amber-200'
-        inputClassName='text-[#2e2e2e] placeholder-[#2e2e2e]'
+        className="border-b-2 border-[#dbdbdb] w-[90%] focus:border-amber-200"
+        inputClassName="text-[#2e2e2e] placeholder-[#2e2e2e]"
       />
-      <LineInput
+      <authFormInput
         type="e-mail"
         placeholder="E-mail"
         value={emailInputValue}
         onChange={handleEmailInputChange}
-        className='border-b-2 border-[#dbdbdb] w-[90%] focus:border-amber-200'
-        inputClassName='text-[#2e2e2e] placeholder-[#2e2e2e]'
+        className="border-b-2 border-[#dbdbdb] w-[90%] focus:border-amber-200"
+        inputClassName="text-[#2e2e2e] placeholder-[#2e2e2e]"
       />
 
-      <GenericButton className={'w-[30%] h-10'} type={'submit'} nameButton='Salvar'/>
+      <GenericButton className="w-[30%] h-10" type="submit" nameButton="Salvar"/>
     </form>
   );
 }

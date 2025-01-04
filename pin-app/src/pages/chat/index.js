@@ -1,13 +1,17 @@
+import { useEffect, useState } from 'react';
+
+import Profile from '@/components/profile/index.js';
+import ProtectedRoute from '@/components/ProtectedRoute.js';
+import Welcome from '@/components/welcome/index.js';
+
+import { useNotification } from '@/hooks/notification.js';
+
+import ChatComponent from '../../components/chat/chatComponent';
 import AsideChats from '../../components/leftAside/contacts';
 import LeftAside from '../../components/leftAside/lateralBar';
-import { useEffect, useState } from 'react';
-import Welcome from '@/components/welcome/index.js';
-import ProtectedRoute from '@/components/ProtectedRoute.js';
+
 import { useAuth } from '@/context/AuthContext.js';
 import { useSocket } from '@/services/socket.js';
-import { useNotification } from '@/hooks/notification.js';
-import ChatComponent from '../../components/chat/chatComponent';
-import Profile from '@/components/profile/index.js';
 
 function Home() {
   const [selectedContact, setSelectedContact] = useState(null);
@@ -34,7 +38,6 @@ function Home() {
 
       socket.on('newMessage', (messageData) => {
         const originContact = contactList.find((contact) => contact.contact._id === messageData.originUserId);
-        console.log('notificando nova mensagem', messageData, user._id, originContact);
         if (messageData.destinationUserId === user._id) {
           setNewMessageNotification({ originContact, messageData });
           emitNotification(`Nova mensagem de ${originContact.contact.name}: ${messageData.content}`);

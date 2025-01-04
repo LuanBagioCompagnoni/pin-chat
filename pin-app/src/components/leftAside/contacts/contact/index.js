@@ -34,14 +34,14 @@ export default function Contact({ contactObject, onSelect, isSelected, isNotific
       onClick={onSelect}
     >
       <div>
-        <a className='w-full h-full py-2 relative flex'>
+        <a className="w-full h-full py-2 relative flex">
           <div>
             {contact?.online ?
-              <div className={'rounded-full bg-[#66BD71] absolute left-4 top-2.5 w-3.5 h-3.5'}></div> : <div className={'rounded-full bg-[#E57370] absolute left-4 top-2.5 w-3.5 h-3.5'}></div>
+              <div className="rounded-full bg-[#66BD71] absolute left-4 top-2.5 w-3.5 h-3.5"></div> : <div className="rounded-full bg-[#E57370] absolute left-4 top-2.5 w-3.5 h-3.5"></div>
             }
-            <img className='rounded-full w-[50px] ml-4' src='https://cdn-icons-png.flaticon.com/512/4645/4645949.png' alt='UserImage'/>
+            <img className="rounded-full w-[50px] ml-4" src="https://cdn-icons-png.flaticon.com/512/4645/4645949.png" alt="UserImage"/>
           </div>
-          <div className='content-center '>
+          <div className="content-center ">
             <h1 className="text-lg font-bold pl-4 text-[#2E2E2E]">{formatName()}</h1>
             <div className="flex">
               <div className="">

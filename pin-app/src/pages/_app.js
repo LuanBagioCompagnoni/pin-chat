@@ -1,9 +1,11 @@
+import { ToastContainer } from 'react-toastify';
+import {Noto_Sans} from '@next/font/google';
+import Head from 'next/head';
+
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+
 import { AuthProvider } from '@/context/AuthContext';
-import Head from 'next/head';
-import {Noto_Sans} from '@next/font/google';
 
 const notoSans = Noto_Sans({
   subsets: ['latin'],

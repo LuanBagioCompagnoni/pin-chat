@@ -1,0 +1,53 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es2021": true,
+    "node": true,
+    "jest": true,
+    "jquery": true
+  },
+  "extends": [
+    "airbnb-base"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "brace-style": ["error", "stroustrup"],
+    "class-methods-use-this": ["off"],
+    "comma-dangle": ["error", "never"],
+    "curly": ["error", "multi-line", "consistent"],
+    "global-require": 0,
+    "guard-for-in": ["off"],
+    "indent": ["error", 4,  { "SwitchCase": 1 }],
+    "max-len": ["warn", {
+      "code": 160,
+      "ignoreComments": true,
+      "ignoreTrailingComments": true
+    }],
+    "no-await-in-loop": ["off"],
+    "no-console": ["off"],
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    "no-param-reassign": ["off"],
+    "no-plusplus": ["off"],
+    "no-restricted-syntax": ["off"],
+    "no-template-curly-in-string": ["off"],
+    "no-underscore-dangle": ["off"],
+    "no-unused-expressions": ["error", { "allowTernary": true }],
+    "nonblock-statement-body-position": ["error", "any"],
+    "object-curly-newline": ["error", { "consistent": true }],
+    "padded-blocks": ["error", {
+      "blocks": "never",
+      "classes": "always"
+    }],
+    "radix": ["error", "as-needed"]
+  },
+  "globals": {
+    "__": "readonly",
+    "__n": "readonly",
+    "apiErp": "readonly",
+    "apiCrm": "readonly",
+    "io": "readonly"
+  }
+}

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import Profile from '@/components/profile/index.js';
+import Profile from '@/components/profile/index';
 
-import ContactList from '@/components/basics/icons/contactList.js';
-import Exit from '@/components/basics/icons/exit.js';
-import Home from '@/components/basics/icons/home.js';
-import Person from '@/components/basics/icons/person.js';
+import ContactList from '@/components/basics/icons/contactList';
+import Exit from '@/components/basics/icons/exit';
+import Home from '@/components/basics/icons/home';
+import Person from '@/components/basics/icons/person';
 
 import { useAuth } from '@/context/AuthContext';
 

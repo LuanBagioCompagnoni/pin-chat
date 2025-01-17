@@ -1,4 +1,17 @@
-export default function Contact({ contactObject, onSelect, isSelected, isNotification }) {
+import {Message} from '@/shared/types/Message';
+import {User} from '@/shared/types/User';
+
+interface ContactItemProps {
+  contactObject: {
+    contact: User,
+    lastMessage: Message
+  };
+  onSelect: (contactObject: User) => void;
+  isSelected: boolean;
+  isNotification: boolean;
+}
+
+export default function ContactItem({ contactObject, onSelect, isSelected, isNotification }: ContactItemProps) {
   const {contact, lastMessage} = contactObject;
 
   const formatTime = (date) => {

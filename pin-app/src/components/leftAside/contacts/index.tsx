@@ -1,26 +1,25 @@
 import { useEffect, useState } from 'react';
 
-import Loading from '@/components/basics/loading/index.js';
-import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
+import LoadingIcon from '@/components/basics/loading/loadingIcon';
 
 import SearchInput from '../../basics/searchInput';
 
-import Contact from './contact';
+import ContactItem from './contact';
 
-import { useAuth } from '@/context/AuthContext.js';
-import { useSocket } from '@/services/socket.js';
+import { useAuth } from '@/context/AuthContext';
+import { useSocket } from '@/services/socket.ts';
 
-function AsideChats({ selectedContact, className, contactList, newMessageNotification }) {
-  const { user, token, loading } = useAuth();
-  const { socket } = useSocket(token);
-  const [contacts, setContacts] = useState([]);
+function AsideChats({selectedContact, className, contactList, newMessageNotification, contactsArray}) {
+  const {user, token, loading} = useAuth();
+  const {socket} = useSocket(token);
+  const [contacts, setContacts] = useState(contactsArray);
   const [activeContact, setActiveContact] = useState(null);
   const [lastLocalNewMessageNotification, setLastLocalNewMessageNotification] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para armazenar o termo de busca
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (socket && user && newMessageNotification !== lastLocalNewMessageNotification) {
-      const { originContact, messageData } = newMessageNotification;
+      const {originContact, messageData} = newMessageNotification;
 
       setContacts(prevContacts => {
         const mappedNewMessageContacts = prevContacts.map(contact => {
@@ -30,7 +29,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
             if (activeContact?._id !== originContact.contact._id) {
               isNotification = !messageData.seen;
             }
-            return { ...contact, isNotification, lastMessage: messageData };
+            return {...contact, isNotification, lastMessage: messageData};
           }
           return contact;
         });
@@ -52,7 +51,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
           setContacts(prevContacts => {
             const mappedNewMessageContacts = prevContacts.map(contact => {
               if (contact?.contact?._id === messageData.destinationUserId) {
-                return { ...contact, lastMessage: messageData };
+                return {...contact, lastMessage: messageData};
               }
               return contact;
             });
@@ -114,16 +113,18 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
   const onSelectContact = async (contactObject) => {
     contactObject.isNotification = false;
-    await setActiveContact(contactObject?.contact);
+    setActiveContact(contactObject?.contact);
     await selectedContact(contactObject?.contact);
 
-    await setContacts(prevContacts => {
+    setContacts(prevContacts => {
       return prevContacts.map(contact => {
         if (contact?.contact?._id === contactObject?.contact?._id) {
-          return { ...contact, lastMessage: {
-            ...contact.lastMessage,
-            seen: true,
-          }, isNotification: false };
+          return {
+            ...contact, lastMessage: {
+              ...contact.lastMessage,
+              seen: true,
+            }, isNotification: false
+          };
         }
         newMessageNotification = contact;
         return contact;
@@ -131,7 +132,7 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
     });
 
     const currentRoom = localStorage.getItem('currentRoom');
-    if(currentRoom){
+    if (currentRoom) {
       socket.emit('leaveChat', currentRoom);
       localStorage.removeItem('currentRoom');
     }
@@ -151,11 +152,12 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
 
   return (
     <aside className={`${className} flex-col h-screen bg-[#FCFCFC] border-2 border-[#E8E8E8]`}>
-      <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-      <div className="grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start">
+      <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
+      <div 
+        className="grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start">
         {filteredContacts.length > 0 ? (
           filteredContacts.map(contactObject => (
-            <Contact
+            <ContactItem
               key={contactObject?.contact?.id}
               contactObject={contactObject}
               onSelect={async () => await onSelectContact(contactObject)}
@@ -164,7 +166,8 @@ function AsideChats({ selectedContact, className, contactList, newMessageNotific
             />
           ))
         ) : (
-          contacts.length < 0 ? <LoadingIcon /> : <h1 className="text-gray-900 font-light mt-4">Não encontramos contatos com esse filtro... 🙁</h1>
+          contacts.length < 0 ? <LoadingIcon/> :
+            <h1 className="text-gray-900 font-light mt-4">Não encontramos contatos com esse filtro... 🙁</h1>
         )}
       </div>
     </aside>

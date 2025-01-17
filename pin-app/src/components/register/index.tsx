@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 
 import AuthSwitcher from '@/shared/components/auth/authSwitcher/index';
 import AuthFormInput from '@/shared/components/auth/input/index';
 import GenericButton from '@/shared/components/genericButton';
 
-import Loading from '@/components/basics/loading/index';
+import Loading from '@/components/basics/loading';
 import Form from '@/components/form/index';
 
 import { useAuth } from '@/context/AuthContext';
@@ -18,14 +17,11 @@ const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { register } = useAuth();
-  const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      if(await register(name, email, password)){
-        await router.push('/chat');
-      }
+      await register(name, email, password)
     } catch{
     } finally {
       setIsLoading(false);

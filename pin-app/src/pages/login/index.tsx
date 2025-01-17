@@ -1,4 +1,4 @@
-import ProtectedRoute from '@/components/ProtectedRoute.js';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import Form from '@/pages/login/components/loginForm';
 
 import PageLayout from '../../shared/components/auth/pageLayout/layout';

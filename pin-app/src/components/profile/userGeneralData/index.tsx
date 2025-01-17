@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 
-import authFormInput from '@/shared/components/auth/input/index.tsx';
+import authFormInput from '@/shared/components/auth/input/index';
 
-import GenericButton from '@/shared/components/genericButton.tsx';
-import GenericInput from '@/components/basics/genericInput/index.js';
+import GenericButton from '@/shared/components/genericButton';
+import GenericInput from '@/components/basics/genericInput';
 
-import {useAuth} from '@/context/AuthContext.js';
+import {useAuth} from '@/context/AuthContext';
 
 export default function GeneralData() {
   const {user} = useAuth();

@@ -1,7 +1,7 @@
-import PageLayout from '@/shared/components/auth/pageLayout/layout.tsx';
+import PageLayout from '@/shared/components/auth/pageLayout/layout';
 
-import ProtectedRoute from '@/components/ProtectedRoute.js';
-import Form from '@/components/register/index.js';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import Form from '@/components/register';
 
 function Register() {
   return (

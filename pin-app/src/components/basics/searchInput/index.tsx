@@ -1,4 +1,9 @@
-export default function SearchInput({value, onChange}) {
+interface SearchInputProps {
+    value: string;
+    onChange: (value: string) => void;
+}
+
+export default function SearchInput({value, onChange}: SearchInputProps) {
   return (
     <form className="m-2">
       <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only">

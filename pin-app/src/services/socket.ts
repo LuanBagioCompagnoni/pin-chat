@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 
 let socket;
 
-export const useSocket = (token) => {
+export const useSocket = (token: string) => {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {

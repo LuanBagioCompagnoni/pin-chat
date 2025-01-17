@@ -5,6 +5,7 @@ import MessageService from "../services/MessageService.js";
 const messageHandlers = (socket, io) => {
     const messageService = new MessageService();
     const contactService = new ContactService();
+    console.log(socket)
     socket.on('getContacts', async (userId) => {
         const destinationSocket = Array.from(io.sockets.sockets.values())
             .find(s => s.userId === userId);

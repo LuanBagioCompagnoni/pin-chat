@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { useAuth } from '../context/AuthContext';
-
 import Loading from './basics/loading';
+
+import { useAuth } from '@/context/AuthContext';
 
 const ProtectedRoute = (Component) => {
   const Wrapper = (props) => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
+import LoadingIcon from '@/components/basics/loading/loadingIcon';
 
-import { useNotification } from '@/hooks/notification.js';
+import { useNotification } from '@/hooks/notification';
 
-import { useAuth } from '@/context/AuthContext.js';
-import { useSocket } from '@/services/socket.js';
+import { useAuth } from '@/context/AuthContext';
+import { useSocket } from '@/services/socket.ts';
 
 const formatDate = (date) => {
   const d = new Date(date);

@@ -1,20 +1,27 @@
 import { wrapPromise } from '@/shared/utils/wrapPromise';
 
-const contactResourceCache = new Map(); 
+import {ContactObject} from '@/shared/types/contactObject';
 
-export function fetchContact(socket, userId) {
+const contactResourceCache = new Map();
+
+export function fetchContact(socket: any, userId: string) {
   if (!contactResourceCache.has(userId)) {
     const contactsPromise = new Promise((resolve) => {
       socket.emit('getContacts', userId);
 
-      socket.on('contactsList', (userContacts) => {
+      socket.on('contactsList', (userContacts: ContactObject[]) => {
         resolve(
           userContacts.map((contact) => ({
             ...contact,
             isNotification:
                   contact?.lastMessage?.originUserId !== userId &&
                   (contact.lastMessage ? !contact?.lastMessage?.seen : false),
-          })).sort((a) => a.lastMessage?.date ? -1 : 1)
+          })).sort((a, b) => {
+            const dateA = a?.lastMessage?.date ? new Date(a.lastMessage.date).getTime() : 0;
+            const dateB = b?.lastMessage?.date ? new Date(b.lastMessage.date).getTime() : 0;
+
+            return dateB - dateA; 
+          })
         );
       });
     });

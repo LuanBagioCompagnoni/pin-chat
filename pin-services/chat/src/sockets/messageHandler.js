@@ -6,7 +6,14 @@ const messageHandlers = (socket, io) => {
     socket.on('sendMessage', async ({messageData, room}) => {
         await messageService.create(messageData);
 
+        const destinationSocket = Array.from(io.sockets.sockets.values())
+            .find(s => s.userId === messageData.destinationUserId);
+        const originSocket = Array.from(io.sockets.sockets.values())
+            .find(s => s.userId === messageData.originUserId);
+
         io.to(room).emit('newMessage', messageData);
+        destinationSocket.emit('newMessage:notification', messageData);
+        originSocket.emit('newMessage:notification', messageData);
     });
 
     socket.on('getMessages', async (params) => {
@@ -17,7 +24,6 @@ const messageHandlers = (socket, io) => {
     });
 
     socket.on('seenMessages', async (params) => {
-        console.log("Seening messages");
         await messageService.seenMessages(params.originUserId, params.destinationUserId);
 
         const destinationSocket = Array.from(io.sockets.sockets.values())

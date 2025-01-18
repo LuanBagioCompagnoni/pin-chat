@@ -2,16 +2,16 @@ import ContactsBar from '@/components/leftAside/contacts/newContactsBar/contacts
 
 import { fetchContact } from '../../../../../socket/fetchContacts';
 
-export default function ContactsBarWrapper({ socket, userId, ...props }) {
+export default function ContactsBarWrapper({ socket, userId, selectedContact}) {
   const contactResource = fetchContact(socket, userId);
   const contacts = contactResource.read();
 
   return (
     <ContactsBar
-      {...props}
       contactsList={contacts}
       userId={userId}
       socket={socket}
+      selectedContact={selectedContact}
     />
   );
 }

@@ -22,7 +22,6 @@ const roomHandler = (socket, io) => {
     })
 
     socket.on('leaveChat', async (room) => {
-        console.log('saindo do chat', room)
         socket.leave(room);
     })
 };

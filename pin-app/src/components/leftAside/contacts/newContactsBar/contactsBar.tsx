@@ -1,40 +1,71 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 import SearchInput from '@/components/basics/searchInput';
 import ContactsContainer from '@/components/leftAside/contacts/newContactsBar/contactsContainer';
 
+import {ContactObject} from '@/shared/types/contactObject';
 import {Message} from '@/shared/types/Message'
 import {User} from '@/shared/types/User'
 
 import ContactItem from '../contact'
 
-interface contactObject {
-    contact: User;
-    lastMessage: Message;
-    isNotification: boolean;
-}
-
 interface ContactsBarProps {
-    contactsList: contactObject[],
+    contactsList: ContactObject[],
     selectedContact: (contact: User) => void,
     socket: any,
     userId: string,
-    contactList?: any
 }
 
-export default function ContactsBar({
-  contactsList,
-  selectedContact,
-  socket,
-  userId,
-  contactList
-}: ContactsBarProps) {
+export default function ContactsBar({contactsList, selectedContact, socket, userId }: ContactsBarProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeContact, setActiveContact] = useState(null);
-  const [contacts] = useState(contactsList);
+  const [contacts, setContacts] = useState(contactsList);
+
+  const filteredContacts = searchTerm.length ? contacts.filter((contact) => contact.contact.name.toLowerCase().includes(searchTerm.toLowerCase())) : contacts;
+
+  const updateContactsListOnNewMessage = (message: Message) => {
+    console.log(message)
+    setContacts((prevContacts) => {
+      return prevContacts.map((contact) => {
+
+        if (contact.contact._id === message.originUserId && !contact.isSelected) {
+          return {...contact, isNotification: true};
+        }
+
+        if(contact.contact._id === message.originUserId) {
+          return { ...contact, lastMessage: message}
+        }
+
+        return contact;
+      }).sort((a, b) => {
+        const dateA = a?.lastMessage?.date ? new Date(a.lastMessage.date).getTime() : 0;
+        const dateB = b?.lastMessage?.date ? new Date(b.lastMessage.date).getTime() : 0;
+
+        return dateB - dateA;
+      })
+    })
+  }
+
+  useEffect(() => {
+    if (socket && userId) {
+      socket.on('newMessage:notification', (message: Message) => {
+        updateContactsListOnNewMessage(message);
+      })
+
+      socket.on('joinedRoom', ({room}) => {
+        localStorage.setItem('currentRoom', room);
+      })
+    }
+    return () => {
+      if (socket) {
+        socket?.off('joinedRoom');
+        socket?.off('newMessage:notification');
+      }
+    };
+  }, [socket, userId]);
 
   const startChatWithContact = async (contact: User) => {
     const currentRoom = localStorage.getItem('currentRoom');
+
     if (currentRoom) {
       socket.emit('leaveChat', currentRoom);
       localStorage.removeItem('currentRoom');
@@ -44,20 +75,18 @@ export default function ContactsBar({
       originUserId: userId,
       destinationUserId: contact._id,
     })
-    socket.on('joinedRoom', ({room}) => {
-      localStorage.setItem('currentRoom', room);
-    })
   }
 
-  const onSelectContact = async (selectedContactObject: contactObject) => {
-    selectedContactObject.isNotification = false;
-    setActiveContact(selectedContactObject?.contact);
+  const onSelectContact = async (selectedContactObject: ContactObject) => {
     selectedContact(selectedContactObject?.contact);
 
-    const currentContactIndex = contacts.indexOf(selectedContactObject)
+    const currentContactIndex = filteredContacts.indexOf(selectedContactObject)
+
     if (currentContactIndex !== -1) {
-      contacts[currentContactIndex].lastMessage.seen = true;
-      contacts[currentContactIndex].isNotification = false;
+      filteredContacts.forEach((contact) => contact.isSelected = false);
+      filteredContacts[currentContactIndex].lastMessage.seen = true;
+      filteredContacts[currentContactIndex].isNotification = false;
+      filteredContacts[currentContactIndex].isSelected = true;
     }
 
     await startChatWithContact(selectedContactObject.contact);
@@ -68,15 +97,14 @@ export default function ContactsBar({
       <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
       <ContactsContainer>
         {
-          contactsList.map((contactObject) => (
+          filteredContacts.length ? filteredContacts.map((contactObject) => (
             <ContactItem
               key={contactObject?.contact?._id}
               contactObject={contactObject}
-              onSelect={() => onSelectContact(contactObject)}
-              isSelected={activeContact?._id === contactObject?.contact?._id}
+              onSelect={async () => await onSelectContact(contactObject)}
               isNotification={contactObject.isNotification}
             />
-          ))
+          )) : (<h1 className="text-gray-900 font-light mt-4">Não encontramos contatos com esse filtro... 🙁</h1>)
         }
       </ContactsContainer>
     </div>

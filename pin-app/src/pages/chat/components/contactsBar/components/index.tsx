@@ -1,8 +1,3 @@
-<<<<<<<< HEAD:pin-app/src/pages/chat/components/contactsBar/components/item.tsx
-import React from 'react';
-
-========
->>>>>>>> c07411c (refactor:  refatorado front-end e adicionado skeleton loading para os contatos):pin-app/src/pages/chat/components/contactsBar/components/index.tsx
 import {Message} from '@/shared/types/Message';
 import {User} from '@/shared/types/User';
 
@@ -10,23 +5,13 @@ interface ContactItemProps {
   contactObject: {
     contact: User,
     lastMessage: Message
-<<<<<<<< HEAD:pin-app/src/pages/chat/components/contactsBar/components/item.tsx
     isSelected?: boolean
   };
   onSelect: (contactObject: User) => void;
   isNotification: boolean;
 }
 
-export default function Item({ contactObject, onSelect, isNotification }: ContactItemProps) {
-========
-  };
-  onSelect: (contactObject: User) => void;
-  isSelected: boolean;
-  isNotification: boolean;
-}
-
-export default function ContactItem({ contactObject, onSelect, isSelected, isNotification }: ContactItemProps) {
->>>>>>>> c07411c (refactor:  refatorado front-end e adicionado skeleton loading para os contatos):pin-app/src/pages/chat/components/contactsBar/components/index.tsx
+export default function ContactItem({ contactObject, onSelect, isNotification }: ContactItemProps) {
   const {contact, lastMessage} = contactObject;
 
   const formatTime = (date) => {
@@ -41,6 +26,7 @@ export default function ContactItem({ contactObject, onSelect, isSelected, isNot
 
   const formatName = () => {
     const name = `${contact.name.slice(0, 20)}${contact.name.length > 20 ? '...' : ''}`;
+
 
     const prepositions = ['de', 'da', 'do', 'das', 'dos'];
     const nameParts = name.split(' ');
@@ -58,10 +44,7 @@ export default function ContactItem({ contactObject, onSelect, isSelected, isNot
       className={` hover:bg-[#e8e8e8] w-[98%] h-16 items-center justify-center shadow-gray-400 shadow-sm rounded-2xl mb-2 cursor-pointer 
       ${contactObject.isSelected ? 'bg-[#EDEDED]' : 'bg-[#F8F8F8]'}`
       }
-      onClick={(e) => {
-        e.preventDefault();
-        onSelect(contact);
-      }}
+      onClick={onSelect}
     >
       <div>
         <a className="w-full h-full py-2 relative flex">

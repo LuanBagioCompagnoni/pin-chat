@@ -1,17 +1,18 @@
 import {Suspense, useEffect, useState} from 'react';
 
-import ContactsBarSkeleton from '@/components/leftAside/contacts/newContactsBar/contactsBarSkeleton';
 import ContactsBarWrapper from '@/components/leftAside/contacts/newContactsBar/contacsBarWrapper';
+import ContactsBarSkeleton from '@/components/leftAside/contacts/newContactsBar/contactsBarSkeleton';
+import SideContactsColumn from '@/components/leftAside/contacts/newContactsBar/contactsSideColumn'
 import Profile from '@/components/profile';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Welcome from '@/components/welcome';
 
 import { useNotification } from '@/hooks/notification';
 
+import { User } from '@/shared/types/User'
+
 import ChatComponent from '../../components/chat/chatComponent';
 import LeftAside from '../../components/leftAside/lateralBar';
-
-import SideContactsColumn from '@/components/leftAside/contacts/newContactsBar/contactsSideColumn'
 
 import { useAuth } from '@/context/AuthContext';
 import { useSocket } from '@/services/socket.ts';
@@ -22,7 +23,6 @@ function Home() {
   const { emitNotification } = useNotification();
   const { user, token } = useAuth();
   const { socket } = useSocket(token);
-  const [newMessageNotification, setNewMessageNotification] = useState(null);
   const [pageOption, setPageOption] = useState(null);
 
   useEffect(() => {
@@ -30,6 +30,23 @@ function Home() {
       setSelectedContact(null);
     }
   }, [pageOption]);
+  
+  useEffect(()  => {
+    if (socket) {
+      socket.on('newMessage', (messageData) => {
+        console.log('Home newMessage')
+        const originContact = contactList.find((contact) => contact.contact._id === messageData.originUserId);
+        if (messageData.destinationUserId === user._id) {
+          emitNotification(`Nova mensagem de ${originContact.contact.name}: ${messageData.content}`);
+        }
+      });
+    }
+    return () => {
+      if (socket) {
+        socket.off('newMessage');
+      }
+    }
+  }, [socket])
 
   useEffect(() => {
     if (socket && user) {
@@ -38,27 +55,15 @@ function Home() {
           setContactList(userContacts);
         });
       }
-
-      socket.on('newMessage', (messageData) => {
-        const originContact = contactList.find((contact) => contact.contact._id === messageData.originUserId);
-        if (messageData.destinationUserId === user._id) {
-          setNewMessageNotification({ originContact, messageData });
-          emitNotification(`Nova mensagem de ${originContact.contact.name}: ${messageData.content}`);
-        }
-      });
     }
 
     return () => {
-      socket?.off('newMessage');
+      socket?.off('joinedRoom');
     };
   }, [socket, user, emitNotification, contactList]);
 
-  const handleSelectedContact = (contact) => {
+  const handleSelectedContact = (contact: User) => {
     setSelectedContact(contact);
-  };
-
-  const handleContactList = (contacts) => {
-    setContactList(contacts);
   };
 
   const renderContent = () => {
@@ -76,7 +81,6 @@ function Home() {
                 socket={socket}
                 userId={user._id}
                 selectedContact={handleSelectedContact}
-                newMessageNotification={newMessageNotification}
               />
             </Suspense>
           </SideContactsColumn>

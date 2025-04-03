@@ -1,4 +1,8 @@
-export default function LoadingIcon({className}) {
+interface LoadingIconProps {
+    className?: string
+}
+
+export default function LoadingIcon({className}: LoadingIconProps) {
   return (
     <svg className={`${className} animate-spin h-10 w-10 mt-5 text-[#ef7d00]`} xmlns="http://www.w3.org/2000/svg" fill="none"
       viewBox="0 0 24 24">

@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export default function MessageInput({ onChange, onSubmit, value, selectedContact }) {
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (inputRef.current) {

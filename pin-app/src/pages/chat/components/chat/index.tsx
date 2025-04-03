@@ -5,12 +5,7 @@ import MessageInput from '../../../../components/basics/messageInput';
 import Messages from './messages';
 
 import {useAuth} from '@/context/AuthContext';
-import { useSocket } from '@/services/socket.ts';
-
-interface chatProps {
-  selectedContact: any,
-  className?: string,
-}
+import { useSocket } from '@/services/socket';
 
 export default function Chat({ selectedContact, className }) {
   const { user, token } = useAuth();
@@ -53,8 +48,6 @@ export default function Chat({ selectedContact, className }) {
           onSubmit={sendMessage}
           value={inputMessage}
           onChange={handleInputChange}
-          className="absolute inset-x-0"
-          style={{height: '100%', overflowY: 'auto', resize: 'none'}}
         />
       </div>
     </div>

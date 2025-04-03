@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import 'dotenv/config';
 
-import {useSocket} from '@/services/socket.ts';
+import {useSocket} from '@/services/socket';
 
 interface AuthContextType {
   user: any;

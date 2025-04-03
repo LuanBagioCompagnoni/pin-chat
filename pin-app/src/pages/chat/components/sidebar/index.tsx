@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import Profile from '@/components/profile/index';
-
 import ContactList from '@/components/basics/icons/contactList';
 import Exit from '@/components/basics/icons/exit';
 import Home from '@/components/basics/icons/home';
@@ -13,16 +11,7 @@ import { useAuth } from '@/context/AuthContext';
 function LateralBar({ className, selectOption }) {
   const { logout } = useAuth();
   const showWarning = (message) => toast.warning(message);
-  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [activeIcon, setActiveIcon] = useState(null);
-
-  const openUserModal = () => {
-    setIsUserModalOpen(true);
-  };
-
-  const closeUserModal = () => {
-    setIsUserModalOpen(false);
-  };
 
   const handleIconClick = (index) => {
     setActiveIcon(index);
@@ -31,7 +20,7 @@ function LateralBar({ className, selectOption }) {
       selectOption('home');
       break;
     case 2:
-      selectOption('contacts');
+      selectOption('contactsBar');
       break;
     case 3:
       selectOption('profile');

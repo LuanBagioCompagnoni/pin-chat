@@ -8,7 +8,7 @@ export default function ChatContactInfos({contact, className, clearContact}) {
 
     const formatedName = nameParts.map(part => {
       if (prepositions.includes(part.toLowerCase())) {
-        return part.toLowerCase(); 
+        return part.toLowerCase();
       }
       return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
     });
@@ -34,16 +34,12 @@ export default function ChatContactInfos({contact, className, clearContact}) {
         }
       </div>
       <a className="text-[#ef7d00] absolute right-7 top-1/2 transform -translate-y-1/2 cursor-pointer" onClick={clearContact}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg"
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x-lg"
           viewBox="0 0 16 16">
           <path
             d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
         </svg>
       </a>
-
-
-      {/*<ContactInfos contact={contact} />*/}
-      {/*<Observations />*/}
     </div>
   );
 }

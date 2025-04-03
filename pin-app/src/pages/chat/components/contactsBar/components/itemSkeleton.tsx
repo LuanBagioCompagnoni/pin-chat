@@ -1,4 +1,4 @@
-export default function contactItemSkeleton() {
+export default function itemSkeleton() {
   return (
     <div
       className="hover:bg-[#e8e8e8] w-[98%] h-16 items-center justify-center rounded-2xl mb-2 cursor-pointer bg-[#F8F8F8]"

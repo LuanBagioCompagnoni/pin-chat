@@ -1,8 +1,8 @@
 import {useState} from 'react';
 
-import MessageInput from '../basics/messageInput';
+import MessageInput from '../../../../components/basics/messageInput';
 
-import Messages from './messages/index';
+import Messages from './messages';
 
 import {useAuth} from '@/context/AuthContext';
 import { useSocket } from '@/services/socket.ts';

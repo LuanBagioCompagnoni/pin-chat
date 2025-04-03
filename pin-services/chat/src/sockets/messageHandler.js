@@ -12,8 +12,8 @@ const messageHandlers = (socket, io) => {
             .find(s => s.userId === messageData.originUserId);
 
         io.to(room).emit('newMessage', messageData);
-        destinationSocket.emit('newMessage:notification', messageData);
-        originSocket.emit('newMessage:notification', messageData);
+        if (destinationSocket) destinationSocket.emit('newMessage:notification', messageData);
+        if (originSocket) originSocket.emit('newMessage:notification', messageData);
     });
 
     socket.on('getMessages', async (params) => {

@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
-import AuthSwitcher from '@/shared/components/auth/authSwitcher';
-import AuthFormInput from '@/shared/components/auth/input';
+import AuthSwitcher from '@/shared/components/auth/authSwitcher/index';
+import AuthFormInput from '@/shared/components/auth/input/index';
 import GenericButton from '@/shared/components/genericButton';
 
-import Loading from '@/components/basics/loading';
-import Form from '@/components/form';
+import Loading from '@/components/basics/loading/index';
+import Form from '@/components/form/index';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -17,11 +18,14 @@ const RegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { register } = useAuth();
+  const router = useRouter();
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      await register(name, email, password)
+      if(await register(name, email, password)){
+        await router.push('/chat');
+      }
     } catch{
     } finally {
       setIsLoading(false);
@@ -37,7 +41,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <Form handleSubmit={handleSubmit} >
+    <Form onSubmit={handleSubmit} >
       <h1 className="text-gray-50 font-extrabold text-5xl">Registro</h1>
       <div className="w-[85%]">
         <AuthFormInput
@@ -61,7 +65,7 @@ const RegisterForm = () => {
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onBlur={(e) => validatePasswords(e)}
+          onBlur={validatePasswords}
           className="w-full md:w-[50%]"
         />
         <AuthFormInput

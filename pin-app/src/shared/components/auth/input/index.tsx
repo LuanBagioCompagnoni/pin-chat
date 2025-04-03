@@ -9,7 +9,7 @@ interface authFormInputProps {
     placeholder?: string;
     value?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
-    onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+    onBlur?: () => void;
 }
 
 export default function AuthFormInput({ className, inputClassName, type, placeholder, value, onChange, onBlur }: authFormInputProps) {

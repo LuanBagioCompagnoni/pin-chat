@@ -1,16 +1,11 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import MessageInput from '../../../../components/basics/messageInput';
+import MessageInput from '../basics/messageInput';
 
 import Messages from './messages';
 
-import {useAuth} from '@/context/AuthContext';
-import { useSocket } from '@/services/socket.ts';
-
-interface chatProps {
-  selectedContact: any,
-  className?: string,
-}
+import {useAuth} from '@/context/AuthContext.js';
+import { useSocket } from '@/services/socket.js';
 
 export default function Chat({ selectedContact, className }) {
   const { user, token } = useAuth();

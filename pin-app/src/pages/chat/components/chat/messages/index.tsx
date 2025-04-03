@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import LoadingIcon from '@/components/basics/loading/loadingIcon';
+import LoadingIcon from '@/components/basics/loading/loadingIcon.js';
 
-import { useNotification } from '@/hooks/notification';
+import { useNotification } from '@/hooks/notification.js';
 
-import { useAuth } from '@/context/AuthContext';
-import { useSocket } from '@/services/socket.ts';
+import { useAuth } from '@/context/AuthContext.js';
+import { useSocket } from '@/services/socket.js';
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -28,27 +28,21 @@ export default function Messages({ selectedContact }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if(socket) {
+    if (socket) {
       socket.on('newMessage', (newMessage) => {
-        console.log('Messages newMessage')
         const dUser = newMessage?.destinationUserId;
         const oUser = newMessage?.originUserId;
         if ((oUser === selectedContact._id && dUser === user._id) || (oUser === user._id && dUser === selectedContact._id)) {
           setMessages((prevMessages) => [...prevMessages, newMessage]);
         }
       });
-    }
-    return () => {
-      socket.off('newMessage');
-    }
-  }, [selectedContact._id, socket, user._id]);
 
-  useEffect(() => {
-    if (socket) {
       socket.on('seenMessages', (destinationUserId) => {
+        console.log('SeenMessages', destinationUserId, selectedContact);
         if (selectedContact._id === destinationUserId) {
           setMessages(prevMessages =>
             prevMessages.map(message => {
+              console.log(message);
               if (!message?.seen) {
                 return { ...message, seen: true };
               }
@@ -58,12 +52,14 @@ export default function Messages({ selectedContact }) {
         }
       });
 
+
       socket.on('joinedRoom', ({messages}) => {
         setIsLoading(false);
         setMessages(messages);
       });
 
       return () => {
+        socket.off('newMessage');
         socket.off('joinedRoom');
         socket.off('seenMessages');
       };

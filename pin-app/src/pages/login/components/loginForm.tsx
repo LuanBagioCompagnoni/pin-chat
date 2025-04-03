@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {useRouter} from 'next/router';
 
 import AuthSwitcher from '@/shared/components/auth/authSwitcher';
 import AuthFormInput from '@/shared/components/auth/input';
@@ -15,12 +16,15 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     try {
-      await login(email, password)
+      if(await login(email, password)){
+        await router.push('/chat');
+      }
     } catch {
     } finally {
       setIsLoading(false);

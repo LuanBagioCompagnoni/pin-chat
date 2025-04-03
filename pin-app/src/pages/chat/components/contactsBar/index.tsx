@@ -106,7 +106,7 @@ export default function Index({contactsList, selectedContact, socket, userId, up
   };
 
   return (
-    <div>
+    <div className="flex flex-col overflow-y-auto">
       <SearchInput value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       <div className="grid grid-cols-1 w-full h-full overflow-y-auto scrollbar-custom justify-items-center content-start">
         {filteredContacts

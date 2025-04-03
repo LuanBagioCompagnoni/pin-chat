@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import LoadingIcon from '@/shared/components/basics/loading/loadingIcon';
+import Loading from '@/shared/components/icons/loading';
 
 import { useNotification } from '@/hooks/notification';
 
@@ -78,7 +78,7 @@ export default function Messages({ selectedContact }) {
 
   return (
     <ul ref={listRef} className="overflow-y-auto w-full h-full p-4 flex flex-col space-y-2 text-gray-900 items-center scrollbar-custom relative">
-      {isLoading ? ( <div className="w-full h-full flex items-center justify-center"><LoadingIcon/></div> ) : ( messages.length > 0 ? (
+      {isLoading ? ( <div className="w-full h-full flex items-center justify-center"><Loading/></div> ) : ( messages.length > 0 ? (
         user && messages.map((message, index) => {
           const isOrigin = message?.originUserId === user?._id;
           const showDate = index === 0 || formatDate(messages[index - 1].date) !== formatDate(message.date);

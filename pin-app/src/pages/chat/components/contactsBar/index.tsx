@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-import SearchInput from '@/shared/components/basics/searchInput';
+import SearchInput from '@/pages/chat/components/contactsBar/components/searchInput';
 
 import {ContactObject} from '@/shared/types/contactObject';
 import {Message} from '@/shared/types/Message'

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import Loading from './basics/loading';
+import LoadingLayout from './auth/loadingLayout';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -21,7 +21,7 @@ const ProtectedRoute = (Component) => {
     }, [user, loading, router]);
 
     if (loading) {
-      return <Loading />;
+      return <LoadingLayout />;
     }
 
     return <Component {...props} />;

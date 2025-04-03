@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import AuthSwitcher from 'src/shared/components/auth/switcher';
 
-import AuthSwitcher from '@/shared/components/auth/authSwitcher';
 import AuthFormInput from '@/shared/components/auth/input';
-import Loading from '@/shared/components/basics/loading';
-import GenericButton from '@/shared/components/genericButton';
+import LoadingLayout from '@/shared/components/auth/loadingLayout';
+import GenericButton from '@/shared/components/buttons/auth';
 
-import Form from '../../../shared/components/form';
+import Form from '../../../shared/components/auth/form';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -54,7 +54,7 @@ export default function LoginForm() {
           disabled={isLoading}
         />
 
-        {isLoading && <Loading/>}
+        {isLoading && <LoadingLayout/>}
         <AuthSwitcher isLogin={true} />
       </div>
     </Form>

@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import MessageInput from '@/shared/components/basics/messageInput';
+import MessageInput from '@/pages/chat/components/chat/components/input';
 
 import Messages from './messages';
 

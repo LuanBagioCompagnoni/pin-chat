@@ -1,4 +1,4 @@
-import SearchInputSkeleton from '@/shared/components/basics/searchInput/searchInputSkeleton';
+import SearchInputSkeleton from '@/pages/chat/components/contactsBar/components/searchInputSkeleton';
 
 import ContactItemSkeleton from './itemSkeleton'
 

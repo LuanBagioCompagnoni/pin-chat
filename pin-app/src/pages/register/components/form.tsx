@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Form from 'src/shared/components/form';
+import Form from 'src/shared/components/auth/form';
 
-import AuthSwitcher from '@/shared/components/auth/authSwitcher';
+import AuthSwitcher from 'src/shared/components/auth/switcher';
 import AuthFormInput from '@/shared/components/auth/input';
-import Loading from '@/shared/components/basics/loading';
-import GenericButton from '@/shared/components/genericButton';
+import LoadingLayout from '@/shared/components/auth/loadingLayout';
+import GenericButton from '@/shared/components/buttons/auth';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -80,7 +80,7 @@ const RegisterForm = () => {
         />
         <AuthSwitcher isLogin={false} />
       </div>
-      {isLoading && <Loading />}
+      {isLoading && <LoadingLayout />}
     </Form>
   );
 };

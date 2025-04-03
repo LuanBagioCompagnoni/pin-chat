@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-import AuthSwitcher from '@/shared/components/auth/authSwitcher/index';
-import AuthFormInput from '@/shared/components/auth/input/index';
+import AuthSwitcher from '@/shared/components/auth/authSwitcher';
+import AuthFormInput from '@/shared/components/auth/input';
 import GenericButton from '@/shared/components/genericButton';
 
 import Loading from '@/components/basics/loading';
-import Form from '@/components/form/index';
+import Form from '@/components/form';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -37,7 +37,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} >
+    <Form handleSubmit={handleSubmit} >
       <h1 className="text-gray-50 font-extrabold text-5xl">Registro</h1>
       <div className="w-[85%]">
         <AuthFormInput
@@ -61,7 +61,7 @@ const RegisterForm = () => {
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          onBlur={validatePasswords}
+          onBlur={(e) => validatePasswords(e)}
           className="w-full md:w-[50%]"
         />
         <AuthFormInput

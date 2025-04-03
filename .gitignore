@@ -4,8 +4,10 @@ docker-compose.yml
 
 logs/
 
+node_modules
 pin-app/node_modules/
 pin-services/auth/node_modules/
+pin-services/chat/node_modules/
 
 pin-app/build/
 pin-app/dist/

@@ -1,8 +1,8 @@
 import SearchInputSkeleton from '@/components/basics/searchInput/searchInputSkeleton';
 
-import ContactItemSkeleton from './contactItemSkeleton'
+import ContactItemSkeleton from './itemSkeleton'
 
-export default function contactsBarSkeleton() {
+export default function barSkeleton() {
   return (
     <div className="overflow-y-hidden">
       <SearchInputSkeleton />
@@ -14,4 +14,4 @@ export default function contactsBarSkeleton() {
 }
 
 
-        
+

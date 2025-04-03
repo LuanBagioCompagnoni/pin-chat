@@ -1,3 +1,5 @@
+import React from 'react';
+
 import {Message} from '@/shared/types/Message';
 import {User} from '@/shared/types/User';
 
@@ -11,7 +13,7 @@ interface ContactItemProps {
   isNotification: boolean;
 }
 
-export default function ContactItem({ contactObject, onSelect, isNotification }: ContactItemProps) {
+export default function Item({ contactObject, onSelect, isNotification }: ContactItemProps) {
   const {contact, lastMessage} = contactObject;
 
   const formatTime = (date) => {
@@ -26,7 +28,6 @@ export default function ContactItem({ contactObject, onSelect, isNotification }:
 
   const formatName = () => {
     const name = `${contact.name.slice(0, 20)}${contact.name.length > 20 ? '...' : ''}`;
-
 
     const prepositions = ['de', 'da', 'do', 'das', 'dos'];
     const nameParts = name.split(' ');
@@ -44,7 +45,10 @@ export default function ContactItem({ contactObject, onSelect, isNotification }:
       className={` hover:bg-[#e8e8e8] w-[98%] h-16 items-center justify-center shadow-gray-400 shadow-sm rounded-2xl mb-2 cursor-pointer 
       ${contactObject.isSelected ? 'bg-[#EDEDED]' : 'bg-[#F8F8F8]'}`
       }
-      onClick={onSelect}
+      onClick={(e) => {
+        e.preventDefault();
+        onSelect(contact);
+      }}
     >
       <div>
         <a className="w-full h-full py-2 relative flex">

@@ -1,11 +1,10 @@
 import { useState } from 'react';
+import Form from 'src/shared/components/form';
 
 import AuthSwitcher from '@/shared/components/auth/authSwitcher';
 import AuthFormInput from '@/shared/components/auth/input';
+import Loading from '@/shared/components/basics/loading';
 import GenericButton from '@/shared/components/genericButton';
-
-import Loading from '@/components/basics/loading';
-import Form from '@/components/form';
 
 import { useAuth } from '@/context/AuthContext';
 

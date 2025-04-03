@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import ContactList from '@/components/basics/icons/contactList';
-import Exit from '@/components/basics/icons/exit';
-import Home from '@/components/basics/icons/home';
-import Person from '@/components/basics/icons/person';
+import ContactList from '@/shared/components/basics/icons/contactList';
+import Exit from '@/shared/components/basics/icons/exit';
+import Home from '@/shared/components/basics/icons/home';
+import Person from '@/shared/components/basics/icons/person';
 
 import { useAuth } from '@/context/AuthContext';
 

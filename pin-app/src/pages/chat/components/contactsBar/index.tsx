@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-import SearchInput from '@/components/basics/searchInput';
+import SearchInput from '@/shared/components/basics/searchInput';
 
 import {ContactObject} from '@/shared/types/contactObject';
 import {Message} from '@/shared/types/Message'

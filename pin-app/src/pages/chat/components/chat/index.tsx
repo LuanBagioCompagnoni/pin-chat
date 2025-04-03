@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import MessageInput from '../../../../components/basics/messageInput';
+import MessageInput from '@/shared/components/basics/messageInput';
 
 import Messages from './messages';
 

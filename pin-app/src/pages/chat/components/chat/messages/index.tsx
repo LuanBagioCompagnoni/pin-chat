@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import LoadingIcon from '@/components/basics/loading/loadingIcon';
+import LoadingIcon from '@/shared/components/basics/loading/loadingIcon';
 
 import { useNotification } from '@/hooks/notification';
 

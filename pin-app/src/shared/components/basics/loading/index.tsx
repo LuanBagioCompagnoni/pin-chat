@@ -1,4 +1,4 @@
-import LoadingIcon from '@/components/basics/loading/loadingIcon';
+import LoadingIcon from '@/shared/components/basics/loading/loadingIcon';
 
 export default function Loading(){
   return(

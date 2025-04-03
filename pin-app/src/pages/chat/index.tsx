@@ -1,7 +1,8 @@
 import {Suspense, useEffect, useState} from 'react';
+import Welcome from 'src/pages/chat/components/welcome';
 
-import ProtectedRoute from '@/components/ProtectedRoute';
-import Welcome from '@/components/welcome';
+import ProtectedRoute from '@/shared/components/ProtectedRoute';
+
 import ChatComponent from '@/pages/chat/components/chat/chatComponent';
 import SideContactsColumn from '@/pages/chat/components/contactsBar/components/bar'
 import ContactsBarSkeleton from '@/pages/chat/components/contactsBar/components/barSkeleton';

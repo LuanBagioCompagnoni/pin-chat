@@ -1,8 +1,6 @@
-import React from 'react';
-
 interface SearchInputProps {
     value: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (value: string) => void;
 }
 
 export default function SearchInput({value, onChange}: SearchInputProps) {

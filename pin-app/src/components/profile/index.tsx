@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 
-import GenericButton from '@/shared/components/genericButton.tsx';
+import GenericButton from '@/shared/components/genericButton';
 import GeneralData from '@/components/profile/userGeneralData';
 import UserImage from '@/components/profile/userGeneralData/userImage';
 
-import {useAuth} from '@/context/AuthContext.js';
+import {useAuth} from '@/context/AuthContext';
 
 export default function Profile(){
   const {user} = useAuth();

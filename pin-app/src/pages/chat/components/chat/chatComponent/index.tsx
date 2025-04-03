@@ -1,5 +1,5 @@
-import Chat from '@/pages/chat/components/chat';
-import ChatContactInfos from '@/pages/chat/components/chat/components/header';
+import Chat from '@/components/chat/index';
+import ChatContactInfos from '@/components/chatContactInfos/index';
 
 interface chatComponentProps {
     className: string,

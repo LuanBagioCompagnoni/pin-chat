@@ -1,11 +1,11 @@
 import React, { useEffect, useRef,useState } from 'react';
 
-import GenericButton from '@/shared/components/genericButton.tsx';
+import GenericButton from '@/shared/components/genericButton';
 import RedirectButton from '@/components/basics/buttons/redirectionButton';
 import GenericInput from '@/components/basics/genericInput';
 import { largeModal, mediumModal } from '@/components/modal/patterns';
 
-import Modal from '../../modal';
+import Modal from '../../modal/index';
 
 export default function Observations() {
   const [isObsModalVisible, setModalVisible] = useState(false);

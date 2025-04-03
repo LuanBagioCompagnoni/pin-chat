@@ -2,11 +2,20 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import {toast} from 'react-toastify';
 import { useRouter } from 'next/router';
 
-import 'dotenv/config.js';
+import 'dotenv/config';
 
-import {useSocket} from '@/services/socket.js';
+import {useSocket} from '@/services/socket.ts';
 
-const AuthContext = createContext();
+interface AuthContextType {
+  user: any;
+  token: string | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => void;
+  register: (name: string, email: string, password: string) => Promise<void>;
+  loading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -15,9 +24,9 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const authApi = process.env.NEXT_PUBLIC_API_AUTH_URL;
-  const showWarning = (message) => toast.warning(message);
-  const showSuccess = (message) => toast.success(message);
-  const showError = (message) => toast.error(message);
+  const showWarning = (message: string) => toast.warning(message);
+  const showSuccess = (message: string) => toast.success(message);
+  const showError = (message: string) => toast.error(message);
 
 
   useEffect(() => {
@@ -49,11 +58,12 @@ export function AuthProvider({ children }) {
       setLoading(false);
     };
 
-    verifyToken();
+    verifyToken().then();
   }, [authApi]);
 
-  const register = async (name, email, password) => {
+  const register = async (name: string, email: string, password: string) => {
     try {
+      console.log('chegou no authcontext para registrar')
       const res = await fetch(`${authApi}auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -66,18 +76,16 @@ export function AuthProvider({ children }) {
         setUser(data.user);
         setToken(data.token);
         showSuccess(`Seja bem-vindo ${data.user?.name.split(' ')[0]}!`);
-        return true;
+        router.push('/chat').then()
       } else {
         showError(data);
-        return false;
       }
     } catch (error) {
       showError('Falha ao registrar-se!');
-      return false;
     }
   };
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string) => {
     try {
       const res = await fetch(`${authApi}auth/login`, {
         method: 'POST',
@@ -91,14 +99,12 @@ export function AuthProvider({ children }) {
         setUser(data.user);
         setToken(data.token);
         showSuccess(`Seja bem-vindo ${data.user?.name.split(' ')[0]}!`);
-        return true;
+        router.push('/chat').then()
       } else {
         showError(data);
-        return false;
       }
     } catch (error) {
       showError('Falha ao realizar login!');
-      return false;
     }
   };
 
@@ -107,7 +113,7 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('token');
     setUser(null);
     setToken(null);
-    router.push('/login');
+    router.push('/login').then();
   };
 
   return (

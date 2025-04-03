@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
-import GenericButton from '@/shared/components/genericButton.tsx';
-import GenericInput from '@/components/basics/genericInput/index.js';
+import GenericButton from '@/shared/components/genericButton';
+import GenericInput from '@/components/basics/genericInput';
 
 export default function PasswordForm(){
   const [password, setPassword] = useState('');

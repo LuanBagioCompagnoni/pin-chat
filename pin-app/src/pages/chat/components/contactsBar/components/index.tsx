@@ -1,5 +1,8 @@
+<<<<<<<< HEAD:pin-app/src/pages/chat/components/contactsBar/components/item.tsx
 import React from 'react';
 
+========
+>>>>>>>> c07411c (refactor:  refatorado front-end e adicionado skeleton loading para os contatos):pin-app/src/pages/chat/components/contactsBar/components/index.tsx
 import {Message} from '@/shared/types/Message';
 import {User} from '@/shared/types/User';
 
@@ -7,6 +10,7 @@ interface ContactItemProps {
   contactObject: {
     contact: User,
     lastMessage: Message
+<<<<<<<< HEAD:pin-app/src/pages/chat/components/contactsBar/components/item.tsx
     isSelected?: boolean
   };
   onSelect: (contactObject: User) => void;
@@ -14,6 +18,15 @@ interface ContactItemProps {
 }
 
 export default function Item({ contactObject, onSelect, isNotification }: ContactItemProps) {
+========
+  };
+  onSelect: (contactObject: User) => void;
+  isSelected: boolean;
+  isNotification: boolean;
+}
+
+export default function ContactItem({ contactObject, onSelect, isSelected, isNotification }: ContactItemProps) {
+>>>>>>>> c07411c (refactor:  refatorado front-end e adicionado skeleton loading para os contatos):pin-app/src/pages/chat/components/contactsBar/components/index.tsx
   const {contact, lastMessage} = contactObject;
 
   const formatTime = (date) => {

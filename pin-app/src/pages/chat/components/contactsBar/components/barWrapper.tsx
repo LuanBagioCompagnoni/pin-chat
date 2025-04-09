@@ -1,4 +1,4 @@
-import Index from '@/pages/chat/components/contactsBar';
+import ContactsBar from '@/pages/chat/components/contactsBar/contactsBar';
 
 import { wrapPromise } from '@/shared/utils/wrapPromise';
 
@@ -48,7 +48,7 @@ export default function ContactsBarWrapper({ socket, userId, selectedContact, se
   };
 
   return (
-    <Index
+    <ContactsBar
       contactsList={contacts}
       userId={userId}
       socket={socket}

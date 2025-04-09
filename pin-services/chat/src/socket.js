@@ -38,10 +38,10 @@ const initSocket = (server) => {
     });
 
     io.on('connect', (socket) => {
-
         messageHandlers(socket, io);
         contactHandlers(socket, io);
         roomHandler(socket, io);
+        io.emit('newUserStatusUpdate', {userId: socket.userId, online: true})
 
         socket.on('disconnect', () => {
             contactService.updateStatus(socket.userId, false, socket.token);

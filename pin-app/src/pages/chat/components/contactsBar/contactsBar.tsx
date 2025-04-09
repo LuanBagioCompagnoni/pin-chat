@@ -18,7 +18,7 @@ interface ContactsBarProps {
   userId: string,
 }
 
-export default function Index({contactsList, selectedContact, socket, userId, updateContacts }: Readonly<ContactsBarProps>) {
+export default function ContactsBar({contactsList, selectedContact, socket, userId, updateContacts }: Readonly<ContactsBarProps>) {
   const [searchTerm, setSearchTerm] = useState('');
   const [contacts, setContacts] = useState(contactsList);
 
@@ -45,16 +45,32 @@ export default function Index({contactsList, selectedContact, socket, userId, up
     });
   };
 
+  const newUserStatusUpdate = (userStatus: { userId: string; online: boolean }) => {
+    setContacts((prevContacts) => {
+      return prevContacts.map((contact) => {
+        if (contact.contact._id === userStatus.userId) {
+          return { ...contact, contact: { ...contact.contact, online: userStatus.online } };
+        }
+        return contact;
+      });
+    });
+  };
+
   useEffect(() => {
     if (socket && userId) {
       const handleNewMessageNotification = async (message: Message) => {
-        await updateContactsListOnNewMessage(message);
+        updateContactsListOnNewMessage(message);
+      };
+
+      const handleNewUserStatusUpdate = async (userStatus: { userId: string; online: boolean}) => {
+        newUserStatusUpdate(userStatus);
       };
 
       const handleJoinedRoom = ({ room }) => {
         localStorage.setItem('currentRoom', room);
       };
 
+      socket.on('newUserStatusUpdate', handleNewUserStatusUpdate)
       socket.on('newMessage:notification', handleNewMessageNotification);
       socket.on('joinedRoom', handleJoinedRoom);
 
